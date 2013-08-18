@@ -1,0 +1,17 @@
+{
+  "name": "veggiemeat/php-taxcloud",
+  "description" : "TaxCloud php library",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Brian Altenhofel",
+      "email": "brian.altenhofel@vmdoh.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "classmap": ["lib/"]
+  }
+}
