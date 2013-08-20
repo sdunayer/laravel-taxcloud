@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 /**
  * TaxCloud Web Service
  *
@@ -7,7 +9,7 @@
  * @copyright {copyright}
  * @package   {package}
  */
-class TaxCloud extends SoapClient {
+class TaxCloud extends \SoapClient {
 
   private static $classmap = array(
     'VerifyAddress' => 'VerifyAddress',

@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 /**
  * @file
  * Contains class to build VerifyAddress object.

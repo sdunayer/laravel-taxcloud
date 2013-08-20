@@ -19,7 +19,7 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
    * This method is called before a test is executed.
    */
   protected function setUp() {
-    $this->taxcloud = $this->getMockBuilder('TaxCloud')
+    $this->taxcloud = $this->getMockBuilder('\TaxCloud\TaxCloud')
                            ->disableOriginalConstructor()
                            ->getMock();
   }
@@ -32,20 +32,60 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   {
   }
 
-  /**
-   * @covers TaxCloud::VerifyAddress
-   * @todo   Implement testVerifyAddress().
-   */
   public function testVerifyAddress()
   {
-      // Remove the following lines when you implement this test.
-      $this->markTestIncomplete(
-        'This test has not been implemented yet.'
-      );
+    $client = $this->taxcloud;
+
+    $address = new \TaxCloud\Address();
+    $address->setAddress1('1600 Pennsylvania Ave NW');
+    $address->setAddress2('');
+    $address->setCity('Washington');
+    $address->setState('DC');
+    $address->setZip5('20500');
+    $address->setZip4('0003');
+
+    $verifyAddress = new \TaxCloud\VerifyAddress;
+    $verifyAddress->uspsUserID = '123ABCDE5678';
+    $verifyAddress->address1 = $address->getAddress1();
+    $verifyAddress->address2 = $address->getAddress2();
+    $verifyAddress->city = $address->getCity();
+    $verifyAddress->state = $address->getState();
+    $verifyAddress->zip5 = $address->getZip5();
+    $verifyAddress->zip4 = $address->getZip4();
+
+    $result = new \stdClass();
+    $result->Address1 = $address->getAddress1();
+    $result->City = $address->getCity();
+    $result->State = $address->getState();
+    $result->Zip5 = $address->getZip5();
+    $result->Zip4 = $address->getZip4();
+    $result->ErrNumber = 0;
+
+    $expected = new \TaxCloud\VerifiedAddress;
+    $expected->VerifyAddressResult = $result;
+
+    $nousps = clone $verifyAddress;
+    $nousps->uspsUserID = '';
+
+    $nouspsResult = new \stdClass();
+    $nouspsResult->ErrNumber = '80040b1a';
+
+    $nouspsExpected = new \TaxCloud\VerifiedAddress;
+    $nouspsExpected->VerifyAddressResult = $nouspsResult;
+
+    $map = array(
+      array($verifyAddress, $expected),
+      array($nousps, $nouspsExpected)
+    );
+
+    $client->expects($this->any())
+           ->method('VerifyAddress')
+           ->will($this->returnValueMap($map));
+    $this->assertEquals($expected, $client->VerifyAddress($verifyAddress));
+    $this->assertEquals($nouspsExpected, $client->VerifyAddress($nousps));
   }
 
   /**
-   * @covers TaxCloud::LookupForDate
    * @todo   Implement testLookupForDate().
    */
   public function testLookupForDate()
@@ -57,7 +97,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::Lookup
    * @todo   Implement testLookup().
    */
   public function testLookup()
@@ -69,7 +108,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::Authorized
    * @todo   Implement testAuthorized().
    */
   public function testAuthorized()
@@ -81,7 +119,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::AuthorizedWithCapture
    * @todo   Implement testAuthorizedWithCapture().
    */
   public function testAuthorizedWithCapture()
@@ -93,7 +130,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::Captured
    * @todo   Implement testCaptured().
    */
   public function testCaptured()
@@ -105,7 +141,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::Returned
    * @todo   Implement testReturned().
    */
   public function testReturned()
@@ -117,7 +152,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::GetTICGroups
    * @todo   Implement testGetTICGroups().
    */
   public function testGetTICGroups()
@@ -129,7 +163,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::GetTICs
    * @todo   Implement testGetTICs().
    */
   public function testGetTICs()
@@ -141,7 +174,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::GetTICsByGroup
    * @todo   Implement testGetTICsByGroup().
    */
   public function testGetTICsByGroup()
@@ -153,7 +185,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::AddExemptCertificate
    * @todo   Implement testAddExemptCertificate().
    */
   public function testAddExemptCertificate()
@@ -165,7 +196,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::DeleteExemptCertificate
    * @todo   Implement testDeleteExemptCertificate().
    */
   public function testDeleteExemptCertificate()
@@ -177,7 +207,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers TaxCloud::GetExemptCertificates
    * @todo   Implement testGetExemptCertificates().
    */
   public function testGetExemptCertificates()
@@ -188,17 +217,50 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
       );
   }
 
-  /**
-   * @covers TaxCloud::Ping
-   * @todo   Implement testPing().
-   */
   public function testPing()
   {
-      // Remove the following lines when you implement this test.
-      $this->markTestIncomplete(
-        'This test has not been implemented yet.'
-      );
+    $apiLoginID = 'apiLoginID';
+    $apiKey = 'apiKey';
+
+    $ping = new \TaxCloud\Ping();
+    $ping->apiLoginID = $apiLoginID;
+    $ping->apiKey = $apiKey;
+
+    $pingBad = new \TaxCloud\Ping();
+    $pingBad->apiLoginID = $apiLoginID . 'xxx';
+    $pingBad->apiKey = $apiKey . 'xxx';
+
+    $pingResult = new \TaxCloud\PingRsp();
+    $pingResult->ResponseType = 'OK';
+    $pingResult->Messages = '';
+
+    $pingResponse = new \TaxCloud\PingResponse();
+    $pingResponse->PingResult = $pingResult;
+
+    $pingResultBad = new \TaxCloud\PingRsp();
+    $pingResultBad->ResponseType = 'OK';
+    $pingResultBad->Messages = new \stdClass();
+
+    $pingResultBadMessage = new \TaxCloud\ResponseMessage();
+    $pingResultBadMessage->ResponseType = 'Error';
+    $pingResultBadMessage->Message = 'Invalid apiLoginID and/or apiKey';
+
+    $pingResultBad->ResponseMessage = $pingResultBadMessage;
+
+    $pingResponseBad = new \TaxCloud\PingResponse();
+    $pingResponseBad->PingResult = $pingResult;
+
+    $map = array(
+      array($ping, $pingResponse),
+      array($pingBad, $pingResponseBad)
+    );
+
+    $client = $this->taxcloud;
+    $client->expects($this->any())
+           ->method('Ping')
+           ->will($this->returnValueMap($map));
+
+    $this->assertEquals($pingResponse, $client->Ping($ping));
+    $this->assertEquals($pingResponseBad, $client->Ping($pingBad));
   }
-
-
 }
