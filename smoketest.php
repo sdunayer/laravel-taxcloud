@@ -66,14 +66,7 @@ $address->setState('DC');
 $address->setZip5('20006');
 $address->setZip4('1234');
 
-$verifyAddress = new \TaxCloud\VerifyAddress;
-$verifyAddress->uspsUserID = $uspsUserID;
-$verifyAddress->address1 = $address->getAddress1();
-$verifyAddress->address2 = $address->getAddress2();
-$verifyAddress->city = $address->getCity();
-$verifyAddress->state = $address->getState();
-$verifyAddress->zip5 = $address->getZip5();
-$verifyAddress->zip4 = $address->getZip4();
+$verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
 
 $verifiedAddress = $client->VerifyAddress($verifyAddress);
 print_r($verifiedAddress);
