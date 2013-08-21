@@ -92,9 +92,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
       );
   }
 
-  /**
-   * @todo   Implement testLookup().
-   */
   public function testLookup()
   {
     $client = $this->taxcloud;
@@ -136,7 +133,10 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($customerID, $lookup->getCustomerID(), 'customerID should be ' . $customerID);
     $this->assertEquals($cartID, $lookup->getCartID(), 'cartID should be ' . $cartID);
     $this->assertEquals($originAddress, $lookup->getOrigin());
+    $this->assertInstanceOf('TaxCloud\Address', $lookup->getOrigin());
     $this->assertEquals($destAddress, $lookup->getDestination());
+    $this->assertInstanceOf('TaxCloud\Address', $lookup->getDestination());
+    $this->assertFalse($lookup->getDeliveredBySeller(), 'deliveredBySeller should be FALSE');
   }
 
   /**
