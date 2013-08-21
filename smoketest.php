@@ -30,9 +30,7 @@ require_once 'lib/php-taxcloud.php';
 $client = new \TaxCloud\TaxCloud('TaxCloud.wsdl');
 
 step('Ping');
-$pingParams = new \TaxCloud\Ping;
-$pingParams->apiLoginID = $apiLoginID;
-$pingParams->apiKey = $apiKey;
+$pingParams = new \TaxCloud\Ping($apiLoginID, $apiKey);
 
 print_r($client->Ping($pingParams));
 

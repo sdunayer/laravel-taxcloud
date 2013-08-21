@@ -218,13 +218,8 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
     $apiLoginID = 'apiLoginID';
     $apiKey = 'apiKey';
 
-    $ping = new \TaxCloud\Ping();
-    $ping->apiLoginID = $apiLoginID;
-    $ping->apiKey = $apiKey;
-
-    $pingBad = new \TaxCloud\Ping();
-    $pingBad->apiLoginID = $apiLoginID . 'xxx';
-    $pingBad->apiKey = $apiKey . 'xxx';
+    $ping = new \TaxCloud\Ping($apiLoginID, $apiKey);
+    $pingBad = new \TaxCloud\Ping('xxx', 'xxx');
 
     $pingResult = new \TaxCloud\PingRsp();
     $pingResult->ResponseType = 'OK';
