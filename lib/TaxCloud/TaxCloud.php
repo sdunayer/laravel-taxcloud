@@ -5,9 +5,8 @@ namespace TaxCloud;
 /**
  * TaxCloud Web Service
  *
- * @author    {author}
- * @copyright {copyright}
- * @package   {package}
+ * @author    Brian Altenhofel
+ * @package   php-taxcloud
  */
 class TaxCloud extends \SoapClient {
 

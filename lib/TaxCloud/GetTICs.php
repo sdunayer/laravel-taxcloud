@@ -1,6 +1,13 @@
 <?php
 
+namespace TaxCloud;
+
 class GetTICs {
-  public $apiLoginID; // string
-  public $apiKey; // string
+  private $apiLoginID; // string
+  private $apiKey; // string
+
+  public function __construct($apiLoginID, $apiKey) {
+    $this->apiLoginID = $apiLoginID;
+    $this->apiKey = $apiKey;
+  }
 }

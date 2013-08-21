@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class LookupForDate {
   public $apiLoginID; // string
   public $apiKey; // string
