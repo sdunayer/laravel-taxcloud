@@ -56,15 +56,15 @@ step('Cart Items Array');
 print_r($cartItems);
 
 step('Verify Address');
-$address = new \TaxCloud\Address;
-
-$address->setAddress1('1600 Pennsylvania Ave NW');
-$address->setAddress2('');
-$address->setCity('Washington');
-$address->setState('DC');
-// Intentionally wrong zip
-$address->setZip5('20006');
-$address->setZip4('1234');
+$address = new \TaxCloud\Address(
+  '1600 Pennsylvania Ave NW',
+  '',
+  'Washington',
+  'DC',
+  // Intentionally wrong zip
+  '20006',
+  '1234'
+);
 
 $verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
 
@@ -75,18 +75,23 @@ step('Lookup');
 
 print_r($address);
 
-$originAddress = new \TaxCloud\Address();
-$originAddress->setAddress1($verifiedAddress->VerifyAddressResult->Address1);
-$originAddress->setCity($verifiedAddress->VerifyAddressResult->City);
-$originAddress->setState($verifiedAddress->VerifyAddressResult->State);
-$originAddress->setZip5($verifiedAddress->VerifyAddressResult->Zip5);
-$originAddress->setZip4($verifiedAddress->VerifyAddressResult->Zip4);
+$originAddress = new \TaxCloud\Address(
+  $verifiedAddress->VerifyAddressResult->Address1,
+  '',
+  $verifiedAddress->VerifyAddressResult->City,
+  $verifiedAddress->VerifyAddressResult->State,
+  $verifiedAddress->VerifyAddressResult->Zip5,
+  $verifiedAddress->VerifyAddressResult->Zip4
+);
 
-$destAddress = new \TaxCloud\Address();
-$destAddress->setAddress1('PO Box 573');
-$destAddress->setCity('Clinton');
-$destAddress->setState('OK');
-$destAddress->setZip5('73601');
+$destAddress = new \TaxCloud\Address(
+  'PO Box 573',
+  '',
+  'Clinton',
+  'OK',
+  '73601',
+  ''
+);
 
 print_r($destAddress);
 

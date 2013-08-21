@@ -32,18 +32,23 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   {
   }
 
+  /**
+   * Test ::VerifyAddress
+   * @todo Test exception handling
+   */
   public function testVerifyAddress()
   {
     $client = $this->taxcloud;
     $uspsUserID = '123ABCDE5678';
 
-    $address = new \TaxCloud\Address();
-    $address->setAddress1('1600 Pennsylvania Ave NW');
-    $address->setAddress2('');
-    $address->setCity('Washington');
-    $address->setState('DC');
-    $address->setZip5('20500');
-    $address->setZip4('0003');
+    $address = new \TaxCloud\Address(
+      '1600 Pennsylvania Ave NW',
+      '',
+      'Washington',
+      'DC',
+      '20500',
+      '0003'
+    );
 
     $verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
     $this->assertEquals($uspsUserID, $verifyAddress->getUspsUserID());
@@ -107,13 +112,14 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
     $cartItemShipping = new \TaxCloud\CartItem($cartID, 'SHIPPING123', 11010, 8.95, 1);
     $cartItems[] = $cartItemShipping;
 
-    $address = new \TaxCloud\Address();
-    $address->setAddress1('1600 Pennsylvania Ave NW');
-    $address->setAddress2('');
-    $address->setCity('Washington');
-    $address->setState('DC');
-    $address->setZip5('20050');
-    $address->setZip4('1234');
+    $address = new \TaxCloud\Address(
+      '1600 Pennsylvania Ave NW',
+      '',
+      'Washington',
+      'DC',
+      '20050',
+      '1234'
+    );
 
     $verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
 
@@ -121,11 +127,14 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
 
     $originAddress = clone $address;
 
-    $destAddress = new \TaxCloud\Address();
-    $destAddress->setAddress1('PO Box 573');
-    $destAddress->setCity('Clinton');
-    $destAddress->setState('OK');
-    $destAddress->setZip5('73601');
+    $destAddress = new \TaxCloud\Address(
+      'PO Box 573',
+      '',
+      'Clinton',
+      'OK',
+      '73601',
+      ''
+    );
 
     $lookup = new \TaxCloud\Lookup($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $originAddress, $destAddress);
     $this->assertEquals($apiLoginID, $lookup->getApiLoginID(), 'apiLoginID should be ' . $apiLoginID);
