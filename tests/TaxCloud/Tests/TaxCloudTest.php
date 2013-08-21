@@ -35,6 +35,7 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
   public function testVerifyAddress()
   {
     $client = $this->taxcloud;
+    $uspsUserID = '123ABCDE5678';
 
     $address = new \TaxCloud\Address();
     $address->setAddress1('1600 Pennsylvania Ave NW');
@@ -44,7 +45,8 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
     $address->setZip5('20500');
     $address->setZip4('0003');
 
-    $verifyAddress = new \TaxCloud\VerifyAddress('123ABCDE5678', $address);
+    $verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
+    $this->assertEquals($uspsUserID, $verifyAddress->getUspsUserID());
 
     $result = new \stdClass();
     $result->Address1 = $address->getAddress1();
@@ -59,6 +61,7 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
 
     $nousps = clone $verifyAddress;
     $nousps->setUspsUserID('');
+    $this->assertEmpty($nousps->getUspsUserID());
 
     $nouspsResult = new \stdClass();
     $nouspsResult->ErrNumber = '80040b1a';
@@ -76,8 +79,6 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
            ->will($this->returnValueMap($map));
     $this->assertEquals($expected, $client->VerifyAddress($verifyAddress));
     $this->assertEquals($nouspsExpected, $client->VerifyAddress($nousps));
-
-    $this->assertEquals('123ABCDE5678', $verifyAddress->getUspsUserID());
   }
 
   /**
