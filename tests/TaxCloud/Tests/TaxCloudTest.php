@@ -107,9 +107,9 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
     $apiKey = 'apiKey';
 
     $cartItems = array();
-    $cartItem = new \TaxCloud\CartItem($cartID, 'ABC123', '00000', 12.00, 1);
+    $cartItem = new \TaxCloud\CartItem($cartID + 1, 'ABC123', '00000', 12.00, 1);
     $cartItems[] = $cartItem;
-    $cartItemShipping = new \TaxCloud\CartItem($cartID, 'SHIPPING123', 11010, 8.95, 1);
+    $cartItemShipping = new \TaxCloud\CartItem($cartID + 2, 'SHIPPING123', 11010, 8.95, 1);
     $cartItems[] = $cartItemShipping;
 
     $address = new \TaxCloud\Address(
@@ -146,6 +146,30 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($destAddress, $lookup->getDestination());
     $this->assertInstanceOf('TaxCloud\Address', $lookup->getDestination());
     $this->assertFalse($lookup->getDeliveredBySeller(), 'deliveredBySeller should be FALSE');
+
+    $lookupResult = new \stdClass();
+    $lookupResult->CartID = $cartID;
+
+    $cartItemResponseItems = array();
+    $cartItemResponse1 = new \stdClass();
+    $cartItemResponse1->CartItemIndex = $cartID + 1;
+    $cartItemResponse1->TaxAmount = 0.54;
+    $cartItemResponseItems[] = $cartItemResponse1;
+    $cartItemResponse2 = new \stdClass();
+    $cartItemResponse2->CartItemIndex = $cartID + 2;
+    $cartItemResponse2->TaxAmount = 0;
+    $cartItemResponseItems[] = $cartItemResponse2;
+
+    $cartItemsResponse = new \stdClass();
+    $cartItemsResponse->CartItemsResponse = $cartItemResponseItems;
+
+    $lookupResult->LookupResult = $cartItemsResponse;
+
+    $client->expects($this->any())
+           ->method('Lookup')
+           ->will($this->returnValue($lookupResult));
+
+    $this->assertEquals($lookupResult, $client->Lookup($lookup));
   }
 
   /**
