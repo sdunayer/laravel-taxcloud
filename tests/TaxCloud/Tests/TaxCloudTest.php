@@ -97,10 +97,46 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
    */
   public function testLookup()
   {
-      // Remove the following lines when you implement this test.
-      $this->markTestIncomplete(
-        'This test has not been implemented yet.'
-      );
+    $client = $this->taxcloud;
+    $cartID = 456;
+    $customerID = 123;
+    $uspsUserID = '123ABCDE5678';
+    $apiLoginID = 'apiLoginID';
+    $apiKey = 'apiKey';
+
+    $cartItems = array();
+    $cartItem = new \TaxCloud\CartItem($cartID, 'ABC123', '00000', 12.00, 1);
+    $cartItems[] = $cartItem;
+    $cartItemShipping = new \TaxCloud\CartItem($cartID, 'SHIPPING123', 11010, 8.95, 1);
+    $cartItems[] = $cartItemShipping;
+
+    $address = new \TaxCloud\Address();
+    $address->setAddress1('1600 Pennsylvania Ave NW');
+    $address->setAddress2('');
+    $address->setCity('Washington');
+    $address->setState('DC');
+    $address->setZip5('20050');
+    $address->setZip4('1234');
+
+    $verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
+
+    $verifiedAddress = $client->VerifyAddress($verifyAddress);
+
+    $originAddress = clone $address;
+
+    $destAddress = new \TaxCloud\Address();
+    $destAddress->setAddress1('PO Box 573');
+    $destAddress->setCity('Clinton');
+    $destAddress->setState('OK');
+    $destAddress->setZip5('73601');
+
+    $lookup = new \TaxCloud\Lookup($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $originAddress, $destAddress);
+    $this->assertEquals($apiLoginID, $lookup->getApiLoginID(), 'apiLoginID should be ' . $apiLoginID);
+    $this->assertEquals($apiKey, $lookup->getApiKey(), 'apiKey should be ' . $apiKey);
+    $this->assertEquals($customerID, $lookup->getCustomerID(), 'customerID should be ' . $customerID);
+    $this->assertEquals($cartID, $lookup->getCartID(), 'cartID should be ' . $cartID);
+    $this->assertEquals($originAddress, $lookup->getOrigin());
+    $this->assertEquals($destAddress, $lookup->getDestination());
   }
 
   /**
