@@ -219,6 +219,9 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
     $apiKey = 'apiKey';
 
     $ping = new \TaxCloud\Ping($apiLoginID, $apiKey);
+    $this->assertEquals($apiLoginID, $ping->getApiLoginID());
+    $this->assertEquals($apiKey, $ping->getApiKey());
+
     $pingBad = new \TaxCloud\Ping('xxx', 'xxx');
 
     $pingResult = new \TaxCloud\PingRsp();
