@@ -111,3 +111,6 @@ step('Captured');
 $capture = new \TaxCloud\Captured($apiLoginID, $apiKey, $orderID);
 print_r($client->Captured($capture));
 
+step('Authorized With Capture');
+$authcap = new \TaxCloud\AuthorizedWithCapture($apiLoginID, $apiKey, '123', $cartID, $cartItems, $orderID, date("c"), date("c"));
+print_r($client->AuthorizedWithCapture($authcap));
