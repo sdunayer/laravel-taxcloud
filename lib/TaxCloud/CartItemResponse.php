@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class CartItemResponse {
-  public $CartItemIndex; // int
-  public $TaxAmount; // float
+  private $CartItemIndex; // int
+  private $TaxAmount; // float
 }

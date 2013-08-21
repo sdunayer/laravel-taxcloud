@@ -1,8 +1,10 @@
 <?php
 
+namespace TaxCloud;
+
 class DeleteExemptCertificate {
-  public $apiLoginID; // string
-  public $apiKey; // string
-  public $certificateID; // string
+  private $apiLoginID; // string
+  private $apiKey; // string
+  private $certificateID; // string
 }
 

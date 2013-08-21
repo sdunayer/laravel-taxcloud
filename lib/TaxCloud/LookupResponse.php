@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class LookupResponse {
-  public $LookupResult; // LookupRsp
+  private $LookupResult; // LookupRsp
 }
 

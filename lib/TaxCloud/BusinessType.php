@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class BusinessType {
   const AccommodationAndFoodServices = 'AccommodationAndFoodServices';
   const Agricultural_Forestry_Fishing_Hunting = 'Agricultural_Forestry_Fishing_Hunting';

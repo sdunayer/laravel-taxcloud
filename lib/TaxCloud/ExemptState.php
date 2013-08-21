@@ -1,8 +1,10 @@
 <?php
 
+namespace TaxCloud;
+
 class ExemptState {
-  public $StateAbbr; // State
-  public $ReasonForExemption; // string
-  public $IdentificationNumber; // string
+  private $StateAbbr; // State
+  private $ReasonForExemption; // string
+  private $IdentificationNumber; // string
 }
 

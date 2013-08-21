@@ -1,6 +1,6 @@
 <?php
 
-namespace \TaxCloud;
+namespace TaxCloud;
 
 class Client {
 

@@ -1,22 +1,24 @@
 <?php
 
+namespace TaxCloud;
+
 class ExemptionCertificateDetail {
-  public $ExemptStates; // ArrayOfExemptState
-  public $SinglePurchase; // boolean
-  public $SinglePurchaseOrderNumber; // string
-  public $PurchaserFirstName; // string
-  public $PurchaserLastName; // string
-  public $PurchaserTitle; // string
-  public $PurchaserAddress1; // string
-  public $PurchaserAddress2; // string
-  public $PurchaserCity; // string
-  public $PurchaserState; // State
-  public $PurchaserZip; // string
-  public $PurchaserTaxID; // TaxID
-  public $PurchaserBusinessType; // BusinessType
-  public $PurchaserBusinessTypeOtherValue; // string
-  public $PurchaserExemptionReason; // ExemptionReason
-  public $PurchaserExemptionReasonValue; // string
-  public $CreatedDate; // dateTime
+  private $ExemptStates; // ArrayOfExemptState
+  private $SinglePurchase; // boolean
+  private $SinglePurchaseOrderNumber; // string
+  private $PurchaserFirstName; // string
+  private $PurchaserLastName; // string
+  private $PurchaserTitle; // string
+  private $PurchaserAddress1; // string
+  private $PurchaserAddress2; // string
+  private $PurchaserCity; // string
+  private $PurchaserState; // State
+  private $PurchaserZip; // string
+  private $PurchaserTaxID; // TaxID
+  private $PurchaserBusinessType; // BusinessType
+  private $PurchaserBusinessTypeOtherValue; // string
+  private $PurchaserExemptionReason; // ExemptionReason
+  private $PurchaserExemptionReasonValue; // string
+  private $CreatedDate; // dateTime
 }
 

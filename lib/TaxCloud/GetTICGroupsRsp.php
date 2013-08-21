@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class GetTICGroupsRsp {
-  public $TICGroups; // ArrayOfTICGroup
+  private $TICGroups; // ArrayOfTICGroup
 }

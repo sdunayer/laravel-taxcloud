@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class ExemptionReason {
   const FederalGovernmentDepartment = 'FederalGovernmentDepartment';
   const StateOrLocalGovernmentName = 'StateOrLocalGovernmentName';

@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class GetExemptCertificatesResponse {
-  public $GetExemptCertificatesResult; // GetCertificatesRsp
+  private $GetExemptCertificatesResult; // GetCertificatesRsp
 }
 

@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class ReturnedResponse {
-  public $ReturnedResult; // ReturnedRsp
+  private $ReturnedResult; // ReturnedRsp
 }
 

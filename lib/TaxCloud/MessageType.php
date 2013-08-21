@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class MessageType {
   const Error = 'Error';
   const Warning = 'Warning';

@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class GetTICGroups {
-  public $apiLoginID; // string
-  public $apiKey; // string
+  private $apiLoginID; // string
+  private $apiKey; // string
 }

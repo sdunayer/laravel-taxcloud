@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class TaxIDType {
   const SSN = 'SSN';
   const FEIN = 'FEIN';

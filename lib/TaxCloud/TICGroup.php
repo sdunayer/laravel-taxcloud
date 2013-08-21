@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class TICGroup {
-  public $GroupID; // int
-  public $Description; // string
+  private $GroupID; // int
+  private $Description; // string
 }

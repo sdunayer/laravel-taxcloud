@@ -1,7 +1,9 @@
 <?php
 
+namespace TaxCloud;
+
 class ExemptionCertificate {
-  public $CertificateID; // string
-  public $Detail; // ExemptionCertificateDetail
+  private $CertificateID; // string
+  private $Detail; // ExemptionCertificateDetail
 }
 

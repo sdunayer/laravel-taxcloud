@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class DeleteExemptCertificateResponse {
-  public $DeleteExemptCertificateResult; // DeleteCertificateRsp
+  private $DeleteExemptCertificateResult; // DeleteCertificateRsp
 }
 

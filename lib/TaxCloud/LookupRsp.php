@@ -1,7 +1,9 @@
 <?php
 
+namespace TaxCloud;
+
 class LookupRsp {
-  public $CartID; // string
-  public $CartItemsResponse; // ArrayOfCartItemResponse
+  private $CartID; // string
+  private $CartItemsResponse; // ArrayOfCartItemResponse
 }
 

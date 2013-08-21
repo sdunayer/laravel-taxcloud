@@ -1,8 +1,10 @@
 <?php
 
+namespace TaxCloud;
+
 class TaxID {
-  public $TaxType; // TaxIDType
-  public $IDNumber; // string
-  public $StateOfIssue; // string
+  private $TaxType; // TaxIDType
+  private $IDNumber; // string
+  private $StateOfIssue; // string
 }
 

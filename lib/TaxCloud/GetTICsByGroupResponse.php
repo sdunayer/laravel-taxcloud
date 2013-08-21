@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class GetTICsByGroupResponse {
-  public $GetTICsByGroupResult; // GetTICsRsp
+  private $GetTICsByGroupResult; // GetTICsRsp
 }
 

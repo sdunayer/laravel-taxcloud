@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class CapturedResponse {
-  public $CapturedResult; // CapturedRsp
+  private $CapturedResult; // CapturedRsp
 }
 

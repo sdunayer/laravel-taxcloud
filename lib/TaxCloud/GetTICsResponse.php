@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class GetTICsResponse {
-  public $GetTICsResult; // GetTICsRsp
+  private $GetTICsResult; // GetTICsRsp
 }

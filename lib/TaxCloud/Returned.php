@@ -1,10 +1,12 @@
 <?php
 
+namespace TaxCloud;
+
 class Returned {
-  public $apiLoginID; // string
-  public $apiKey; // string
-  public $orderID; // string
-  public $cartItems; // ArrayOfCartItem
-  public $returnedDate; // dateTime
+  private $apiLoginID; // string
+  private $apiKey; // string
+  private $orderID; // string
+  private $cartItems; // ArrayOfCartItem
+  private $returnedDate; // dateTime
 }
 

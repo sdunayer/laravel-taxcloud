@@ -1,7 +1,9 @@
 <?php
 
+namespace TaxCloud;
+
 class ResponseBase {
-  public $ResponseType; // MessageType
-  public $Messages; // ArrayOfResponseMessage
+  private $ResponseType; // MessageType
+  private $Messages; // ArrayOfResponseMessage
 }
 

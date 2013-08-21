@@ -1,9 +1,11 @@
 <?php
 
+namespace TaxCloud;
+
 class AddExemptCertificate {
-  public $apiLoginID; // string
-  public $apiKey; // string
-  public $customerID; // string
-  public $exemptCert; // ExemptionCertificate
+  private $apiLoginID; // string
+  private $apiKey; // string
+  private $customerID; // string
+  private $exemptCert; // ExemptionCertificate
 }
 

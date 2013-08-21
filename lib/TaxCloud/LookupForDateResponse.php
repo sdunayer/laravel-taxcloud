@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class LookupForDateResponse {
-  public $LookupForDateResult; // LookupRsp
+  private $LookupForDateResult; // LookupRsp
 }

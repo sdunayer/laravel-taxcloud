@@ -1,6 +1,8 @@
 <?php
 
+namespace TaxCloud;
+
 class AddCertificateRsp {
-    public $CertificateID; // string
+    private $CertificateID; // string
 }
 

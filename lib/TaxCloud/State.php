@@ -1,5 +1,7 @@
 <?php
 
+namespace TaxCloud;
+
 class State {
   const AL = 'AL';
   const AK = 'AK';
