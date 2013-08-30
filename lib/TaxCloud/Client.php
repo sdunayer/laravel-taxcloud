@@ -98,7 +98,6 @@ class Client extends \SoapClient {
         $options['classmap'][$key] = $value;
       }
     }
-    print_r($options);
 
     parent::__construct($wsdl, $options);
   }
