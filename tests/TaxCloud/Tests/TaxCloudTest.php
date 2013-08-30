@@ -19,7 +19,7 @@ class TaxCloudTest extends \PHPUnit_Framework_TestCase {
    * This method is called before a test is executed.
    */
   protected function setUp() {
-    $this->taxcloud = $this->getMockBuilder('\TaxCloud\TaxCloud')
+    $this->taxcloud = $this->getMockBuilder('\TaxCloud\Client')
                            ->disableOriginalConstructor()
                            ->getMock();
   }

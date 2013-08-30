@@ -32,7 +32,7 @@ namespace TaxCloud;
  * @author    Brian Altenhofel
  * @package   php-taxcloud
  */
-class TaxCloud extends \SoapClient {
+class Client extends \SoapClient {
 
   private static $classmap = array(
     'VerifyAddress' => 'VerifyAddress',
