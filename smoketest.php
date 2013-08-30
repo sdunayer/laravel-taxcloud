@@ -27,7 +27,7 @@ function step($message) {
 
 require_once 'lib/php-taxcloud.php';
 
-$client = new \TaxCloud\Client('TaxCloud.wsdl');
+$client = new \TaxCloud\Client();
 
 step('Ping');
 $pingParams = new \TaxCloud\Ping($apiLoginID, $apiKey);
