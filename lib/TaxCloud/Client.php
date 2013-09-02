@@ -154,7 +154,7 @@ class Client extends \SoapClient {
     $return = array();
 
     foreach ($LookupResult->getCartItemsResponse() as $CartItem) {
-      $return[$LookupResult->getCartID()][$CartItem['cartItemindex']] = $CartItem['taxAmount'];
+      $return[$LookupResult->getCartID()][$CartItem->getCartItemIndex()] = $CartItem->getTaxAmount();
     }
 
     return $return;
