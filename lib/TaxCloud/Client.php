@@ -131,17 +131,33 @@ class Client extends \SoapClient {
   }
 
   /**
-   *
+   * Lookup the applicable tax amounts for items in a cart.
    *
    * @param Lookup $parameters
-   * @return LookupResponse
+   * @return array
+   *   An array of cart items.
+   *   The top level key of the array is the cart ID so that applications can
+   *   verify that this is indeed the cart they are looking for.
+   *
+   *   Inside that is an array of tax amounts indexed by the cart item index
+   *   (which is the line item ID in some applications).
    */
   public function Lookup(Lookup $parameters) {
-    return $this->__soapCall('Lookup', array($parameters),       array(
+    $LookupResponse = $this->__soapCall('Lookup', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-      );
+         );
+
+    $LookupResult = $LookupResponse->getLookupResult();
+
+    $return = array();
+
+    foreach ($LookupResult->getCartItemsResponse() as $CartItem) {
+      $return[$LookupResult->getCartID()][$CartItem['cartItemindex']] = $CartItem['taxAmount'];
+    }
+
+    return $return;
   }
 
   /**

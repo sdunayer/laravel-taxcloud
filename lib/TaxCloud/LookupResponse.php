@@ -28,5 +28,8 @@ namespace TaxCloud;
 
 class LookupResponse {
   private $LookupResult; // LookupRsp
-}
 
+  public function getLookupResult() {
+    return $this->LookupResult;
+  }
+}
