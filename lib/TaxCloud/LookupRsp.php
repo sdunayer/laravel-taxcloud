@@ -31,7 +31,7 @@ class LookupRsp {
   private $CartItemsResponse; // ArrayOfCartItemResponse
 
   public function getCartID() {
-    return $this->cartID;
+    return $this->CartID;
   }
 
   public function getCartItemsResponse() {
