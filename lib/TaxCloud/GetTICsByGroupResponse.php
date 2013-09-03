@@ -28,5 +28,9 @@ namespace TaxCloud;
 
 class GetTICsByGroupResponse {
   private $GetTICsByGroupResult; // GetTICsRsp
+
+  public function getTICsByGroupResult() {
+    return $this->GetTICsByGroupResult;
+  }
 }
 

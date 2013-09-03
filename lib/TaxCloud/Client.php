@@ -276,11 +276,23 @@ class Client extends \SoapClient {
    * @return GetTICsByGroupResponse
    */
   public function GetTICsByGroup(GetTICsByGroup $parameters) {
-    return $this->__soapCall('GetTICsByGroup', array($parameters),       array(
+    $GetTICsByGroupResponse = $this->__soapCall('GetTICsByGroup', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-      );
+         );
+
+    $GetTICsByGroupResult = $GetTICsByGroupResponse->GetTICsByGroupResult();
+    $TICs = $GetTICsByGroupResult->getTICs();
+
+    $return = array();
+    foreach ($TICs as $TICArray) {
+      foreach ($TICArray as $TIC) {
+        $return[$TIC->getTICID()] = $TIC->getDescription();
+      }
+    }
+
+    return $return;
   }
 
   /**
