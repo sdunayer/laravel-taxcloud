@@ -28,4 +28,8 @@ namespace TaxCloud;
 
 class GetTICGroupsResponse {
   private $GetTICGroupsResult; // GetTICGroupsRsp
+
+  public function getTICGroupsResult() {
+    return $this->GetTICGroupsResult;
+  }
 }

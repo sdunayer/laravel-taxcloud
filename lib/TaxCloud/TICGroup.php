@@ -29,4 +29,12 @@ namespace TaxCloud;
 class TICGroup {
   private $GroupID; // int
   private $Description; // string
+
+  public function getGroupID() {
+    return $this->GroupID;
+  }
+
+  public function getDescription() {
+    return $this->Description;
+  }
 }
