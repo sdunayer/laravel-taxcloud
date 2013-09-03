@@ -29,4 +29,12 @@ namespace TaxCloud;
 class TIC {
   private $TICID; // int
   private $Description; // string
+
+  public function getTICID() {
+    return $this->TICID;
+  }
+
+  public function getDescription() {
+    return $this->Description;
+  }
 }
