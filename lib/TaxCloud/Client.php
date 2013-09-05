@@ -154,8 +154,15 @@ class Client extends \SoapClient {
     $return = array();
 
     foreach ($LookupResult->getCartItemsResponse() as $CartItemResponse) {
-      foreach ($CartItemResponse as $CartItem) {
-        $return[$LookupResult->getCartID()][$CartItem->getCartItemIndex()] = $CartItem->getTaxAmount();
+      // Single cart items are returned as a CartItem object.
+      if (is_object($CartItemResponse)) {
+        $return[$LookupResult->getCartID()][$CartItemResponse->getCartItemIndex()] = $CartItemResponse->getTaxAmount();
+      }
+      // Multiples are returned as an array of CartItem objects.
+      else {
+        foreach ($CartItemResponse as $CartItem) {
+          $return[$LookupResult->getCartID()][$CartItem->getCartItemIndex()] = $CartItem->getTaxAmount();
+        }
       }
     }
 
