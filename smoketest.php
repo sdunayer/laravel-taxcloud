@@ -46,7 +46,7 @@ print_r($client->getTICGroups($params));
 
 step('Get TICs By Group');
 
-$params = new \TaxCloud\GetTICsByGroup($apiLoginID, $apiKey, 5);
+$params = new \TaxCloud\GetTICsByGroup($apiLoginID, $apiKey, 10000);
 print_r($client->GetTICsByGroup($params));
 
 step('Cart Item');
