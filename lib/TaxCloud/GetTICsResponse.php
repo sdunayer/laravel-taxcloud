@@ -26,10 +26,12 @@
 
 namespace TaxCloud;
 
-class GetTICsResponse {
+class GetTICsResponse
+{
   private $GetTICsResult; // GetTICsRsp
 
-  public function getTICsResult() {
+  public function getTICsResult()
+  {
     return $this->GetTICsResult;
   }
 }

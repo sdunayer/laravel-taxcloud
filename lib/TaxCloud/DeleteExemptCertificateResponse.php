@@ -26,7 +26,7 @@
 
 namespace TaxCloud;
 
-class DeleteExemptCertificateResponse {
+class DeleteExemptCertificateResponse
+{
   private $DeleteExemptCertificateResult; // DeleteCertificateRsp
 }
-

@@ -26,11 +26,13 @@
 
 namespace TaxCloud;
 
-class GetTICGroups {
+class GetTICGroups
+{
   private $apiLoginID; // string
   private $apiKey; // string
 
-  public function __construct($apiLoginID, $apiKey) {
+  public function __construct($apiLoginID, $apiKey)
+  {
     $this->apiLoginID = $apiLoginID;
     $this->apiKey = $apiKey;
   }

@@ -26,28 +26,34 @@
 
 namespace TaxCloud;
 
-class Ping {
+class Ping
+{
   private $apiLoginID; // string
   private $apiKey; // string
 
-  public function __construct($apiLoginID, $apiKey) {
+  public function __construct($apiLoginID, $apiKey)
+  {
     $this->setApiLoginID($apiLoginID);
     $this->setApiKey($apiKey);
   }
 
-  private function setApiLoginID($apiLoginID) {
+  private function setApiLoginID($apiLoginID)
+  {
     $this->apiLoginID = $apiLoginID;
   }
 
-  public function getApiLoginID() {
+  public function getApiLoginID()
+  {
     return $this->apiLoginID;
   }
 
-  private function setApiKey($apiKey) {
+  private function setApiKey($apiKey)
+  {
     $this->apiKey = $apiKey;
   }
 
-  public function getApiKey() {
+  public function getApiKey()
+  {
     return $this->apiKey;
   }
 }

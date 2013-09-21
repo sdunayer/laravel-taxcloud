@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-class ClassLoader 
+class ClassLoader
 {
     private $namespaces = array();
     private $prefixes = array();
@@ -203,9 +203,9 @@ class ClassLoader
     /**
      * Fix for certain versions of PHP that have trouble with
      * namespaces with leading separators.
-     * 
+     *
      * @access private
-     * @param mixed $className
+     * @param  mixed $className
      * @return void
      */
     private function makeBackwardsCompatible($className)
@@ -223,7 +223,7 @@ class ClassLoader
     public function loadClass($class)
     {
         $class = $this->makeBackwardsCompatible($class);
-        
+
         if ($file = $this->findFile($class)) {
             require $file;
 
@@ -292,5 +292,5 @@ class ClassLoader
         if ($this->useIncludePath && $file = stream_resolve_include_path($normalizedClass)) {
             return $file;
         }
-    }    
+    }
 }

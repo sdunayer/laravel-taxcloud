@@ -26,15 +26,18 @@
 
 namespace TaxCloud;
 
-class TICGroup {
+class TICGroup
+{
   private $GroupID; // int
   private $Description; // string
 
-  public function getGroupID() {
+  public function getGroupID()
+  {
     return $this->GroupID;
   }
 
-  public function getDescription() {
+  public function getDescription()
+  {
     return $this->Description;
   }
 }

@@ -26,8 +26,8 @@
 
 namespace TaxCloud;
 
-class ResponseMessage {
+class ResponseMessage
+{
   public $ResponseType; // MessageType
   public $Message; // string
 }
-

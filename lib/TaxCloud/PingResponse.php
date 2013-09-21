@@ -26,7 +26,7 @@
 
 namespace TaxCloud;
 
-class PingResponse {
+class PingResponse
+{
   public $PingResult; // PingRsp
 }
-

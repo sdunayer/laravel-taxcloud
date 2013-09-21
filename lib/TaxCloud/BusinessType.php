@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class BusinessType {
+class BusinessType
+{
   const AccommodationAndFoodServices = 'AccommodationAndFoodServices';
   const Agricultural_Forestry_Fishing_Hunting = 'Agricultural_Forestry_Fishing_Hunting';
   const Construction = 'Construction';
@@ -48,4 +49,3 @@ class BusinessType {
   const NotABusiness = 'NotABusiness';
   const Other = 'Other';
 }
-

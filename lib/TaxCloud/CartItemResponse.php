@@ -26,15 +26,18 @@
 
 namespace TaxCloud;
 
-class CartItemResponse {
+class CartItemResponse
+{
   private $CartItemIndex; // int
   private $TaxAmount; // float
 
-  public function getCartItemIndex() {
+  public function getCartItemIndex()
+  {
     return $this->CartItemIndex;
   }
 
-  public function getTaxAmount() {
+  public function getTaxAmount()
+  {
     return $this->TaxAmount;
   }
 }

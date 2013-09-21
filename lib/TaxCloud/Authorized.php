@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class Authorized {
+class Authorized
+{
   private $apiLoginID; // string
   private $apiKey; // string
   private $customerID; // string
@@ -35,7 +36,8 @@ class Authorized {
   private $orderID; // string
   private $dateAuthorized; // dateTime
 
-  public function __construct($apiLoginId, $apiKey, $customerId, $cartId, $cartItems, $orderId, $dateAuthorized) {
+  public function __construct($apiLoginId, $apiKey, $customerId, $cartId, $cartItems, $orderId, $dateAuthorized)
+  {
     $this->apiLoginID = $apiLoginId;
     $this->apiKey = $apiKey;
     $this->customerID = $customerId;
@@ -44,60 +46,73 @@ class Authorized {
     $this->dateAuthorized = $dateAuthorized;
   }
 
-  public function setApiLoginID($apiLoginId) {
+  public function setApiLoginID($apiLoginId)
+  {
     $this->apiLoginID = $apiLoginId;
   }
 
-  public function getApiLoginID() {
+  public function getApiLoginID()
+  {
     return $this->apiLoginID;
   }
 
-  public function setApiKey($apiKey) {
+  public function setApiKey($apiKey)
+  {
     $this->apiKey = $apiKey;
   }
 
-  public function getApiKey() {
+  public function getApiKey()
+  {
     return $this->apiKey;
   }
 
-  public function setCustomerID($customerId) {
+  public function setCustomerID($customerId)
+  {
     $this->customerID = $customerId;
   }
 
-  public function getCustomerID() {
+  public function getCustomerID()
+  {
     return $this->customerID;
   }
 
-  public function setCartID($cartId) {
+  public function setCartID($cartId)
+  {
     $this->cartID = $cartId;
   }
 
-  public function getCartID() {
+  public function getCartID()
+  {
     return $this->cartID;
   }
 
-  public function setCartItems($cartItems) {
+  public function setCartItems($cartItems)
+  {
     $this->cartItems = $cartItems;
   }
 
-  public function getCartItems() {
+  public function getCartItems()
+  {
     return $this->cartItems;
   }
 
-  public function setOrderID($orderId) {
+  public function setOrderID($orderId)
+  {
     $this->orderID = $orderId;
   }
 
-  public function getOrderID() {
+  public function getOrderID()
+  {
     return $this->orderID;
   }
 
-  public function setAuthorizedDate($authorizedDate) {
+  public function setAuthorizedDate($authorizedDate)
+  {
     $this->authorizedDate = $authorizedDate;
   }
 
-  public function getAuthorizedDate() {
+  public function getAuthorizedDate()
+  {
     return $this->authorizedDate;
   }
 }
-

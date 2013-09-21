@@ -26,6 +26,7 @@
 
 namespace TaxCloud;
 
-class LookupForDateResponse {
+class LookupForDateResponse
+{
   private $LookupForDateResult; // LookupRsp
 }

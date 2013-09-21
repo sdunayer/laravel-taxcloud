@@ -26,7 +26,7 @@
 
 namespace TaxCloud;
 
-class ReturnedResponse {
+class ReturnedResponse
+{
   private $ReturnedResult; // ReturnedRsp
 }
-

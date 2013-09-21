@@ -26,7 +26,7 @@
 
 namespace TaxCloud;
 
-class GetExemptCertificatesResponse {
+class GetExemptCertificatesResponse
+{
   private $GetExemptCertificatesResult; // GetCertificatesRsp
 }
-

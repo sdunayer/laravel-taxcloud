@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class ExemptionReason {
+class ExemptionReason
+{
   const FederalGovernmentDepartment = 'FederalGovernmentDepartment';
   const StateOrLocalGovernmentName = 'StateOrLocalGovernmentName';
   const TribalGovernmentName = 'TribalGovernmentName';
@@ -40,4 +41,3 @@ class ExemptionReason {
   const DirectMail = 'DirectMail';
   const Other = 'Other';
 }
-

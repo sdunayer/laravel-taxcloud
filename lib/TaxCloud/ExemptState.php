@@ -26,9 +26,9 @@
 
 namespace TaxCloud;
 
-class ExemptState {
+class ExemptState
+{
   private $StateAbbr; // State
   private $ReasonForExemption; // string
   private $IdentificationNumber; // string
 }
-

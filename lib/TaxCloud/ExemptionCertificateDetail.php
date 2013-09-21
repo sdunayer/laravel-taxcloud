@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class ExemptionCertificateDetail {
+class ExemptionCertificateDetail
+{
   private $ExemptStates; // ArrayOfExemptState
   private $SinglePurchase; // boolean
   private $SinglePurchaseOrderNumber; // string
@@ -45,4 +46,3 @@ class ExemptionCertificateDetail {
   private $PurchaserExemptionReasonValue; // string
   private $CreatedDate; // dateTime
 }
-

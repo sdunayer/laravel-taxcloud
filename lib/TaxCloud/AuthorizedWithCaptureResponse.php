@@ -26,7 +26,7 @@
 
 namespace TaxCloud;
 
-class AuthorizedWithCaptureResponse {
+class AuthorizedWithCaptureResponse
+{
   public $AuthorizedWithCaptureResult; // AuthorizedRsp
 }
-

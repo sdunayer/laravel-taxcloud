@@ -26,10 +26,12 @@
 
 namespace TaxCloud;
 
-class GetTICsRsp {
+class GetTICsRsp
+{
   private $TICs; // ArrayOfTIC
 
-  public function getTICs() {
+  public function getTICs()
+  {
     return $this->TICs;
   }
 }

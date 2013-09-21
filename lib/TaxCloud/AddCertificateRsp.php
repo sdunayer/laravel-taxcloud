@@ -26,7 +26,7 @@
 
 namespace TaxCloud;
 
-class AddCertificateRsp {
+class AddCertificateRsp
+{
     private $CertificateID; // string
 }
-

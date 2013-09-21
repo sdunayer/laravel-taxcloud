@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class Lookup {
+class Lookup
+{
   private $apiLoginID; // string
   private $apiKey; // string
   private $customerID; // string
@@ -37,7 +38,8 @@ class Lookup {
   private $deliveredBySeller; // boolean
   private $exemptCert; // ExemptionCertificate
 
-  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, Address $origin, Address $destination, $deliveredBySeller = FALSE) {
+  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, Address $origin, Address $destination, $deliveredBySeller = FALSE)
+  {
     $this->setApiLoginID($apiLoginID);
     $this->setApiKey($apiKey);
     $this->setCustomerID($customerID);
@@ -48,68 +50,83 @@ class Lookup {
     $this->setDeliveredBySeller($deliveredBySeller);
   }
 
-  private function setApiLoginID($apiLoginID) {
+  private function setApiLoginID($apiLoginID)
+  {
     $this->apiLoginID = $apiLoginID;
   }
 
-  public function getApiLoginID() {
+  public function getApiLoginID()
+  {
     return $this->apiLoginID;
   }
 
-  private function setApiKey($apiKey) {
+  private function setApiKey($apiKey)
+  {
     $this->apiKey = $apiKey;
   }
 
-  public function getApiKey() {
+  public function getApiKey()
+  {
     return $this->apiKey;
   }
 
-  private function setCustomerID($customerID) {
+  private function setCustomerID($customerID)
+  {
     $this->customerID = $customerID;
   }
 
-  public function getCustomerID() {
+  public function getCustomerID()
+  {
     return $this->customerID;
   }
 
-  private function setCartID($cartID) {
+  private function setCartID($cartID)
+  {
     $this->cartID = $cartID;
   }
 
-  public function getCartID() {
+  public function getCartID()
+  {
     return $this->cartID;
   }
 
-  private function setCartItems($cartItems) {
+  private function setCartItems($cartItems)
+  {
     $this->cartItems = $cartItems;
   }
 
-  public function getCartItems() {
+  public function getCartItems()
+  {
     return $this->cartItems;
   }
 
-  private function setOrigin($origin) {
+  private function setOrigin($origin)
+  {
     $this->origin = $origin;
   }
 
-  public function getOrigin() {
+  public function getOrigin()
+  {
     return $this->origin;
   }
 
-  private function setDestination($destination) {
+  private function setDestination($destination)
+  {
     $this->destination = $destination;
   }
 
-  public function getDestination() {
+  public function getDestination()
+  {
     return $this->destination;
   }
 
-  private function setDeliveredBySeller($deliveredBySeller) {
+  private function setDeliveredBySeller($deliveredBySeller)
+  {
     $this->deliveredBySeller = (bool) $deliveredBySeller;
   }
 
-  public function getDeliveredBySeller() {
+  public function getDeliveredBySeller()
+  {
     return $this->deliveredBySeller;
   }
 }
-

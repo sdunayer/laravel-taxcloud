@@ -26,15 +26,18 @@
 
 namespace TaxCloud;
 
-class TIC {
+class TIC
+{
   private $TICID; // int
   private $Description; // string
 
-  public function getTICID() {
+  public function getTICID()
+  {
     return $this->TICID;
   }
 
-  public function getDescription() {
+  public function getDescription()
+  {
     return $this->Description;
   }
 }

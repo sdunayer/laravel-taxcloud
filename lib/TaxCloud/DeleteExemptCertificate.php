@@ -26,9 +26,9 @@
 
 namespace TaxCloud;
 
-class DeleteExemptCertificate {
+class DeleteExemptCertificate
+{
   private $apiLoginID; // string
   private $apiKey; // string
   private $certificateID; // string
 }
-

@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class LookupForDate {
+class LookupForDate
+{
   public $apiLoginID; // string
   public $apiKey; // string
   public $customerID; // string

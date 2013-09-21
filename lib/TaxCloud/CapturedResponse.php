@@ -26,7 +26,7 @@
 
 namespace TaxCloud;
 
-class CapturedResponse {
+class CapturedResponse
+{
   private $CapturedResult; // CapturedRsp
 }
-

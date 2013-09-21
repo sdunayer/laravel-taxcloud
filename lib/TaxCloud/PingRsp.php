@@ -26,5 +26,6 @@
 
 namespace TaxCloud;
 
-class PingRsp {
+class PingRsp
+{
 }

@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class State {
+class State
+{
   const AL = 'AL';
   const AK = 'AK';
   const AZ = 'AZ';
@@ -79,4 +80,3 @@ class State {
   const WI = 'WI';
   const WY = 'WY';
 }
-

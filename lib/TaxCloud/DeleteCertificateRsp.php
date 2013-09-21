@@ -26,6 +26,6 @@
 
 namespace TaxCloud;
 
-class DeleteCertificateRsp {
+class DeleteCertificateRsp
+{
 }
-

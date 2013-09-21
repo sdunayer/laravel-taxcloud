@@ -26,9 +26,9 @@
 
 namespace TaxCloud;
 
-class TaxID {
+class TaxID
+{
   private $TaxType; // TaxIDType
   private $IDNumber; // string
   private $StateOfIssue; // string
 }
-

@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class VerifiedAddress {
+class VerifiedAddress
+{
   public $ErrNumber; // string
   public $ErrDescription; // string
 }

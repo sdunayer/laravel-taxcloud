@@ -26,6 +26,7 @@
 
 namespace TaxCloud;
 
-class AuthorizedResponse {
+class AuthorizedResponse
+{
   public $AuthorizedResult; // AuthorizedRsp
 }

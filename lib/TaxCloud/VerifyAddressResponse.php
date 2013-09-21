@@ -26,6 +26,7 @@
 
 namespace TaxCloud;
 
-class VerifyAddressResponse {
+class VerifyAddressResponse
+{
   public $VerifyAddressResult; // VerifiedAddress
 }

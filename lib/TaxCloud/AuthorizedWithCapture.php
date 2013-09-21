@@ -26,7 +26,8 @@
 
 namespace TaxCloud;
 
-class AuthorizedWithCapture {
+class AuthorizedWithCapture
+{
   private $apiLoginID; // string
   private $apiKey; // string
   private $customerID; // string
@@ -35,7 +36,8 @@ class AuthorizedWithCapture {
   private $dateAuthorized; // dateTime
   private $dateCaptured; // dateTime
 
-  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $orderID, $dateAuthorized, $dateCaptured) {
+  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $orderID, $dateAuthorized, $dateCaptured)
+  {
     $this->apiLoginID = $apiLoginID;
     $this->apiKey = $apiKey;
     $this->customerID = $customerID;
