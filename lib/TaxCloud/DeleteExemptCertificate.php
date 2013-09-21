@@ -31,4 +31,41 @@ class DeleteExemptCertificate
   private $apiLoginID; // string
   private $apiKey; // string
   private $certificateID; // string
+
+  public function __construct($apiLoginID, $apiKey, $certificateID)
+  {
+    $this->setApiLoginID($apiLoginID);
+    $this->setApiKey($apiKey);
+    $this->setCertificateID($certificateID);
+  }
+
+  private function setApiLoginID($apiLoginID)
+  {
+    $this->apiLoginID = $apiLoginID;
+  }
+
+  public function getApiLoginID()
+  {
+    return $this->apiLoginID;
+  }
+
+  private function setApiKey($apiKey)
+  {
+    $this->apiKey = $apiKey;
+  }
+
+  public function getApiKey()
+  {
+    return $this->apiKey;
+  }
+
+  private function setCertificateID($certificateID)
+  {
+    $this->certificateID = $certificateID;
+  }
+
+  public function getCertificateID()
+  {
+    return $this->certificateID;
+  }
 }

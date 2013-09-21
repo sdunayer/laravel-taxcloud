@@ -32,4 +32,52 @@ class AddExemptCertificate
   private $apiKey; // string
   private $customerID; // string
   private $exemptCert; // ExemptionCertificate
+
+  public function __construct($apiLoginID, $apiKey, $customerID, ExemptionCertificate $exemptCert)
+  {
+    $this->setApiLoginID($apiLoginID);
+    $this->setApiKey($apiKey);
+    $this->setCustomerID($customerID);
+    $this->setExemptCert($exemptCert);
+  }
+
+  private function setApiLoginID($apiLoginID)
+  {
+    $this->apiLoginID = $apiLoginID;
+  }
+
+  public function getApiLoginID()
+  {
+    return $this->apiLoginID;
+  }
+
+  private function setApiKey($apiKey)
+  {
+    $this->apiKey = $apiKey;
+  }
+
+  public function getApiKey()
+  {
+    return $this->apiKey;
+  }
+
+  private function setCustomerID($customerID)
+  {
+    $this->customerID = $customerID;
+  }
+
+  public function getCustomerID()
+  {
+    return $this->customerID;
+  }
+
+  private function setExemptCert(ExemptionCertificate $exemptCert)
+  {
+    $this->exemptCert = $exemptCert;
+  }
+
+  public function getExemptCert()
+  {
+    return $this->exemptCert;
+  }
 }
