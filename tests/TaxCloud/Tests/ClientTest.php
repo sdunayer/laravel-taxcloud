@@ -7,7 +7,7 @@
 
 namespace TaxCloud\Tests;
 
-class TaxCloudTest extends \PHPUnit_Framework_TestCase {
+class ClientTest extends \PHPUnit_Framework_TestCase {
 
   protected $taxcloud;
 
