@@ -30,7 +30,7 @@ Contributions
 ----------------
 If you'd like to help with php-taxcloud, your efforts are appreciated!
 
-However, your code should follow PSR-0 guidelines, and API changes must be
+However, your code should follow PSR-2 guidelines, and API changes must be
 accompanied by tests.
 
 Getting Started
