@@ -29,4 +29,9 @@ namespace TaxCloud;
 class CapturedResponse
 {
   private $CapturedResult; // CapturedRsp
+
+  public function getCapturedResult()
+  {
+    return $this->CapturedResult;
+  }
 }

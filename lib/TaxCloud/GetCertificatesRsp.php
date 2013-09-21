@@ -29,4 +29,9 @@ namespace TaxCloud;
 class GetCertificatesRsp
 {
   private $ExemptCertificates; // ArrayOfExemptionCertificate
+
+  public function getExemptCertificates()
+  {
+    return $this->ExemptCertificates;
+  }
 }

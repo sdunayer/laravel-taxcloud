@@ -30,4 +30,14 @@ class ExemptionCertificate
 {
   private $CertificateID; // string
   private $Detail; // ExemptionCertificateDetail
+
+  public function getCertificateID()
+  {
+    return $this->CertificateID;
+  }
+
+  public function getDetail()
+  {
+    return $this->Detail;
+  }
 }

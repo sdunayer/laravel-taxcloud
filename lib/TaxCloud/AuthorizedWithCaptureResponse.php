@@ -28,5 +28,10 @@ namespace TaxCloud;
 
 class AuthorizedWithCaptureResponse
 {
-  public $AuthorizedWithCaptureResult; // AuthorizedRsp
+  private $AuthorizedWithCaptureResult; // AuthorizedRsp
+
+  public function getAuthorizedWithCaptureResult()
+  {
+    return $this->AuthorizedWithCaptureResult;
+  }
 }

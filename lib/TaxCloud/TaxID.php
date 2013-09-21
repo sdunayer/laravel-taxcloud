@@ -31,4 +31,41 @@ class TaxID
   private $TaxType; // TaxIDType
   private $IDNumber; // string
   private $StateOfIssue; // string
+
+  public function __construct($TaxType, $IDNumber, $StateOfIssue)
+  {
+    $this->setTaxType($TaxType);
+    $this->setIDNumber($IDNumber);
+    $this->setStateOfIssue($StateOfIssue);
+  }
+
+  private function setTaxType($TaxType)
+  {
+    $this->TaxType = $TaxType;
+  }
+
+  public function getTaxType()
+  {
+    return $this->TaxType;
+  }
+
+  private function setIDNumber($IDNumber)
+  {
+    $this->IDNumber = $IDNumber;
+  }
+
+  public function getIDNumber()
+  {
+    return $this->IDNumber;
+  }
+
+  private function setStateOfIssue($StateOfIssue)
+  {
+    $this->StateOfIssue = $StateOfIssue;
+  }
+
+  public function getStateOfIssue()
+  {
+    return $this->StateOfIssue;
+  }
 }

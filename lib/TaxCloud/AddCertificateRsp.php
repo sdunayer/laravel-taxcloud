@@ -29,4 +29,9 @@ namespace TaxCloud;
 class AddCertificateRsp
 {
     private $CertificateID; // string
+
+    public function getCertificateID()
+    {
+      return $this->CertificateID;
+    }
 }

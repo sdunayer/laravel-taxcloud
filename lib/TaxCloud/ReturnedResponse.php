@@ -29,4 +29,9 @@ namespace TaxCloud;
 class ReturnedResponse
 {
   private $ReturnedResult; // ReturnedRsp
+
+  public function getReturnedResult()
+  {
+    return $this->ReturnedResult();
+  }
 }

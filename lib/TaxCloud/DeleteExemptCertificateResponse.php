@@ -29,4 +29,9 @@ namespace TaxCloud;
 class DeleteExemptCertificateResponse
 {
   private $DeleteExemptCertificateResult; // DeleteCertificateRsp
+
+  public function getDeleteExemptCertificateResult()
+  {
+    return $this->DeleteExemptCertificateResult;
+  }
 }

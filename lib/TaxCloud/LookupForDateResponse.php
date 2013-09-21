@@ -29,4 +29,9 @@ namespace TaxCloud;
 class LookupForDateResponse
 {
   private $LookupForDateResult; // LookupRsp
+
+  public function getLookupForDateResult()
+  {
+    return $this->LookupForDateResult;
+  }
 }

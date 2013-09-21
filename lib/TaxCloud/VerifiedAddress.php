@@ -28,6 +28,16 @@ namespace TaxCloud;
 
 class VerifiedAddress
 {
-  public $ErrNumber; // string
-  public $ErrDescription; // string
+  private $ErrNumber; // string
+  private $ErrDescription; // string
+
+  public function getErrNumber()
+  {
+    return $this->ErrNumber;
+  }
+
+  public function getErrDescription()
+  {
+    return $this->ErrDescription;
+  }
 }

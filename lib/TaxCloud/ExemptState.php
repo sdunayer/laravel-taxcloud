@@ -31,4 +31,41 @@ class ExemptState
   private $StateAbbr; // State
   private $ReasonForExemption; // string
   private $IdentificationNumber; // string
+
+  public function __construct($StateAbbr, $ReasonForExemption, $IdentificationNumber)
+  {
+    $this->setStateAbbr($StateAbbr);
+    $this->setReasonForExemption($ReasonForExemption);
+    $this->setIdentificationNumber($IdentificationNumber);
+  }
+
+  private function setStateAbbr($StateAbbr)
+  {
+    $this->StateAbbr = $StateAbbr;
+  }
+
+  public function getStateAbbr()
+  {
+    return $this->StateAbbr;
+  }
+
+  private function setReasonForExemption($ReasonForExemption)
+  {
+    $this->ReasonForExemption = $ReasonForExemption;
+  }
+
+  public function getReasonForExemption()
+  {
+    return $this->ReasonForExemption;
+  }
+
+  private function setIdentificationNumber($IdentificationNumber)
+  {
+    $this->IdentificationNumber = $IdentificationNumber;
+  }
+
+  public function getIdentificationNumber()
+  {
+    return $this->IdentificationNumber;
+  }
 }

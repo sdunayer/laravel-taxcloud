@@ -28,5 +28,10 @@ namespace TaxCloud;
 
 class VerifyAddressResponse
 {
-  public $VerifyAddressResult; // VerifiedAddress
+  private $VerifyAddressResult; // VerifiedAddress
+
+  public function getVerifyAddressResult()
+  {
+    return $this->VerifyAddressResult;
+  }
 }

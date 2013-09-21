@@ -30,4 +30,14 @@ class ResponseBase
 {
   private $ResponseType; // MessageType
   private $Messages; // ArrayOfResponseMessage
+
+  public function getResponseType()
+  {
+    return $this->ResponseType;
+  }
+
+  public function getMessages()
+  {
+    return $this->Messages;
+  }
 }

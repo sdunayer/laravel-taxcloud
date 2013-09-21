@@ -28,5 +28,10 @@ namespace TaxCloud;
 
 class PingResponse
 {
-  public $PingResult; // PingRsp
+  private $PingResult; // PingRsp
+
+  public function getPingResult()
+  {
+    return $this->PingResult;
+  }
 }

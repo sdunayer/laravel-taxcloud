@@ -28,6 +28,16 @@ namespace TaxCloud;
 
 class ResponseMessage
 {
-  public $ResponseType; // MessageType
-  public $Message; // string
+  private $ResponseType; // MessageType
+  private $Message; // string
+
+  public function getResponseType()
+  {
+    return $this->ResponseType;
+  }
+
+  public function getMessage()
+  {
+    return $this->Message;
+  }
 }

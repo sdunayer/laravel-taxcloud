@@ -28,5 +28,10 @@ namespace TaxCloud;
 
 class AuthorizedResponse
 {
-  public $AuthorizedResult; // AuthorizedRsp
+  private $AuthorizedResult; // AuthorizedRsp
+
+  public function getAuthorizedResult()
+  {
+    return $this->AuthorizedResult;
+  }
 }

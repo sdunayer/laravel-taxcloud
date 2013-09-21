@@ -297,21 +297,21 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $pingResult->ResponseType = 'OK';
     $pingResult->Messages = '';
 
-    $pingResponse = new \TaxCloud\PingResponse();
-    $pingResponse->PingResult = $pingResult;
+    $pingResponse = new \TaxCloud\PingResponse($pingResult);
+//    $pingResponse->PingResult = $pingResult;
 
     $pingResultBad = new \TaxCloud\PingRsp();
     $pingResultBad->ResponseType = 'OK';
     $pingResultBad->Messages = new \stdClass();
 
     $pingResultBadMessage = new \TaxCloud\ResponseMessage();
-    $pingResultBadMessage->ResponseType = 'Error';
-    $pingResultBadMessage->Message = 'Invalid apiLoginID and/or apiKey';
+//    $pingResultBadMessage->ResponseType = 'Error';
+//    $pingResultBadMessage->Message = 'Invalid apiLoginID and/or apiKey';
 
     $pingResultBad->ResponseMessage = $pingResultBadMessage;
 
-    $pingResponseBad = new \TaxCloud\PingResponse();
-    $pingResponseBad->PingResult = $pingResult;
+    $pingResponseBad = new \TaxCloud\PingResponse($pingResult);
+//    $pingResponseBad->PingResult = $pingResult;
 
     $map = array(
       array($ping, $pingResponse),
