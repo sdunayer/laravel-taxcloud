@@ -1,6 +1,6 @@
 {
-  "name": "veggiemeat/php-taxcloud",
-  "description" : "TaxCloud php library",
+  "name": "vmdoh/php-taxcloud",
+  "description" : "TaxCloud PHP library",
   "type": "library",
   "authors": [
     {
