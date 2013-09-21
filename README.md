@@ -1,5 +1,7 @@
 **THIS IS NOT READY FOR PRODUCTION USE**
 
+[![Latest Stable Version](https://poser.pugx.org/vmdoh/php-taxcloud/v/stable.png)](https://packagist.org/packages/vmdoh/php-taxcloud)
+[![Total Downloads](https://poser.pugx.org/vmdoh/php-taxcloud/downloads.png)](https://packagist.org/packages/vmdoh/php-taxcloud)
 [![Build Status](https://travis-ci.org/VMdoh/php-taxcloud.png?branch=master)](https://travis-ci.org/VeggieMeat/php-taxcloud)
 
 At this point, most of the functionality needed to complete an order has been
