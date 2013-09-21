@@ -40,7 +40,7 @@ class Returned
     $this->setApiKey($apiKey);
     $this->setOrderID($orderID);
     $this->setCartItems($cartItems);
-    $this->setResturnedDate($returnedDate);
+    $this->setReturnedDate($returnedDate);
   }
 
   private function setApiLoginID($apiLoginID)

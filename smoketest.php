@@ -120,3 +120,7 @@ print_r($client->Captured($capture));
 step('Authorized With Capture');
 $authcap = new \TaxCloud\AuthorizedWithCapture($apiLoginID, $apiKey, '123', $cartID, $cartItems, $orderID, date("c"), date("c"));
 print_r($client->AuthorizedWithCapture($authcap));
+
+step('Returned');
+$return = new \TaxCloud\Returned($apiLoginID, $apiKey, $orderID, $cartItems, date("c"));
+print_r($client->Returned($return));
