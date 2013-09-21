@@ -74,7 +74,7 @@ class LookupForDate
 
   private function setCustomerID($customerID)
   {
-    $this->customerID = $customerID:
+    $this->customerID = $customerID;
   }
 
   public function getCustomerID()
