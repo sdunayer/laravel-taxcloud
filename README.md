@@ -1,6 +1,6 @@
 **THIS IS NOT READY FOR PRODUCTION USE**
 
-[![Build Status](https://travis-ci.org/VeggieMeat/php-taxcloud.png?branch=master)](https://travis-ci.org/VeggieMeat/php-taxcloud)
+[![Build Status](https://travis-ci.org/VMdoh/php-taxcloud.png?branch=master)](https://travis-ci.org/VeggieMeat/php-taxcloud)
 
 At this point, most of the functionality needed to complete an order has been
 implemented. A few things are still left, including Tax Exemptions and Return
