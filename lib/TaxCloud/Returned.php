@@ -33,4 +33,63 @@ class Returned
   private $orderID; // string
   private $cartItems; // ArrayOfCartItem
   private $returnedDate; // dateTime
+
+  public function __construct($apiLoginID, $apiKey, $orderID, $cartItems, $returnedDate)
+  {
+    $this->setApiLoginID($apiLoginID);
+    $this->setApiKey($apiKey);
+    $this->setOrderID($orderID);
+    $this->setCartItems($cartItems);
+    $this->setResturnedDate($returnedDate);
+  }
+
+  private function setApiLoginID($apiLoginID)
+  {
+    $this->apiLoginID = $apiLoginID;
+  }
+
+  public function getApiLoginID()
+  {
+    return $this->apiLoginID;
+  }
+
+  private function setApiKey($apiKey)
+  {
+    $this->apiKey = $apiKey;
+  }
+
+  public function getApiKey()
+  {
+    return $this->apiKey;
+  }
+
+  private function setOrderID($orderID)
+  {
+    $this->orderID = $orderID;
+  }
+
+  public function getOrderID()
+  {
+    return $this->orderID;
+  }
+
+  private function setCartItems($cartItems)
+  {
+    $this->cartItems = $cartItems;
+  }
+
+  public function getCartItems()
+  {
+    return $this->cartItems;
+  }
+
+  private function setReturnedDate($returnedDate)
+  {
+    $this->returnedDate = $returnedDate;
+  }
+
+  public function getReturnedDate()
+  {
+    return $this->returnedDate;
+  }
 }
