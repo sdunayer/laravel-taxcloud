@@ -36,14 +36,14 @@ class CartItem
 
   public function __construct($index, $itemId, $tic, $price, $qty)
   {
-    $this->Index = $index;
-    $this->ItemID = $itemId;
-    $this->TIC = $tic;
-    $this->Price = $price;
-    $this->Qty = $qty;
+    $this->setIndex($index);
+    $this->setItemID($itemId);
+    $this->setTIC($tic);
+    $this->setPrice($price);
+    $this->setQty($qty);
   }
 
-  public function setIndex($index)
+  private function setIndex($index)
   {
     $this->Index = $index;
   }
@@ -53,7 +53,7 @@ class CartItem
     return $this->Index;
   }
 
-  public function setItemID($itemId)
+  private function setItemID($itemId)
   {
     $this->ItemID = $itemId;
   }
@@ -63,7 +63,7 @@ class CartItem
     return $this->ItemID;
   }
 
-  public function setTIC($tic)
+  private function setTIC($tic)
   {
     $this->TIC = $tic;
   }
@@ -73,7 +73,7 @@ class CartItem
     return $this->TIC;
   }
 
-  public function setPrice($price)
+  private function setPrice($price)
   {
     // @todo this needs validation
     $this->Price = $price;
@@ -84,7 +84,7 @@ class CartItem
     return $this->Price;
   }
 
-  public function setQty($qty)
+  private function setQty($qty)
   {
     $this->Qty = $qty;
   }
