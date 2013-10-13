@@ -40,4 +40,15 @@ class VerifiedAddress
   {
     return $this->ErrDescription;
   }
+  
+  public function getAddress() {
+    return new Address(
+      $this->Address1,
+      $this->Address2,
+      $this->City,
+      $this->State,
+      $this->Zip5,
+      $this->Zip4
+    );
+  }
 }
