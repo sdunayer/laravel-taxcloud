@@ -5,7 +5,9 @@
  * Load php-taxcloud library.
  */
 
-require_once(__DIR__ . '/Autoload.php');
+if (!class_exists('ClassLoader')) {
+  require_once(__DIR__ . '/Autoload.php');
+}
 
 $classLoader = new ClassLoader;
 $classLoader->registerNamespaces(array(
