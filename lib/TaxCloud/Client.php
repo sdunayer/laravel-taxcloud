@@ -196,7 +196,7 @@ class Client extends \SoapClient
    */
   public function AuthorizedWithCapture(AuthorizedWithCapture $parameters)
   {
-    return $this->__soapCall('AuthorizedWithCapture', array($parameters),       array(
+    $response = $this->__soapCall('AuthorizedWithCapture', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
