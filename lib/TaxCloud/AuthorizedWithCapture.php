@@ -32,18 +32,18 @@ class AuthorizedWithCapture
   private $apiKey; // string
   private $customerID; // string
   private $cartID; // string
-  private $cartItemd; // CartItems
   private $orderID; // string
   private $dateAuthorized; // dateTime
+  private $dateCaptured; // dateTime
 
-  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $orderID, $dateAuthorized)
+  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $orderID, $dateAuthorized, $dateCaptured)
   {
     $this->apiLoginID = $apiLoginID;
     $this->apiKey = $apiKey;
     $this->customerID = $customerID;
     $this->cartID = $cartID;
-    $this->cartItems = $cartItems;
     $this->orderID = $orderID;
-    $this->authorizedDate = $dateAuthorized;
+    $this->dateAuthorized = $dateAuthorized;
+    $this->dateCaptured = $dateCaptured;
   }
 }
