@@ -111,11 +111,16 @@ class Client extends \SoapClient
    */
   public function VerifyAddress(VerifyAddress $parameters)
   {
-    return $this->__soapCall('VerifyAddress', array($parameters),       array(
+    $VerifyAddressResponse = $this->__soapCall('VerifyAddress', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-      );
+         );
+    $VerifyAddressResult = $VerifyAddressResponse->getVerifyAddressResult();
+
+    if ($VerifyAddressResult->getErrNumber() == 0) {
+      return $VerifyAddressResult->getAddress();
+    }
   }
 
   /**
@@ -196,7 +201,7 @@ class Client extends \SoapClient
    */
   public function AuthorizedWithCapture(AuthorizedWithCapture $parameters)
   {
-    $response = $this->__soapCall('AuthorizedWithCapture', array($parameters),       array(
+    return $this->__soapCall('AuthorizedWithCapture', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
