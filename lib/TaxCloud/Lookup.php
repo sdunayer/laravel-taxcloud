@@ -40,6 +40,21 @@ class Lookup
 
   public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, Address $origin, Address $destination, $deliveredBySeller = FALSE)
   {
+    if (!isset($customerID)) {
+      throw new VerifyAddressException('Customer ID is missing.');
+    }
+    if (!isset($cartID)) {
+      throw new VerifyAddressException('Cart ID is missing.');
+    }
+    if (!isset($cartItems) || empty($cartItems)) {
+      throw new VerifyAddressException('No cart items found.');
+    }
+    if (!isset($origin)) {
+      throw new VerifyAddressException('The origin Address is missing.');
+    }
+    if (!isset($destination)) {
+      throw new VerifyAddressException('The destination address is missing.');
+    }
     $this->setApiLoginID($apiLoginID);
     $this->setApiKey($apiKey);
     $this->setCustomerID($customerID);

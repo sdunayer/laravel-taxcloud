@@ -121,6 +121,9 @@ class Client extends \SoapClient
     if ($VerifyAddressResult->getErrNumber() == 0) {
       return $VerifyAddressResult->getAddress();
     }
+    else {
+      throw new VerifyAddressException($VerifyAddressResult->getErrDescription(), $VerifyAddressResult->getErrNumber());
+    }
   }
 
   /**
