@@ -46,7 +46,7 @@ class ExemptionCertificateDetail
   private $PurchaserExemptionReasonValue; // string
   private $CreatedDate; // dateTime
 
-  public function construct($ExemptStates, $SinglePurchase, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2, $PurchaserCity, $PurchaserState, $PurchaserZip, $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue, $PurchaserExemptionReason, $PurchaserExemptionReasonValue, $CreatedDate)
+  public function construct($ExemptStates, $SinglePurchase, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2, $PurchaserCity, $PurchaserState, $PurchaserZip, $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue, $PurchaserExemptionReason, $PurchaserExemptionReasonValue, $CreatedDate = NULL)
   {
     $this->setExemptStates($ExemptStates);
     $this->setSinglePurchase($SinglePurchase);
@@ -177,7 +177,7 @@ class ExemptionCertificateDetail
     return $this->PurchaserZip;
   }
 
-  private function setPurchaserTaxID($PurchaserTaxID)
+  private function setPurchaserTaxID(TaxID $PurchaserTaxID)
   {
     $this->PurchaserTaxID = $PurchaserTaxID;
   }
@@ -187,7 +187,7 @@ class ExemptionCertificateDetail
     return $this->PurchaserTaxID;
   }
 
-  private function setPurchaserBusinessType($PurchaserBusinessType)
+  private function setPurchaserBusinessType(BusinessType $PurchaserBusinessType)
   {
     $this->PurchaserBusinessType = $PurchaserBusinessType;
   }
@@ -207,7 +207,7 @@ class ExemptionCertificateDetail
     return $this->PurchaserBusinessTypeOtherValue;
   }
 
-  private function setPurchaserExemptionReason($PurchaserExemptionReason)
+  private function setPurchaserExemptionReason(ExemptionReason $PurchaserExemptionReason)
   {
     $this->PurchaserExemptionReason = $PurchaserExemptionReason;
   }
@@ -229,7 +229,7 @@ class ExemptionCertificateDetail
 
   private function setCreatedDate($CreatedDate)
   {
-    $this->CreatedDate = $CreatedDate;
+    $this->CreatedDate = $CreatedDate ? $CreatedDate : date("c");
   }
 
   public function getCreatedDate()

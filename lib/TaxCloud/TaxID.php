@@ -32,7 +32,7 @@ class TaxID
   private $IDNumber; // string
   private $StateOfIssue; // string
 
-  public function __construct($TaxType, $IDNumber, $StateOfIssue)
+  public function __construct($TaxType, $IDNumber = '', $StateOfIssue = '')
   {
     $this->setTaxType($TaxType);
     $this->setIDNumber($IDNumber);
@@ -41,7 +41,7 @@ class TaxID
 
   private function setTaxType($TaxType)
   {
-    $this->TaxType = $TaxType;
+    $this->TaxType = TaxIDType::$TaxType;
   }
 
   public function getTaxType()
