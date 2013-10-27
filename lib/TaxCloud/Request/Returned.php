@@ -24,16 +24,51 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class GetTICs
+use TaxCloud\Request\RequestBase;
+
+class Returned extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
+  protected $orderID; // string
+  protected $cartItems; // ArrayOfCartItem
+  protected $returnedDate; // dateTime
 
-  public function __construct($apiLoginID, $apiKey)
+  public function __construct($apiLoginID, $apiKey, $orderID, $cartItems, $returnedDate)
   {
-    $this->apiLoginID = $apiLoginID;
-    $this->apiKey = $apiKey;
+    $this->setOrderID($orderID);
+    $this->setCartItems($cartItems);
+    $this->setReturnedDate($returnedDate);
+    parent::__construct($apiLoginID, $apiKey);
+  }
+
+  private function setOrderID($orderID)
+  {
+    $this->orderID = $orderID;
+  }
+
+  public function getOrderID()
+  {
+    return $this->orderID;
+  }
+
+  private function setCartItems($cartItems)
+  {
+    $this->cartItems = $cartItems;
+  }
+
+  public function getCartItems()
+  {
+    return $this->cartItems;
+  }
+
+  private function setReturnedDate($returnedDate)
+  {
+    $this->returnedDate = $returnedDate;
+  }
+
+  public function getReturnedDate()
+  {
+    return $this->returnedDate;
   }
 }

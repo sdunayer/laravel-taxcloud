@@ -24,25 +24,23 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class LookupForDate
+use TaxCloud\Request\RequestBase;
+
+class LookupForDate extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-  private $customerID; // string
-  private $cartID; // string
-  private $cartItems; // ArrayOfCartItem
-  private $origin; // Address
-  private $destination; // Address
-  private $deliveredBySeller; // boolean
-  private $exemptCert; // ExemptionCertificate
-  private $useDate; // dateTime
+  protected $customerID; // string
+  protected $cartID; // string
+  protected $cartItems; // ArrayOfCartItem
+  protected $origin; // Address
+  protected $destination; // Address
+  protected $deliveredBySeller; // boolean
+  protected $exemptCert; // ExemptionCertificate
+  protected $useDate; // dateTime
 
   public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $origin, $destination, $deliveredBySeller, $exemptCert, $useDate)
   {
-    $this->setApiLoginID($apiLoginID);
-    $this->setApiKey($apiKey);
     $this->setCustomerID($customerID);
     $this->setCartItems($cartItems);
     $this->setOrigin($origin);
@@ -50,26 +48,7 @@ class LookupForDate
     $this->setDeliveredBySeller($deliveredBySeller);
     $this->setExemptCert($exemptCert);
     $this->setUseDate($useDate);
-  }
-
-  private function setApiLoginID($apiLoginID)
-  {
-    $this->apiLoginID = $apiLoginID;
-  }
-
-  public function getApiLoginID()
-  {
-    return $this->apiLoginID;
-  }
-
-  private function setApiKey($apiKey)
-  {
-    $this->apiKey = $apiKey;
-  }
-
-  public function getApiKey()
-  {
-    return $this->apiKey;
+    parent::__construct($apiLoginID, $apiKey);
   }
 
   private function setCustomerID($customerID)

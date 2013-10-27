@@ -24,16 +24,15 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class GetTICGroups
+use TaxCloud\Request\RequestBase;
+
+class GetTICs extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
 
   public function __construct($apiLoginID, $apiKey)
   {
-    $this->apiLoginID = $apiLoginID;
-    $this->apiKey = $apiKey;
+    parent::__construct($apiLoginID, $apiKey);
   }
 }

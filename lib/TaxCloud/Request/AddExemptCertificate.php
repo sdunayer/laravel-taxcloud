@@ -24,26 +24,39 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class AuthorizedWithCapture
+use TaxCloud\Request\RequestBase;
+
+class AddExemptCertificate extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-  private $customerID; // string
-  private $cartID; // string
-  private $orderID; // string
-  private $dateAuthorized; // dateTime
-  private $dateCaptured; // dateTime
+  protected $customerID; // string
+  protected $exemptCert; // ExemptionCertificate
 
-  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $orderID, $dateAuthorized, $dateCaptured)
+  public function __construct($apiLoginID, $apiKey, $customerID, ExemptionCertificate $exemptCert)
   {
-    $this->apiLoginID = $apiLoginID;
-    $this->apiKey = $apiKey;
+    $this->setCustomerID($customerID);
+    $this->setExemptCert($exemptCert);
+    parent::__construct($apiLoginID, $apiKey);
+  }
+
+  private function setCustomerID($customerID)
+  {
     $this->customerID = $customerID;
-    $this->cartID = $cartID;
-    $this->orderID = $orderID;
-    $this->dateAuthorized = $dateAuthorized;
-    $this->dateCaptured = $dateCaptured;
+  }
+
+  public function getCustomerID()
+  {
+    return $this->customerID;
+  }
+
+  private function setExemptCert(ExemptionCertificate $exemptCert)
+  {
+    $this->exemptCert = $exemptCert;
+  }
+
+  public function getExemptCert()
+  {
+    return $this->exemptCert;
   }
 }

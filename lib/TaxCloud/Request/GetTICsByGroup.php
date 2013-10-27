@@ -24,48 +24,17 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class GetExemptCertificates
+use TaxCloud\Request\RequestBase;
+
+class GetTICsByGroup extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-  private $customerID; // string
+  protected $ticGroup; // int
 
-  public function __construct($apiLoginID, $apiKey, $customerID)
+  public function __construct($apiLoginID, $apiKey, $ticGroup)
   {
-    $this->setApiLoginID($apiLoginID);
-    $this->setApiKey($apiKey);
-    $this->setCustomerID($customerID);
-  }
-
-  private function setApiLoginID($apiLoginID)
-  {
-    $this->apiLoginID = $apiLoginID;
-  }
-
-  public function getApiLoginID()
-  {
-    return $this->apiLoginID;
-  }
-
-  private function setApiKey($apiKey)
-  {
-    $this->apiKey = $apiKey;
-  }
-
-  public function getApiKey()
-  {
-    return $this->apiKey;
-  }
-
-  private function setCustomerID($customerID)
-  {
-    $this->customerID = $customerID;
-  }
-
-  public function getCustomerID()
-  {
-    return $this->customerID;
+    $this->ticGroup = $ticGroup;
+    parent::__construct($apiLoginID, $apiKey);
   }
 }

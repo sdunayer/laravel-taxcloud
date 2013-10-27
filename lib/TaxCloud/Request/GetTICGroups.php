@@ -24,36 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class Ping
+use TaxCloud\Request\RequestBase;
+
+class GetTICGroups extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-
   public function __construct($apiLoginID, $apiKey)
   {
-    $this->setApiLoginID($apiLoginID);
-    $this->setApiKey($apiKey);
-  }
-
-  private function setApiLoginID($apiLoginID)
-  {
-    $this->apiLoginID = $apiLoginID;
-  }
-
-  public function getApiLoginID()
-  {
-    return $this->apiLoginID;
-  }
-
-  private function setApiKey($apiKey)
-  {
-    $this->apiKey = $apiKey;
-  }
-
-  public function getApiKey()
-  {
-    return $this->apiKey;
+    parent::__construct($apiLoginID, $apiKey);
   }
 }

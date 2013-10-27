@@ -24,41 +24,18 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class AddExemptCertificate
+use TaxCloud\Request\RequestBase;
+
+class GetExemptCertificates extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
   private $customerID; // string
-  private $exemptCert; // ExemptionCertificate
 
-  public function __construct($apiLoginID, $apiKey, $customerID, ExemptionCertificate $exemptCert)
+  public function __construct($apiLoginID, $apiKey, $customerID)
   {
-    $this->setApiLoginID($apiLoginID);
-    $this->setApiKey($apiKey);
     $this->setCustomerID($customerID);
-    $this->setExemptCert($exemptCert);
-  }
-
-  private function setApiLoginID($apiLoginID)
-  {
-    $this->apiLoginID = $apiLoginID;
-  }
-
-  public function getApiLoginID()
-  {
-    return $this->apiLoginID;
-  }
-
-  private function setApiKey($apiKey)
-  {
-    $this->apiKey = $apiKey;
-  }
-
-  public function getApiKey()
-  {
-    return $this->apiKey;
+    parent::__construct($apiLoginID, $apiKey);
   }
 
   private function setCustomerID($customerID)
@@ -69,15 +46,5 @@ class AddExemptCertificate
   public function getCustomerID()
   {
     return $this->customerID;
-  }
-
-  private function setExemptCert(ExemptionCertificate $exemptCert)
-  {
-    $this->exemptCert = $exemptCert;
-  }
-
-  public function getExemptCert()
-  {
-    return $this->exemptCert;
   }
 }

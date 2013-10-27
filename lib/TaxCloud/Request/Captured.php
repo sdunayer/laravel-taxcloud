@@ -24,18 +24,17 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class GetTICsByGroup
+use TaxCloud\Request\RequestBase;
+
+class Captured extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-  private $ticGroup; // int
+  protected $orderID; // string
 
-  public function __construct($apiLoginID, $apiKey, $ticGroup)
+  public function __construct($apiLoginID, $apiKey, $orderID)
   {
-    $this->apiLoginID = $apiLoginID;
-    $this->apiKey = $apiKey;
-    $this->ticGroup = $ticGroup;
+    $this->orderID = $orderID;
+    parent::__construct($apiLoginID, $apiKey);
   }
 }

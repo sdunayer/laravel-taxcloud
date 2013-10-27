@@ -24,48 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class DeleteExemptCertificate
+use TaxCloud\Request\RequestBase;
+
+class Ping extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-  private $certificateID; // string
-
-  public function __construct($apiLoginID, $apiKey, $certificateID)
+  public function __construct($apiLoginID, $apiKey)
   {
-    $this->setApiLoginID($apiLoginID);
-    $this->setApiKey($apiKey);
-    $this->setCertificateID($certificateID);
-  }
-
-  private function setApiLoginID($apiLoginID)
-  {
-    $this->apiLoginID = $apiLoginID;
-  }
-
-  public function getApiLoginID()
-  {
-    return $this->apiLoginID;
-  }
-
-  private function setApiKey($apiKey)
-  {
-    $this->apiKey = $apiKey;
-  }
-
-  public function getApiKey()
-  {
-    return $this->apiKey;
-  }
-
-  private function setCertificateID($certificateID)
-  {
-    $this->certificateID = $certificateID;
-  }
-
-  public function getCertificateID()
-  {
-    return $this->certificateID;
+    parent::__construct($apiLoginID, $apiKey);
   }
 }

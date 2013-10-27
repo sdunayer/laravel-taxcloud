@@ -26,6 +26,21 @@
 
 namespace TaxCloud;
 
+use TaxCloud\Request\AddExemptCertificate;
+use TaxCloud\Request\Authorized;
+use TaxCloud\Request\AuthorizedWithCapture;
+use TaxCloud\Request\Captured;
+use TaxCloud\Request\DeleteExemptCertificate;
+use TaxCloud\Request\GetExemptCertificates;
+use TaxCloud\Request\GetTICs;
+use TaxCloud\Request\GetTICsByGroup;
+use TaxCloud\Request\GetTICGroups;
+use TaxCloud\Request\Lookup;
+use TaxCloud\Request\LookupForDate;
+use TaxCloud\Request\Ping;
+use TaxCloud\Request\Returned;
+use TaxCloud\Request\VerifyAddress;
+
 /**
  * TaxCloud Web Service
  *
@@ -35,11 +50,11 @@ namespace TaxCloud;
 class Client extends \SoapClient
 {
   private static $classmap = array(
-    'VerifyAddress' => '\TaxCloud\VerifyAddress',
+    'VerifyAddress' => '\TaxCloud\Request\VerifyAddress',
     'VerifyAddressResponse' => '\TaxCloud\VerifyAddressResponse',
     'VerifiedAddress' => '\TaxCloud\VerifiedAddress',
     'Address' => '\TaxCloud\Address',
-    'LookupForDate' => '\TaxCloud\LookupForDate',
+    'LookupForDate' => '\TaxCloud\Request\LookupForDate',
     'CartItem' => '\TaxCloud\CartItem',
     'ExemptionCertificate' => '\TaxCloud\ExemptionCertificate',
     'ExemptionCertificateDetail' => '\TaxCloud\ExemptionCertificateDetail',
@@ -55,39 +70,39 @@ class Client extends \SoapClient
     'MessageType' => '\TaxCloud\MessageType',
     'ResponseMessage' => '\TaxCloud\ResponseMessage',
     'CartItemResponse' => '\TaxCloud\CartItemResponse',
-    'Lookup' => '\TaxCloud\Lookup',
+    'Lookup' => '\TaxCloud\Request\Lookup',
     'LookupResponse' => '\TaxCloud\LookupResponse',
-    'Authorized' => '\TaxCloud\Authorized',
+    'Authorized' => '\TaxCloud\Request\Authorized',
     'AuthorizedResponse' => '\TaxCloud\AuthorizedResponse',
     'AuthorizedRsp' => '\TaxCloud\AuthorizedRsp',
-    'AuthorizedWithCapture' => '\TaxCloud\AuthorizedWithCapture',
+    'AuthorizedWithCapture' => '\TaxCloud\Request\AuthorizedWithCapture',
     'AuthorizedWithCaptureResponse' => '\TaxCloud\AuthorizedWithCaptureResponse',
-    'Captured' => '\TaxCloud\Captured',
+    'Captured' => '\TaxCloud\Request\Captured',
     'CapturedResponse' => '\TaxCloud\CapturedResponse',
     'CapturedRsp' => '\TaxCloud\CapturedRsp',
-    'Returned' => '\TaxCloud\Returned',
+    'Returned' => '\TaxCloud\Request\Returned',
     'ReturnedResponse' => '\TaxCloud\ReturnedResponse',
     'ReturnedRsp' => '\TaxCloud\ReturnedRsp',
-    'GetTICGroups' => '\TaxCloud\GetTICGroups',
+    'GetTICGroups' => '\TaxCloud\Request\GetTICGroups',
     'GetTICGroupsResponse' => '\TaxCloud\GetTICGroupsResponse',
     'GetTICGroupsRsp' => '\TaxCloud\GetTICGroupsRsp',
     'TICGroup' => '\TaxCloud\TICGroup',
-    'GetTICs' => '\TaxCloud\GetTICs',
+    'GetTICs' => '\TaxCloud\Request\GetTICs',
     'GetTICsResponse' => '\TaxCloud\GetTICsResponse',
     'GetTICsRsp' => '\TaxCloud\GetTICsRsp',
     'TIC' => '\TaxCloud\TIC',
-    'GetTICsByGroup' => '\TaxCloud\GetTICsByGroup',
+    'GetTICsByGroup' => '\TaxCloud\Request\GetTICsByGroup',
     'GetTICsByGroupResponse' => '\TaxCloud\GetTICsByGroupResponse',
-    'AddExemptCertificate' => '\TaxCloud\AddExemptCertificate',
+    'AddExemptCertificate' => '\TaxCloud\Request\AddExemptCertificate',
     'AddExemptCertificateResponse' => '\TaxCloud\AddExemptCertificateResponse',
     'AddCertificateRsp' => '\TaxCloud\AddCertificateRsp',
-    'DeleteExemptCertificate' => '\TaxCloud\DeleteExemptCertificate',
+    'DeleteExemptCertificate' => '\TaxCloud\Request\DeleteExemptCertificate',
     'DeleteExemptCertificateResponse' => '\TaxCloud\DeleteExemptCertificateResponse',
     'DeleteCertificateRsp' => '\TaxCloud\DeleteCertificateRsp',
-    'GetExemptCertificates' => '\TaxCloud\GetExemptCertificates',
+    'GetExemptCertificates' => '\TaxCloud\Request\GetExemptCertificates',
     'GetExemptCertificatesResponse' => '\TaxCloud\GetExemptCertificatesResponse',
     'GetCertificatesRsp' => '\TaxCloud\GetCertificatesRsp',
-    'Ping' => '\TaxCloud\Ping',
+    'Ping' => '\TaxCloud\Request\Ping',
     'PingResponse' => '\TaxCloud\PingResponse',
     'PingRsp' => '\TaxCloud\PingRsp',
   );

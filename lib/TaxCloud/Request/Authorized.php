@@ -24,46 +24,25 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class Authorized
+use TaxCloud\Request\RequestBase;
+
+class Authorized extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-  private $customerID; // string
-  private $cartID; // string
-  private $cartItems; // array
-  private $orderID; // string
-  private $dateAuthorized; // dateTime
+  protected $customerID; // string
+  protected $cartID; // string
+  protected $cartItems; // array
+  protected $orderID; // string
+  protected $dateAuthorized; // dateTime
 
   public function __construct($apiLoginId, $apiKey, $customerId, $cartId, $cartItems, $orderId, $dateAuthorized)
   {
-    $this->apiLoginID = $apiLoginId;
-    $this->apiKey = $apiKey;
     $this->customerID = $customerId;
     $this->cartID = $cartId;
     $this->orderID = $orderId;
     $this->dateAuthorized = $dateAuthorized;
-  }
-
-  public function setApiLoginID($apiLoginId)
-  {
-    $this->apiLoginID = $apiLoginId;
-  }
-
-  public function getApiLoginID()
-  {
-    return $this->apiLoginID;
-  }
-
-  public function setApiKey($apiKey)
-  {
-    $this->apiKey = $apiKey;
-  }
-
-  public function getApiKey()
-  {
-    return $this->apiKey;
+    parent::__construct($apiLoginId, $apiKey);
   }
 
   public function setCustomerID($customerId)

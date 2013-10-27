@@ -24,22 +24,24 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
+
+use TaxCloud\Address;
 
 /**
  * @file
- * Contains class to build VerifyAddress object.
+ * Contains class to build VerifyAddress request object.
  */
 
 class VerifyAddress
 {
-  private $uspsUserID; // USPS User ID
-  private $address1;
-  private $address2;
-  private $city;
-  private $state;
-  private $zip5;
-  private $zip4;
+  protected $uspsUserID; // USPS User ID
+  protected $address1;
+  protected $address2;
+  protected $city;
+  protected $state;
+  protected $zip5;
+  protected $zip4;
 
   public function __construct($uspsUserID, Address $address)
   {

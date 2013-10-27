@@ -30,23 +30,23 @@ require_once 'lib/php-taxcloud.php';
 $client = new \TaxCloud\Client();
 
 step('Ping');
-$pingParams = new \TaxCloud\Ping($apiLoginID, $apiKey);
+$pingParams = new \TaxCloud\Request\Ping($apiLoginID, $apiKey);
 
 print_r($client->Ping($pingParams));
 
 step('Get TICs');
 
-$params = new \TaxCloud\GetTICs($apiLoginID, $apiKey);
+$params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);
 print_r($client->GetTICs($params));
 
 step('GetTICGroups');
 
-$params = new \TaxCloud\GetTICGroups($apiLoginID, $apiKey);
+$params = new \TaxCloud\Request\GetTICGroups($apiLoginID, $apiKey);
 print_r($client->getTICGroups($params));
 
 step('Get TICs By Group');
 
-$params = new \TaxCloud\GetTICsByGroup($apiLoginID, $apiKey, 10000);
+$params = new \TaxCloud\Request\GetTICsByGroup($apiLoginID, $apiKey, 10000);
 print_r($client->GetTICsByGroup($params));
 
 step('Cart Item');
@@ -76,7 +76,7 @@ $address = new \TaxCloud\Address(
   '1234'
 );
 
-$verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
+$verifyAddress = new \TaxCloud\Request\VerifyAddress($uspsUserID, $address);
 
 $verifiedAddress = $client->VerifyAddress($verifyAddress);
 print_r($verifiedAddress);
@@ -105,24 +105,24 @@ $destAddress = new \TaxCloud\Address(
 
 print_r($destAddress);
 
-$lookup = new \TaxCloud\Lookup($apiLoginID, $apiKey, '123', $cartID, $cartItems, $originAddress, $destAddress);
+$lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID, $cartItems, $originAddress, $destAddress);
 print_r($client->Lookup($lookup));
 
 step('Authorized');
 
-$authorization = new \TaxCloud\Authorized($apiLoginID, $apiKey, '123', $cartID, $cartItems, $orderID, date("c"));
+$authorization = new \TaxCloud\Request\Authorized($apiLoginID, $apiKey, '123', $cartID, $cartItems, $orderID, date("c"));
 print_r($client->Authorized($authorization));
 
 step('Captured');
-$capture = new \TaxCloud\Captured($apiLoginID, $apiKey, $orderID);
+$capture = new \TaxCloud\Request\Captured($apiLoginID, $apiKey, $orderID);
 print_r($client->Captured($capture));
 
 step('Authorized With Capture');
-$lookup = new \TaxCloud\Lookup($apiLoginID, $apiKey, '123', $cartID + 1, $cartItems, $originAddress, $destAddress);
+$lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID + 1, $cartItems, $originAddress, $destAddress);
 $client->Lookup($lookup);
-$authcap = new \TaxCloud\AuthorizedWithCapture($apiLoginID, $apiKey, '123', $cartID + 1, $orderID + 1, date("c"), date("c"));
+$authcap = new \TaxCloud\Request\AuthorizedWithCapture($apiLoginID, $apiKey, '123', $cartID + 1, $orderID + 1, date("c"), date("c"));
 print_r($client->AuthorizedWithCapture($authcap));
 
 step('Returned');
-$return = new \TaxCloud\Returned($apiLoginID, $apiKey, $orderID + 1, $cartItems, date("c"));
+$return = new \TaxCloud\Request\Returned($apiLoginID, $apiKey, $orderID + 1, $cartItems, date("c"));
 print_r($client->Returned($return));

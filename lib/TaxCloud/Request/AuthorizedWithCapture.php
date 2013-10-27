@@ -24,18 +24,25 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class Captured
+use TaxCloud\Request\RequestBase;
+
+class AuthorizedWithCapture extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-  private $orderID; // string
+  protected $customerID; // string
+  protected $cartID; // string
+  protected $orderID; // string
+  protected $dateAuthorized; // dateTime
+  protected $dateCaptured; // dateTime
 
-  public function __construct($apiLoginID, $apiKey, $orderID)
+  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $orderID, $dateAuthorized, $dateCaptured)
   {
-    $this->apiLoginID = $apiLoginID;
-    $this->apiKey = $apiKey;
+    $this->customerID = $customerID;
+    $this->cartID = $cartID;
     $this->orderID = $orderID;
+    $this->dateAuthorized = $dateAuthorized;
+    $this->dateCaptured = $dateCaptured;
+    parent::__construct($apiLoginID, $apiKey);
   }
 }

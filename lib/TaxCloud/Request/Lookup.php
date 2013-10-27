@@ -24,65 +24,30 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Request;
 
-class Lookup
+use TaxCloud\Address;
+use TaxCloud\Request\RequestBase;
+
+class Lookup extends RequestBase
 {
-  private $apiLoginID; // string
-  private $apiKey; // string
-  private $customerID; // string
-  private $cartID; // string
-  private $cartItems; // ArrayOfCartItem
-  private $origin; // Address
-  private $destination; // Address
-  private $deliveredBySeller; // boolean
-  private $exemptCert; // ExemptionCertificate
+  protected $customerID; // string
+  protected $cartID; // string
+  protected $cartItems; // ArrayOfCartItem
+  protected $origin; // Address
+  protected $destination; // Address
+  protected $deliveredBySeller; // boolean
+  protected $exemptCert; // ExemptionCertificate
 
   public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, Address $origin, Address $destination, $deliveredBySeller = FALSE)
   {
-    if (!isset($customerID)) {
-      throw new VerifyAddressException('Customer ID is missing.');
-    }
-    if (!isset($cartID)) {
-      throw new VerifyAddressException('Cart ID is missing.');
-    }
-    if (!isset($cartItems) || empty($cartItems)) {
-      throw new VerifyAddressException('No cart items found.');
-    }
-    if (!isset($origin)) {
-      throw new VerifyAddressException('The origin Address is missing.');
-    }
-    if (!isset($destination)) {
-      throw new VerifyAddressException('The destination address is missing.');
-    }
-    $this->setApiLoginID($apiLoginID);
-    $this->setApiKey($apiKey);
     $this->setCustomerID($customerID);
     $this->setCartID($cartID);
     $this->setCartItems($cartItems);
     $this->setOrigin($origin);
     $this->setDestination($destination);
     $this->setDeliveredBySeller($deliveredBySeller);
-  }
-
-  private function setApiLoginID($apiLoginID)
-  {
-    $this->apiLoginID = $apiLoginID;
-  }
-
-  public function getApiLoginID()
-  {
-    return $this->apiLoginID;
-  }
-
-  private function setApiKey($apiKey)
-  {
-    $this->apiKey = $apiKey;
-  }
-
-  public function getApiKey()
-  {
-    return $this->apiKey;
+    parent::__construct($apiLoginID, $apiKey);
   }
 
   private function setCustomerID($customerID)
