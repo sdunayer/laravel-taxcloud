@@ -7,6 +7,17 @@
 
 namespace TaxCloud\Tests;
 
+use TaxCloud\Address;
+use TaxCloud\CartItem;
+use TaxCloud\Client;
+use TaxCloud\PingResponse;
+use TaxCloud\PingRsp;
+use TaxCloud\ResponseMessage;
+use TaxCloud\Request\Lookup;
+use TaxCloud\Request\Ping;
+use TaxCloud\Request\VerifyAddress;
+use TaxCloud\VerifiedAddress;
+
 class ClientTest extends \PHPUnit_Framework_TestCase {
 
   protected $taxcloud;
@@ -41,7 +52,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $client = $this->taxcloud;
     $uspsUserID = '123ABCDE5678';
 
-    $address = new \TaxCloud\Address(
+    $address = new Address(
       '1600 Pennsylvania Ave NW',
       '',
       'Washington',
@@ -50,7 +61,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       '0003'
     );
 
-    $verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
+    $verifyAddress = new VerifyAddress($uspsUserID, $address);
     $this->assertEquals($uspsUserID, $verifyAddress->getUspsUserID());
 
     $result = new \stdClass();
@@ -61,7 +72,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $result->Zip4 = $address->getZip4();
     $result->ErrNumber = 0;
 
-    $expected = new \TaxCloud\VerifiedAddress;
+    $expected = new VerifiedAddress;
     $expected->VerifyAddressResult = $result;
 
     $nousps = clone $verifyAddress;
@@ -71,7 +82,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $nouspsResult = new \stdClass();
     $nouspsResult->ErrNumber = '80040b1a';
 
-    $nouspsExpected = new \TaxCloud\VerifiedAddress;
+    $nouspsExpected = new VerifiedAddress;
     $nouspsExpected->VerifyAddressResult = $nouspsResult;
 
     $map = array(
@@ -107,12 +118,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $apiKey = 'apiKey';
 
     $cartItems = array();
-    $cartItem = new \TaxCloud\CartItem($cartID + 1, 'ABC123', '00000', 12.00, 1);
+    $cartItem = new CartItem($cartID + 1, 'ABC123', '00000', 12.00, 1);
     $cartItems[] = $cartItem;
-    $cartItemShipping = new \TaxCloud\CartItem($cartID + 2, 'SHIPPING123', 11010, 8.95, 1);
+    $cartItemShipping = new CartItem($cartID + 2, 'SHIPPING123', 11010, 8.95, 1);
     $cartItems[] = $cartItemShipping;
 
-    $address = new \TaxCloud\Address(
+    $address = new Address(
       '1600 Pennsylvania Ave NW',
       '',
       'Washington',
@@ -121,13 +132,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       '1234'
     );
 
-    $verifyAddress = new \TaxCloud\VerifyAddress($uspsUserID, $address);
+    $verifyAddress = new VerifyAddress($uspsUserID, $address);
 
     $verifiedAddress = $client->VerifyAddress($verifyAddress);
 
     $originAddress = clone $address;
 
-    $destAddress = new \TaxCloud\Address(
+    $destAddress = new Address(
       'PO Box 573',
       '',
       'Clinton',
@@ -136,9 +147,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       ''
     );
 
-    $lookup = new \TaxCloud\Lookup($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $originAddress, $destAddress);
-    $this->assertEquals($apiLoginID, $lookup->getApiLoginID(), 'apiLoginID should be ' . $apiLoginID);
-    $this->assertEquals($apiKey, $lookup->getApiKey(), 'apiKey should be ' . $apiKey);
+    $lookup = new Lookup($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $originAddress, $destAddress);
     $this->assertEquals($customerID, $lookup->getCustomerID(), 'customerID should be ' . $customerID);
     $this->assertEquals($cartID, $lookup->getCartID(), 'cartID should be ' . $cartID);
     $this->assertEquals($originAddress, $lookup->getOrigin());
@@ -287,30 +296,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $apiLoginID = 'apiLoginID';
     $apiKey = 'apiKey';
 
-    $ping = new \TaxCloud\Ping($apiLoginID, $apiKey);
-    $this->assertEquals($apiLoginID, $ping->getApiLoginID());
-    $this->assertEquals($apiKey, $ping->getApiKey());
+    $ping = new Ping($apiLoginID, $apiKey);
 
-    $pingBad = new \TaxCloud\Ping('xxx', 'xxx');
+    $pingBad = new Ping('xxx', 'xxx');
 
-    $pingResult = new \TaxCloud\PingRsp();
+    $pingResult = new PingRsp();
     $pingResult->ResponseType = 'OK';
     $pingResult->Messages = '';
 
-    $pingResponse = new \TaxCloud\PingResponse($pingResult);
+    $pingResponse = new PingResponse($pingResult);
 //    $pingResponse->PingResult = $pingResult;
 
-    $pingResultBad = new \TaxCloud\PingRsp();
+    $pingResultBad = new PingRsp();
     $pingResultBad->ResponseType = 'OK';
     $pingResultBad->Messages = new \stdClass();
 
-    $pingResultBadMessage = new \TaxCloud\ResponseMessage();
+    $pingResultBadMessage = new ResponseMessage();
 //    $pingResultBadMessage->ResponseType = 'Error';
 //    $pingResultBadMessage->Message = 'Invalid apiLoginID and/or apiKey';
 
     $pingResultBad->ResponseMessage = $pingResultBadMessage;
 
-    $pingResponseBad = new \TaxCloud\PingResponse($pingResult);
+    $pingResponseBad = new PingResponse($pingResult);
 //    $pingResponseBad->PingResult = $pingResult;
 
     $map = array(
