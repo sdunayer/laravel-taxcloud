@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/vmdoh/php-taxcloud/v/stable.png)](https://packagist.org/packages/vmdoh/php-taxcloud)
 [![Total Downloads](https://poser.pugx.org/vmdoh/php-taxcloud/downloads.png)](https://packagist.org/packages/vmdoh/php-taxcloud)
-[![Build Status](https://travis-ci.org/VMdoh/php-taxcloud.png?branch=master)](https://travis-ci.org/VeggieMeat/php-taxcloud)
+[![Build Status](https://travis-ci.org/VMdoh/php-taxcloud.png?branch=master)](https://travis-ci.org/VMdoh/php-taxcloud)
 
 At this point, most of the functionality needed to complete an order has been
 implemented. A few things are still left, including Tax Exemptions and Return
@@ -47,6 +47,10 @@ To obtain a USPS Web Tools **User ID**, you will need to [fill out the form here
 You will receive an email with a Username and Password. All you need is the
 Username.
 
+If you already have some sort of address verification in place, the USPS Web
+Tools User ID is optional. What is important is that you have accurate ZIP+4
+codes for your addresses for taxation purposes.
+
 Examples
 ----------------
 The smoketest is a great resource for a working example that goes through the
@@ -61,7 +65,7 @@ php-taxcloud includes thorough unit tests that do not require a live connection
 to the API. If you are contributing to php-taxcloud, please include unit tests
 for your contributions.
 
-[Travis-ci](https://travis-ci.org/VeggieMeat/php-taxcloud) runs unit tests for the repository. However, you can run them locally
+[Travis-ci](https://travis-ci.org/VMdoh/php-taxcloud) runs unit tests for the repository. However, you can run them locally
 with [PHPUnit](http://phpunit.de/manual/current/en/index.html).
 
 A smoketest is also included that connects to the API and is intended only for
