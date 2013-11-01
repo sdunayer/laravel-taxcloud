@@ -26,6 +26,8 @@
 
 namespace TaxCloud;
 
-class PingRsp
+use TaxCloud\ResponseBase;
+
+class PingRsp extends ResponseBase
 {
 }

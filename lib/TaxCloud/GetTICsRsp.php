@@ -26,7 +26,9 @@
 
 namespace TaxCloud;
 
-class GetTICsRsp
+use TaxCloud\ResponseBase;
+
+class GetTICsRsp  extends ResponseBase
 {
   private $TICs; // ArrayOfTIC
 

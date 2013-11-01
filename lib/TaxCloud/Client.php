@@ -26,6 +26,12 @@
 
 namespace TaxCloud;
 
+use TaxCloud\Exceptions\GetTICsException;
+use TaxCloud\Exceptions\GetTICsByGroupException;
+use TaxCloud\Exceptions\GetTICGroupsException;
+use TaxCloud\Exceptions\LookupException;
+use TaxCloud\Exceptions\PingException;
+use TaxCloud\Exceptions\VerifyAddressException;
 use TaxCloud\Request\AddExemptCertificate;
 use TaxCloud\Request\Authorized;
 use TaxCloud\Request\AuthorizedWithCapture;
@@ -178,22 +184,27 @@ class Client extends \SoapClient
 
     $LookupResult = $LookupResponse->getLookupResult();
 
-    $return = array();
+    if ($LookupResult->getErrNumber() == 0) {
+      $return = array();
 
-    foreach ($LookupResult->getCartItemsResponse() as $CartItemResponse) {
-      // Single cart items are returned as a CartItem object.
-      if (is_object($CartItemResponse)) {
-        $return[$LookupResult->getCartID()][$CartItemResponse->getCartItemIndex()] = $CartItemResponse->getTaxAmount();
-      }
-      // Multiples are returned as an array of CartItem objects.
-      else {
-        foreach ($CartItemResponse as $CartItem) {
-          $return[$LookupResult->getCartID()][$CartItem->getCartItemIndex()] = $CartItem->getTaxAmount();
+      foreach ($LookupResult->getCartItemsResponse() as $CartItemResponse) {
+        // Single cart items are returned as a CartItem object.
+        if (is_object($CartItemResponse)) {
+          $return[$LookupResult->getCartID()][$CartItemResponse->getCartItemIndex()] = $CartItemResponse->getTaxAmount();
+        }
+        // Multiples are returned as an array of CartItem objects.
+        else {
+          foreach ($CartItemResponse as $CartItem) {
+            $return[$LookupResult->getCartID()][$CartItem->getCartItemIndex()] = $CartItem->getTaxAmount();
+          }
         }
       }
-    }
 
-    return $return;
+      return $return;
+    }
+    else {
+      throw new LookupException($LookupResult->getErrDescription(), $LookupResult->getErrNumber());
+    }
   }
 
   /**
@@ -271,16 +282,21 @@ class Client extends \SoapClient
          );
 
     $GetTICGroupsResult = $GetTICGroupsResponse->getTICGroupsResult();
-    $TICGroups = $GetTICGroupsResult->getTICGroups();
+    if ($GetTICGroupsResult->getErrNumber() == 0) {
+      $TICGroups = $GetTICGroupsResult->getTICGroups();
 
-    $return = array();
-    foreach ($TICGroups as $TICGroupsArray) {
-      foreach ($TICGroupsArray as $TICGroup) {
-        $return[$TICGroup->getGroupID()] = $TICGroup->getDescription();
+      $return = array();
+      foreach ($TICGroups as $TICGroupsArray) {
+        foreach ($TICGroupsArray as $TICGroup) {
+          $return[$TICGroup->getGroupID()] = $TICGroup->getDescription();
+        }
       }
-    }
 
-    return $return;
+      return $return;
+    }
+    else {
+      throw new GetTICGroupsException($GetTICGroupsResult->getErrDescription(), $GetTICGroupsResult->getErrNumber());
+    }
   }
 
   /**
@@ -298,16 +314,25 @@ class Client extends \SoapClient
          );
 
     $GetTICsResult = $GetTICsResponse->getTICsResult();
-    $TICs = $GetTICsResult->getTICs();
 
-    $return = array();
-    foreach ($TICs as $TICArray) {
-      foreach ($TICArray as $TIC) {
-        $return[$TIC->getTICID()] = $TIC->getDescription();
+    if ($GetTICsResult->getResponseType() == 'OK') {
+      $TICs = $GetTICsResult->getTICs();
+
+      $return = array();
+      foreach ($TICs as $TICArray) {
+        foreach ($TICArray as $TIC) {
+          $return[$TIC->getTICID()] = $TIC->getDescription();
+        }
       }
-    }
 
-    return $return;
+      return $return;
+    }
+    else {
+      foreach ($GetTICsResult->getMessages() as $message) {
+        throw new GetTICsException($message->getMessage());
+      }
+      return $GetTICsResult;
+    }
   }
 
   /**
@@ -325,16 +350,22 @@ class Client extends \SoapClient
          );
 
     $GetTICsByGroupResult = $GetTICsByGroupResponse->GetTICsByGroupResult();
-    $TICs = $GetTICsByGroupResult->getTICs();
 
-    $return = array();
-    foreach ($TICs as $TICArray) {
-      foreach ($TICArray as $TIC) {
-        $return[$TIC->getTICID()] = $TIC->getDescription();
+    if ($GetTICsByGroupResult->getErrNumber() == 0) {
+      $TICs = $GetTICsByGroupResult->getTICs();
+
+      $return = array();
+      foreach ($TICs as $TICArray) {
+        foreach ($TICArray as $TIC) {
+          $return[$TIC->getTICID()] = $TIC->getDescription();
+        }
       }
-    }
 
-    return $return;
+      return $return;
+    }
+    else {
+      throw new GetTICsByGroupException($GetTICsByGroupResult->getErrDescription(), $GetTICsByGroupResult->getErrNumber());
+    }
   }
 
   /**
@@ -390,11 +421,24 @@ class Client extends \SoapClient
    */
   public function Ping(Ping $parameters)
   {
-    return $this->__soapCall('Ping', array($parameters),       array(
+    $response = $this->__soapCall('Ping', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-      );
+         );
+    $result = $response->getPingResult();
+
+    $responsetype = $result->getResponseType();
+
+    if ($responsetype == 'OK') {
+      return TRUE;
+    }
+    else {
+      foreach ($result->getMessages() as $message) {
+        throw new PingException($message->getMessage());
+      }
+      return $result;
+    }
   }
 
 }

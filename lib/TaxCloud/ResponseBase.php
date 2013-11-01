@@ -28,8 +28,8 @@ namespace TaxCloud;
 
 class ResponseBase
 {
-  private $ResponseType; // MessageType
-  private $Messages; // ArrayOfResponseMessage
+  protected $ResponseType; // MessageType
+  protected $Messages; // ArrayOfResponseMessage
 
   public function getResponseType()
   {

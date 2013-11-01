@@ -32,17 +32,29 @@ $client = new \TaxCloud\Client();
 step('Ping');
 $pingParams = new \TaxCloud\Request\Ping($apiLoginID, $apiKey);
 
-print_r($client->Ping($pingParams));
+try {
+  $client->Ping($pingParams);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('Get TICs');
 
 $params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);
-print_r($client->GetTICs($params));
+try {
+  $client->GetTICs($params);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('GetTICGroups');
 
 $params = new \TaxCloud\Request\GetTICGroups($apiLoginID, $apiKey);
-print_r($client->getTICGroups($params));
+try {
+  $client->getTICGroups($params);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('Get TICs By Group');
 
