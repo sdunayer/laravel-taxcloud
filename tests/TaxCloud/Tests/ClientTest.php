@@ -301,15 +301,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $pingBad = new Ping('xxx', 'xxx');
 
     $pingResult = new PingRsp();
-    $pingResult->ResponseType = 'OK';
-    $pingResult->Messages = '';
+    $pingResult->setResponseType = 'OK';
+    $pingResult->setMessages = '';
 
     $pingResponse = new PingResponse($pingResult);
 //    $pingResponse->PingResult = $pingResult;
 
     $pingResultBad = new PingRsp();
-    $pingResultBad->ResponseType = 'OK';
-    $pingResultBad->Messages = new \stdClass();
+    $pingResultBad->setResponseType = 'OK';
+    $pingResultBad->setMessages = new \stdClass();
 
     $pingResultBadMessage = new ResponseMessage();
 //    $pingResultBadMessage->ResponseType = 'Error';
