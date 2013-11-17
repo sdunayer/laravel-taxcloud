@@ -40,15 +40,45 @@ class VerifiedAddress
   {
     return $this->ErrDescription;
   }
-  
+
   public function getAddress() {
     return new Address(
-      $this->Address1,
-      $this->Address2,
-      $this->City,
-      $this->State,
-      $this->Zip5,
-      $this->Zip4
+      $this->getAddress1(),
+      $this->getAddress2(),
+      $this->getCity(),
+      $this->getState(),
+      $this->getZip5(),
+      $this->getZip4()
     );
+  }
+
+  private function getAddress1()
+  {
+    return $this->Address1;
+  }
+
+  private function getAddress2()
+  {
+    return (isset($this->Address2)) ? $this->Address2 : NULL;
+  }
+
+  private function getCity()
+  {
+    return $this->City;
+  }
+
+  private function getState()
+  {
+    return $this->State;
+  }
+
+  private function getZip5()
+  {
+    return $this->Zip5;
+  }
+
+  private function getZip4()
+  {
+    return $this->Zip4;
   }
 }

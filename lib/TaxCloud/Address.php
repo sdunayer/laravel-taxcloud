@@ -26,6 +26,8 @@
 
 namespace TaxCloud;
 
+use TaxCloud\Exceptions\AddressException;
+
 class Address
 {
   private $Address1;
@@ -35,7 +37,7 @@ class Address
   private $Zip5;
   private $Zip4;
 
-  public function __construct($Address1, $Address2, $City, $State, $Zip5, $Zip4)
+  public function __construct($Address1, $Address2, $City, $State, $Zip5, $Zip4 = NULL)
   {
     $this->setAddress1($Address1);
     $this->setAddress2($Address2);
@@ -62,7 +64,7 @@ class Address
 
   public function getAddress2()
   {
-    return $this->Address2;
+    return (isset($this->Address2)) ? $this->Address2 : NULL;
   }
 
   public function setCity($city)
@@ -88,7 +90,7 @@ class Address
   public function setZip5($zip5)
   {
     if (!preg_match('#[0-9]{5}#', $zip5)) {
-      throw new \Exception('Zip5 must be five numeric characters.');
+      throw new AddressException('Zip5 must be five numeric characters.');
     }
     $this->Zip5 = $zip5;
   }
@@ -101,7 +103,7 @@ class Address
   public function setZip4($zip4)
   {
     if (!empty($zip4) && !preg_match('#[0-9]{4}#', $zip4)) {
-      throw new \Exception('Zip4 must be four numeric characters.');
+      throw new AddressException('Zip4 must be four numeric characters.');
     }
     $this->Zip4 = $zip4;
   }
@@ -109,5 +111,10 @@ class Address
   public function getZip4()
   {
     return $this->Zip4;
+  }
+
+  public function getZip()
+  {
+    return $this->Zip5 . '-' . $this->Zip4;
   }
 }
