@@ -28,44 +28,7 @@ class CartItemTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @covers TaxCloud\CartItem::getIndex
-     * @todo   Implement testGetIndex().
-     */
-    public function testGetIndex()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers TaxCloud\CartItem::getItemID
-     * @todo   Implement testGetItemID().
-     */
-    public function testGetItemID()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers TaxCloud\CartItem::getTIC
-     * @todo   Implement testGetTIC().
-     */
-    public function testGetTIC()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers TaxCloud\CartItem::getPrice
+    /** @covers TaxCloud\CartItem::getPrice
      * @todo   Implement testGetPrice().
      */
     public function testGetPrice()
@@ -76,11 +39,10 @@ class CartItemTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers TaxCloud\CartItem::getQty
-     * @todo   Implement testGetQty().
+    /** @covers TaxCloud\CartItem::setPrice
+     * @todo   Implement testSetPrice().
      */
-    public function testGetQty()
+    public function testSetPrice()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

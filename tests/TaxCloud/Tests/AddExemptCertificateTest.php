@@ -31,46 +31,10 @@ class AddExemptCertificateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers TaxCloud\AddExemptCertificate::getApiLoginID
-     * @todo   Implement testGetApiLoginID().
+     * @covers TaxCloud\Request\AddExemptCertificate::setExemptCert
+     * @todo   Implement testSetExemptCert().
      */
-    public function testGetApiLoginID()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers TaxCloud\AddExemptCertificate::getApiKey
-     * @todo   Implement testGetApiKey().
-     */
-    public function testGetApiKey()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers TaxCloud\AddExemptCertificate::getCustomerID
-     * @todo   Implement testGetCustomerID().
-     */
-    public function testGetCustomerID()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers TaxCloud\AddExemptCertificate::getExemptCert
-     * @todo   Implement testGetExemptCert().
-     */
-    public function testGetExemptCert()
+    public function testSetExemptCert()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
