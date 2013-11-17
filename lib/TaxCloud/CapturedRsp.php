@@ -26,6 +26,8 @@
 
 namespace TaxCloud;
 
-class CapturedRsp
+use TaxCloud\ResponseBase;
+
+class CapturedRsp extends ResponseBase
 {
 }

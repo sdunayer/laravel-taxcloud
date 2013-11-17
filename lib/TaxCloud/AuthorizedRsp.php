@@ -26,6 +26,8 @@
 
 namespace TaxCloud;
 
-class AuthorizedRsp
+use TaxCloud\ResponseBase;
+
+class AuthorizedRsp extends ResponseBase
 {
 }

@@ -26,7 +26,9 @@
 
 namespace TaxCloud;
 
-class LookupRsp
+use TaxCloud\ResponseBase;
+
+class LookupRsp extends ResponseBase
 {
   private $CartID; // string
   private $CartItemsResponse; // ArrayOfCartItemResponse

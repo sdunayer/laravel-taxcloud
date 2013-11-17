@@ -32,6 +32,6 @@ class ReturnedResponse
 
   public function getReturnedResult()
   {
-    return $this->ReturnedResult();
+    return $this->ReturnedResult;
   }
 }

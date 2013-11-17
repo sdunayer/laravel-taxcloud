@@ -59,7 +59,11 @@ try {
 step('Get TICs By Group');
 
 $params = new \TaxCloud\Request\GetTICsByGroup($apiLoginID, $apiKey, 10000);
-print_r($client->GetTICsByGroup($params));
+try {
+  $client->GetTICsByGroup($params);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('Cart Item');
 $cartItems = array();
@@ -90,12 +94,13 @@ $address = new \TaxCloud\Address(
 
 $verifyAddress = new \TaxCloud\Request\VerifyAddress($uspsUserID, $address);
 
-$verifiedAddress = $client->VerifyAddress($verifyAddress);
-print_r($verifiedAddress);
+try {
+  $verifiedAddress = $client->VerifyAddress($verifyAddress);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('Lookup');
-
-print_r($address);
 
 $originAddress = new \TaxCloud\Address(
   $verifiedAddress->getAddress1(),
@@ -115,26 +120,44 @@ $destAddress = new \TaxCloud\Address(
   ''
 );
 
-print_r($destAddress);
-
 $lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID, $cartItems, $originAddress, $destAddress);
-print_r($client->Lookup($lookup));
+try {
+  $client->Lookup($lookup);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('Authorized');
 
 $authorization = new \TaxCloud\Request\Authorized($apiLoginID, $apiKey, '123', $cartID, $cartItems, $orderID, date("c"));
-print_r($client->Authorized($authorization));
+try {
+  $client->Authorized($authorization);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('Captured');
 $capture = new \TaxCloud\Request\Captured($apiLoginID, $apiKey, $orderID);
-print_r($client->Captured($capture));
+try {
+  $client->Captured($capture);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('Authorized With Capture');
 $lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID + 1, $cartItems, $originAddress, $destAddress);
 $client->Lookup($lookup);
 $authcap = new \TaxCloud\Request\AuthorizedWithCapture($apiLoginID, $apiKey, '123', $cartID + 1, $orderID + 1, date("c"), date("c"));
-print_r($client->AuthorizedWithCapture($authcap));
+try {
+  $client->AuthorizedWithCapture($authcap);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
 
 step('Returned');
 $return = new \TaxCloud\Request\Returned($apiLoginID, $apiKey, $orderID + 1, $cartItems, date("c"));
-print_r($client->Returned($return));
+try {
+  $client->Returned($return);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}

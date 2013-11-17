@@ -26,6 +26,9 @@
 
 namespace TaxCloud;
 
+use TaxCloud\Exceptions\AuthorizedException;
+use TaxCloud\Exceptions\AuthorizedWithCaptureException;
+use TaxCloud\Exceptions\CapturedException;
 use TaxCloud\Exceptions\GetTICsException;
 use TaxCloud\Exceptions\GetTICsByGroupException;
 use TaxCloud\Exceptions\GetTICGroupsException;
@@ -184,7 +187,7 @@ class Client extends \SoapClient
 
     $LookupResult = $LookupResponse->getLookupResult();
 
-    if ($LookupResult->getErrNumber() == 0) {
+    if ($LookupResult->getResponseType() == 'OK') {
       $return = array();
 
       foreach ($LookupResult->getCartItemsResponse() as $CartItemResponse) {
@@ -203,7 +206,9 @@ class Client extends \SoapClient
       return $return;
     }
     else {
-      throw new LookupException($LookupResult->getErrDescription(), $LookupResult->getErrNumber());
+      foreach ($LookupResult->getMessages() as $message) {
+        throw new LookupException($message->getMessage());
+      }
     }
   }
 
@@ -215,11 +220,22 @@ class Client extends \SoapClient
    */
   public function Authorized(Authorized $parameters)
   {
-    return $this->__soapCall('Authorized', array($parameters),       array(
+    $AuthorizedResponse = $this->__soapCall('Authorized', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-      );
+         );
+
+    $AuthorizedResult = $AuthorizedResponse->getAuthorizedResult();
+
+    if ($AuthorizedResult->getResponseType() == 'OK') {
+      return TRUE;
+    }
+    else {
+      foreach ($AuthorizedResult->getMessages() as $message) {
+        throw new AuthorizedException($message->getMessage());
+      }
+    }
   }
 
   /**
@@ -230,11 +246,22 @@ class Client extends \SoapClient
    */
   public function AuthorizedWithCapture(AuthorizedWithCapture $parameters)
   {
-    return $this->__soapCall('AuthorizedWithCapture', array($parameters),       array(
+    $AuthorizedWithCaptureResponse = $this->__soapCall('AuthorizedWithCapture', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-      );
+         );
+
+    $AuthorizedWithCaptureResult = $AuthorizedWithCaptureResponse->getAuthorizedWithCaptureResult();
+
+    if ($AuthorizedWithCaptureResult->getResponseType() == 'OK') {
+      return TRUE;
+    }
+    else {
+      foreach ($AuthorizedWithCaptureResult->getMessages() as $message) {
+        throw new AuthorizedWithCaptureException($message->getMessage());
+      }
+    }
   }
 
   /**
@@ -245,11 +272,22 @@ class Client extends \SoapClient
    */
   public function Captured(Captured $parameters)
   {
-    return $this->__soapCall('Captured', array($parameters),       array(
+    $CapturedResponse = $this->__soapCall('Captured', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-      );
+         );
+
+    $CapturedResult = $CapturedResponse->getCapturedResult();
+
+    if ($CapturedResult->getResponseType() == 'OK') {
+      return TRUE;
+    }
+    else {
+      foreach ($CapturedResult->getMessages() as $message) {
+        throw new CapturedException($message->getMessage());
+      }
+    }
   }
 
   /**
@@ -260,11 +298,22 @@ class Client extends \SoapClient
    */
   public function Returned(Returned $parameters)
   {
-    return $this->__soapCall('Returned', array($parameters),       array(
+    $ReturnedResponse = $this->__soapCall('Returned', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-      );
+         );
+
+    $ReturnedResult = $ReturnedResponse->getReturnedResult();
+
+    if ($ReturnedResult->getResponseType() == 'OK') {
+      return TRUE;
+    }
+    else {
+      foreach ($ReturnedResult->getMessages() as $message) {
+        throw new ReturnedException($message->getMessage());
+      }
+    }
   }
 
   /**
@@ -282,7 +331,7 @@ class Client extends \SoapClient
          );
 
     $GetTICGroupsResult = $GetTICGroupsResponse->getTICGroupsResult();
-    if ($GetTICGroupsResult->getErrNumber() == 0) {
+    if ($GetTICGroupsResult->getResponseType() == 'OK') {
       $TICGroups = $GetTICGroupsResult->getTICGroups();
 
       $return = array();
@@ -295,7 +344,9 @@ class Client extends \SoapClient
       return $return;
     }
     else {
-      throw new GetTICGroupsException($GetTICGroupsResult->getErrDescription(), $GetTICGroupsResult->getErrNumber());
+      foreach ($GetTICGroupsResult->getMessages() as $message) {
+        throw new GetTICGroupsException($message->getMessage());
+      }
     }
   }
 
@@ -331,7 +382,6 @@ class Client extends \SoapClient
       foreach ($GetTICsResult->getMessages() as $message) {
         throw new GetTICsException($message->getMessage());
       }
-      return $GetTICsResult;
     }
   }
 
@@ -351,7 +401,7 @@ class Client extends \SoapClient
 
     $GetTICsByGroupResult = $GetTICsByGroupResponse->GetTICsByGroupResult();
 
-    if ($GetTICsByGroupResult->getErrNumber() == 0) {
+    if ($GetTICsByGroupResult->getResponseType() == 'OK') {
       $TICs = $GetTICsByGroupResult->getTICs();
 
       $return = array();
@@ -364,7 +414,9 @@ class Client extends \SoapClient
       return $return;
     }
     else {
-      throw new GetTICsByGroupException($GetTICsByGroupResult->getErrDescription(), $GetTICsByGroupResult->getErrNumber());
+      foreach ($GetTICsByGroupResult->getMessages() as $message) {
+        throw new GetTICsByGroupException($message->getMessage());
+      }
     }
   }
 
@@ -428,16 +480,13 @@ class Client extends \SoapClient
          );
     $result = $response->getPingResult();
 
-    $responsetype = $result->getResponseType();
-
-    if ($responsetype == 'OK') {
+    if ($result->getResponseType() == 'OK') {
       return TRUE;
     }
     else {
       foreach ($result->getMessages() as $message) {
         throw new PingException($message->getMessage());
       }
-      return $result;
     }
   }
 
