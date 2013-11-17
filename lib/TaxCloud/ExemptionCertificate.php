@@ -31,7 +31,7 @@ class ExemptionCertificate
   private $CertificateID; // string
   private $Detail; // ExemptionCertificateDetail
 
-  public function __construct((array) $ExemptStates, $SinglePurchase = 0, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2 = '', $PurchaserCity, $PurchaserState, $PurchaserZip, TaxID $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue = '', $PurchaserExemptionReason, $PurchaseExemptionReasonValue)
+  public function __construct(array $ExemptStates, $SinglePurchase = 0, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2 = '', $PurchaserCity, $PurchaserState, $PurchaserZip, TaxID $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue = '', $PurchaserExemptionReason, $PurchaseExemptionReasonValue)
   {
     $this->Detail = new ExemptionCertificateDetail(
       $ExemptStates,
@@ -46,9 +46,9 @@ class ExemptionCertificate
       $PurchaserState,
       $PurchaserZip,
       $PurchaserTaxID,
-      BusinessType::$PurchaserBusinessType,
+      $PurchaserBusinessType,
       $PurchaserBusinessTypeOtherValue,
-      ExemptionReason::$PurchaserExemptionReason,
+      $PurchaserExemptionReason,
       $PurchaseExemptionReasonValue
     );
   }

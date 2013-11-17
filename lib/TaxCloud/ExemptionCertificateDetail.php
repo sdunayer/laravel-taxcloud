@@ -26,6 +26,9 @@
 
 namespace TaxCloud;
 
+use TaxCloud\BusinessType;
+use TaxCloud\ExemptionReason;
+
 class ExemptionCertificateDetail
 {
   private $ExemptStates; // ArrayOfExemptState
@@ -187,9 +190,9 @@ class ExemptionCertificateDetail
     return $this->PurchaserTaxID;
   }
 
-  private function setPurchaserBusinessType(BusinessType $PurchaserBusinessType)
+  private function setPurchaserBusinessType($PurchaserBusinessType)
   {
-    $this->PurchaserBusinessType = $PurchaserBusinessType;
+    $this->PurchaserBusinessType = constant("BusinessType::$PurchaserBusinessType");
   }
 
   public function getPurchaserBusinessType()
@@ -207,9 +210,9 @@ class ExemptionCertificateDetail
     return $this->PurchaserBusinessTypeOtherValue;
   }
 
-  private function setPurchaserExemptionReason(ExemptionReason $PurchaserExemptionReason)
+  private function setPurchaserExemptionReason($PurchaserExemptionReason)
   {
-    $this->PurchaserExemptionReason = $PurchaserExemptionReason;
+    $this->PurchaserExemptionReason = constant("ExemptionReason::$PurchaserExemptionReason");
   }
 
   public function getPurchaserExemptionReason()

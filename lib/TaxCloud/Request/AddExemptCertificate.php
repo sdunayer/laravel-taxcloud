@@ -26,6 +26,7 @@
 
 namespace TaxCloud\Request;
 
+use TaxCloud\ExemptionCertificate;
 use TaxCloud\Request\RequestBase;
 
 class AddExemptCertificate extends RequestBase

@@ -41,7 +41,7 @@ class TaxID
 
   private function setTaxType($TaxType)
   {
-    $this->TaxType = TaxIDType::$TaxType;
+    $this->TaxType = constant("TaxCloud\\TaxIDType::$TaxType");
   }
 
   public function getTaxType()

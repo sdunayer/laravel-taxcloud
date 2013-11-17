@@ -41,7 +41,7 @@ class ExemptState
 
   private function setStateAbbr($StateAbbr)
   {
-    $this->StateAbbr = State::$StateAbbr;
+    $this->StateAbbr = constant("State::$StateAbbr");
   }
 
   public function getStateAbbr()
