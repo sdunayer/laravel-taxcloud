@@ -17,7 +17,13 @@ class CartItemTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new CartItem;
+      $this->object = new CartItem(
+        '123',
+        'ABC123',
+        '00000',
+        '12.34',
+        '1'
+      );
     }
 
     /**

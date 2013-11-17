@@ -19,7 +19,14 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Address;
+      $this->object = new Address(
+        '1600 Pennsylvania Ave NW',
+        '',
+        'Washington',
+        'DC',
+        '20006',
+        '0004'
+      );
     }
 
     /**
