@@ -1,12 +1,9 @@
-**THIS IS NOT READY FOR PRODUCTION USE**
-
 [![Latest Stable Version](https://poser.pugx.org/vmdoh/php-taxcloud/v/stable.png)](https://packagist.org/packages/vmdoh/php-taxcloud)
 [![Total Downloads](https://poser.pugx.org/vmdoh/php-taxcloud/downloads.png)](https://packagist.org/packages/vmdoh/php-taxcloud)
 [![Build Status](https://travis-ci.org/VMdoh/php-taxcloud.png?branch=master)](https://travis-ci.org/VMdoh/php-taxcloud)
 
 At this point, most of the functionality needed to complete an order has been
-implemented. A few things are still left, including Tax Exemptions and Return
-processing.
+implemented. The only feature left to fully test and implement is exemptions.
 
 A smoketest is provided that connects to the TaxCloud API using credentials
 stored in environment variables. It is intended for quick tests to ensure that
