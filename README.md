@@ -29,8 +29,8 @@ Contributions
 ----------------
 If you'd like to help with php-taxcloud, your efforts are appreciated!
 
-However, your code should follow PSR-2 guidelines, and API changes must be
-accompanied by tests.
+However, your code should at least somewhat closely follow PSR-2 guidelines, and
+API changes should be accompanied by tests.
 
 Getting Started
 ----------------
