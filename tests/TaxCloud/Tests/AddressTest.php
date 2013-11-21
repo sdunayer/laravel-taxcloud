@@ -38,49 +38,38 @@ class AddressTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers TaxCloud\Address::getAddress2
-     * @todo   Implement testGetAddress2().
+     * @covers \TaxCloud\Address::getAddress2
      */
     public function testGetAddress2()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $address2 = $this->object->getAddress2();
+        $this->assertEmpty($address2, 'Address2 should be empty.');
     }
 
     /**
-     * @covers TaxCloud\Address::setZip5
-     * @todo   Implement testSetZip5().
+     * @covers \TaxCloud\Address::setZip5
      */
     public function testSetZip5()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->object->setZip5('12345');
+        $this->assertEquals('12345', $this->object->getZip5(), 'ZIP5 should be set to 12345.');
     }
 
     /**
-     * @covers TaxCloud\Address::setZip4
-     * @todo   Implement testSetZip4().
+     * @covers \TaxCloud\Address::setZip4
      */
     public function testSetZip4()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->object->setZip4('1234');
+        $this->assertEquals('1234', $this->object->getZip4(), 'ZIP4 should be set to 1234.');
     }
 
     /**
-     * @covers TaxCloud\Address::getZip
-     * @todo   Implement testGetZip().
+     * @covers \TaxCloud\Address::getZip
      */
     public function testGetZip()
     {
-      $this->markTestIncomplete(
-        'This test has not been implemented yet.'
-      );
+      $zip = $this->object->getZip();
+      $this->assertEquals('20006-0004', $zip, 'getZip() should return ZIP+4');
     }
 }
