@@ -83,32 +83,37 @@ print_r($cartItems);
 
 step('Verify Address');
 $address = new \TaxCloud\Address(
-  '1600 Pennsylvania Ave NW',
+  '206 Pike St',
   '',
-  'Washington',
-  'DC',
+  'Atlanta',
+  'GA',
   // Intentionally wrong zip
-  '20006',
-  '1234'
+  '98000',
+  ''
 );
 
 $verifyAddress = new \TaxCloud\Request\VerifyAddress($uspsUserID, $address);
 
 try {
-  $verifiedAddress = $client->VerifyAddress($verifyAddress);
-} catch (Exception $e) {
+  $address = $client->VerifyAddress($verifyAddress);
+}
+catch (\TaxCloud\Exceptions\USPSIDException $e) {
+ echo 'Caught exception: ', $e->getMessage(), "\n";
+ return;
+}
+catch (Exception $e) {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
 
 step('Lookup');
 
 $originAddress = new \TaxCloud\Address(
-  $verifiedAddress->getAddress1(),
-  $verifiedAddress->getAddress2(),
-  $verifiedAddress->getCity(),
-  $verifiedAddress->getState(),
-  $verifiedAddress->getZip5(),
-  $verifiedAddress->getZip4()
+  $address->getAddress1(),
+  $address->getAddress2(),
+  $address->getCity(),
+  $address->getState(),
+  $address->getZip5(),
+  $address->getZip4()
 );
 
 $destAddress = new \TaxCloud\Address(

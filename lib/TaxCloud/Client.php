@@ -34,6 +34,7 @@ use TaxCloud\Exceptions\GetTICsByGroupException;
 use TaxCloud\Exceptions\GetTICGroupsException;
 use TaxCloud\Exceptions\LookupException;
 use TaxCloud\Exceptions\PingException;
+use TaxCloud\Exceptions\USPSIDException;
 use TaxCloud\Exceptions\VerifyAddressException;
 use TaxCloud\Request\AddExemptCertificate;
 use TaxCloud\Request\Authorized;
@@ -144,6 +145,9 @@ class Client extends \SoapClient
 
     if ($VerifyAddressResult->getErrNumber() == 0) {
       return $VerifyAddressResult->getAddress();
+    }
+    elseif ($VerifyAddressResult->getErrNumber() == '80040B1A') {
+      throw new USPSIDException($VerifyAddressResult->getErrDescription(), $VerifyAddressResult->getErrNumber());
     }
     else {
       throw new VerifyAddressException($VerifyAddressResult->getErrDescription(), $VerifyAddressResult->getErrNumber());
