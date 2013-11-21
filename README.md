@@ -13,9 +13,6 @@ SMOKETEST WITH CREDENTIALS FOR A LIVE SITE. IT WILL CREATE TRANSACTIONS.**
 The smoketest also provides an excellent set of examples on how to use this
 library.
 
-A "stable" release will be considered when tests cover 90% or more of code,
-though 100% coverage is the target.
-
 About
 ----------------
 PHP library to facilitate the ability of your PHP web application to
