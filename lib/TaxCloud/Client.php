@@ -147,10 +147,10 @@ class Client extends \SoapClient
       return $VerifyAddressResult->getAddress();
     }
     elseif ($VerifyAddressResult->getErrNumber() == '80040B1A') {
-      throw new USPSIDException($VerifyAddressResult->getErrDescription(), $VerifyAddressResult->getErrNumber());
+      throw new USPSIDException('Error ' . $VerifyAddressResult->getErrNumber() . ': ' . $VerifyAddressResult->getErrDescription());
     }
     else {
-      throw new VerifyAddressException($VerifyAddressResult->getErrDescription(), $VerifyAddressResult->getErrNumber());
+      throw new VerifyAddressException('Error ' . $VerifyAddressResult->getErrNumber() . ': ' . $VerifyAddressResult->getErrDescription());
     }
   }
 
