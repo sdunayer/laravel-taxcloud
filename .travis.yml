@@ -7,3 +7,8 @@ notifications:
   irc: irc.freenode.org#vmdoh
 before_script:
   - composer install --prefer-source
+script:
+  - mkdir -p build/logs
+  - phpunit
+after_script:
+  - php vendor/bin/coveralls -v
