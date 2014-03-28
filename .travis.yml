@@ -5,3 +5,5 @@ php:
   - "5.5"
 notifications:
   irc: irc.freenode.org#vmdoh
+before-script:
+  - composer install --prefer-source
