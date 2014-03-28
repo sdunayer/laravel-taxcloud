@@ -1,6 +1,7 @@
 [![Latest Stable Version](https://poser.pugx.org/vmdoh/php-taxcloud/v/stable.png)](https://packagist.org/packages/vmdoh/php-taxcloud)
 [![Total Downloads](https://poser.pugx.org/vmdoh/php-taxcloud/downloads.png)](https://packagist.org/packages/vmdoh/php-taxcloud)
 [![Build Status](https://travis-ci.org/VMdoh/php-taxcloud.png?branch=master)](https://travis-ci.org/VMdoh/php-taxcloud)
+[![Coverage Status](https://coveralls.io/repos/VMdoh/php-taxcloud/badge.png?branch=master)](https://coveralls.io/r/VMdoh/php-taxcloud?branch=master)
 
 At this point, most of the functionality needed to complete an order has been
 implemented. The only feature left to fully test and implement is exemptions.
