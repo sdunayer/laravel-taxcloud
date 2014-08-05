@@ -7,16 +7,21 @@
 
 namespace TaxCloud\Tests;
 
+use \ReflectionClass;
 use TaxCloud\Address;
 use TaxCloud\CartItem;
+use TaxCloud\CartItemResponse;
 use TaxCloud\Client;
 use TaxCloud\PingResponse;
 use TaxCloud\PingRsp;
 use TaxCloud\ResponseMessage;
 use TaxCloud\Request\Lookup;
+use TaxCloud\LookupResponse;
+use TaxCloud\LookupRsp;
 use TaxCloud\Request\Ping;
 use TaxCloud\Request\VerifyAddress;
 use TaxCloud\VerifiedAddress;
+use TaxCloud\VerifyAddressResponse;
 
 class ClientTest extends \PHPUnit_Framework_TestCase {
 
@@ -64,38 +69,39 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $verifyAddress = new VerifyAddress($uspsUserID, $address);
     $this->assertEquals($uspsUserID, $verifyAddress->getUspsUserID());
 
-    $result = new \stdClass();
-    $result->Address1 = $address->getAddress1();
-    $result->City = $address->getCity();
-    $result->State = $address->getState();
-    $result->Zip5 = $address->getZip5();
-    $result->Zip4 = $address->getZip4();
-    $result->ErrNumber = 0;
+    $resultobj = new VerifiedAddress();
+    $result = new ReflectionClass('\TaxCloud\VerifiedAddress');
+    $property = $result->getProperty('Address1');
+    $property->setAccessible(true);
+    $property->setValue($resultobj, $address->getAddress1());
+    $property = $result->getProperty('City');
+    $property->setAccessible(true);
+    $property->setValue($resultobj, $address->getCity());
+    $property = $result->getProperty('State');
+    $property->setAccessible(true);
+    $property->setValue($resultobj, $address->getState());
+    $property = $result->getProperty('Zip5');
+    $property->setAccessible(true);
+    $property->setValue($resultobj, $address->getZip5());
+    $property = $result->getProperty('Zip4');
+    $property->setAccessible(true);
+    $property->setValue($resultobj, $address->getZip4());
+    $property = $result->getProperty('ErrNumber');
+    $property->setAccessible(true);
+    $property->setValue($resultobj, '0');
 
-    $expected = new VerifiedAddress;
-    $expected->VerifyAddressResult = $result;
-
-    $nousps = clone $verifyAddress;
-    $nousps->setUspsUserID('');
-    $this->assertEmpty($nousps->getUspsUserID());
-
-    $nouspsResult = new \stdClass();
-    $nouspsResult->ErrNumber = '80040b1a';
-
-    $nouspsExpected = new VerifiedAddress;
-    $nouspsExpected->VerifyAddressResult = $nouspsResult;
-
-    $map = array(
-      array($verifyAddress, $expected),
-      array($nousps, $nouspsExpected)
-    );
+    $expected = new ReflectionClass('\TaxCloud\VerifyAddressResponse');
+    $expectedobj = new VerifyAddressResponse();
+    $property = $expected->getProperty('VerifyAddressResult');
+    $property->setAccessible(true);
+    $property->setValue($expectedobj, $resultobj);
 
     $this->soapmock->expects($this->any())
-           ->method('VerifyAddress')
-           ->will($this->returnValueMap($map));
+           ->method('__soapCall')
+           ->with('VerifyAddress')
+           ->will($this->returnValue($expectedobj));
     $client->setSoapClient($this->soapmock);
-    $this->assertEquals($expected, $client->VerifyAddress($verifyAddress));
-    $this->assertEquals($nouspsExpected, $client->VerifyAddress($nousps));
+    $this->assertEquals($address, $client->VerifyAddress($verifyAddress));
   }
 
   /**
@@ -157,29 +163,58 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('TaxCloud\Address', $lookup->getDestination());
     $this->assertFalse($lookup->getDeliveredBySeller(), 'deliveredBySeller should be FALSE');
 
-    $lookupResult = new \stdClass();
-    $lookupResult->CartID = $cartID;
+    $lookupResult = new ReflectionClass('\TaxCloud\LookupRsp');
+    $lookupResultobj = new LookupRsp();
+    $property = $lookupResult->getProperty('CartID');
+    $property->setAccessible(true);
+    $property->setValue($lookupResultobj, $cartID);
 
     $cartItemResponseItems = array();
-    $cartItemResponse1 = new \stdClass();
-    $cartItemResponse1->CartItemIndex = $cartID + 1;
-    $cartItemResponse1->TaxAmount = 0.54;
-    $cartItemResponseItems[] = $cartItemResponse1;
-    $cartItemResponse2 = new \stdClass();
-    $cartItemResponse2->CartItemIndex = $cartID + 2;
-    $cartItemResponse2->TaxAmount = 0;
-    $cartItemResponseItems[] = $cartItemResponse2;
+    $cartItemResponse1obj = new CartItemResponse();
+    $cartItemResponse1 = new ReflectionClass('\TaxCloud\CartItemResponse');
+    $property = $cartItemResponse1->getProperty('CartItemIndex');
+    $property->setAccessible(true);
+    $property->setValue($cartItemResponse1obj, $cartID + 1);
+    $property = $cartItemResponse1->getProperty('TaxAmount');
+    $property->setAccessible(true);
+    $property->setValue($cartItemResponse1obj, '0.54');
+    $cartItemResponseItems[] = $cartItemResponse1obj;
+    $cartItemResponse2obj = new CartItemResponse();
+    $cartItemResponse2 = new ReflectionClass('\TaxCloud\CartItemResponse');
+    $property = $cartItemResponse2->getProperty('CartItemIndex');
+    $property->setAccessible(true);
+    $property->setValue($cartItemResponse2obj, $cartID + 2);
+    $property = $cartItemResponse2->getProperty('TaxAmount');
+    $property->setAccessible(true);
+    $property->setValue($cartItemResponse2obj, '0');
+    $cartItemResponseItems[] = $cartItemResponse2obj;
 
-    $cartItemsResponse = new \stdClass();
-    $cartItemsResponse->CartItemsResponse = $cartItemResponseItems;
+    $property = $lookupResult->getProperty('CartItemsResponse');
+    $property->setAccessible(true);
+    $property->setValue($lookupResultobj, $cartItemResponseItems);
+    $property = $lookupResult->getProperty('ResponseType');
+    $property->setAccessible(true);
+    $property->setValue($lookupResultobj, 'OK');
 
-    $lookupResult->LookupResult = $cartItemsResponse;
+    $lookupResponse = new ReflectionClass('\TaxCloud\LookupResponse');
+    $lookupResponseobj = new LookupResponse();
+    $property = $lookupResponse->getProperty('LookupResult');
+    $property->setAccessible(true);
+    $property->setValue($lookupResponseobj, $lookupResultobj);
+
+    $expected = array(
+      '456' => array(
+        '457' => '0.54',
+        '458' => '0',
+      ),
+    );
 
     $this->soapmock->expects($this->any())
-           ->method('Lookup')
-           ->will($this->returnValue($lookupResult));
+           ->method('__soapCall')
+           ->with('Lookup')
+           ->will($this->returnValue($lookupResponseobj));
     $client->setSoapClient($this->soapmock);
-    $this->assertEquals($lookupResult, $client->Lookup($lookup));
+    $this->assertEquals($expected, $client->Lookup($lookup));
   }
 
   /**
@@ -299,39 +334,27 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
 
     $ping = new Ping($apiLoginID, $apiKey);
 
-    $pingBad = new Ping('xxx', 'xxx');
+    $pingResult = new ReflectionClass('\TaxCloud\PingRsp');
+    $pingResultobj = new PingRsp();
+    $property = $pingResult->getProperty('ResponseType');
+    $property->setAccessible(true);
+    $property->setValue($pingResultobj, 'OK');
+    $property = $pingResult->getProperty('Messages');
+    $property->setAccessible(true);
+    $property->setValue($pingResultobj, array());
 
-    $pingResult = new PingRsp();
-    $pingResult->setResponseType = 'OK';
-    $pingResult->setMessages = '';
-
-    $pingResponse = new PingResponse($pingResult);
-//    $pingResponse->PingResult = $pingResult;
-
-    $pingResultBad = new PingRsp();
-    $pingResultBad->setResponseType = 'OK';
-    $pingResultBad->setMessages = new \stdClass();
-
-    $pingResultBadMessage = new ResponseMessage();
-//    $pingResultBadMessage->ResponseType = 'Error';
-//    $pingResultBadMessage->Message = 'Invalid apiLoginID and/or apiKey';
-
-    $pingResultBad->ResponseMessage = $pingResultBadMessage;
-
-    $pingResponseBad = new PingResponse($pingResult);
-//    $pingResponseBad->PingResult = $pingResult;
-
-    $map = array(
-      array($ping, $pingResponse),
-      array($pingBad, $pingResponseBad)
-    );
+    $pingResponse = new ReflectionClass('\TaxCloud\PingResponse');
+    $pingResponseobj = new PingResponse();
+    $property = $pingResponse->getProperty('PingResult');
+    $property->setAccessible(true);
+    $property->setValue($pingResponseobj, $pingResultobj);
 
     $client = $this->taxcloud;
     $this->soapmock->expects($this->any())
-           ->method('Ping')
-           ->will($this->returnValueMap($map));
+           ->method('__soapCall')
+           ->with('Ping')
+           ->will($this->returnValue($pingResponseobj));
     $client->setSoapClient($this->soapmock);
-    $this->assertEquals($pingResponse, $client->Ping($ping));
-    $this->assertEquals($pingResponseBad, $client->Ping($pingBad));
+    $this->assertTrue($client->Ping($ping));
   }
 }
