@@ -30,9 +30,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * This method is called before a test is executed.
    */
   protected function setUp() {
-    $soapmock = $this->getMockFromWSDL(self::WSDL);
+    $this->soapmock = $this->getMockFromWSDL(self::WSDL);
     $this->taxcloud = new Client();
-    $this->taxcloud->setSoapClient($soapmock);
   }
 
   /**
@@ -50,6 +49,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function testVerifyAddress()
   {
     $client = $this->taxcloud;
+
     $uspsUserID = '123ABCDE5678';
 
     $address = new Address(
@@ -90,9 +90,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       array($nousps, $nouspsExpected)
     );
 
-    $client->expects($this->any())
+    $this->soapmock->expects($this->any())
            ->method('VerifyAddress')
            ->will($this->returnValueMap($map));
+    $client->setSoapClient($this->soapmock);
     $this->assertEquals($expected, $client->VerifyAddress($verifyAddress));
     $this->assertEquals($nouspsExpected, $client->VerifyAddress($nousps));
   }
@@ -174,10 +175,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
 
     $lookupResult->LookupResult = $cartItemsResponse;
 
-    $client->expects($this->any())
+    $this->soapmock->expects($this->any())
            ->method('Lookup')
            ->will($this->returnValue($lookupResult));
-
+    $client->setSoapClient($this->soapmock);
     $this->assertEquals($lookupResult, $client->Lookup($lookup));
   }
 
@@ -326,10 +327,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     );
 
     $client = $this->taxcloud;
-    $client->expects($this->any())
+    $this->soapmock->expects($this->any())
            ->method('Ping')
            ->will($this->returnValueMap($map));
-
+    $client->setSoapClient($this->soapmock);
     $this->assertEquals($pingResponse, $client->Ping($ping));
     $this->assertEquals($pingResponseBad, $client->Ping($pingBad));
   }
