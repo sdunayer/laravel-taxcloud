@@ -30,6 +30,12 @@ class VerifiedAddress
 {
   private $ErrNumber; // string
   private $ErrDescription; // string
+  private $Address1; // string
+  private $Address2; // string
+  private $City; // string
+  private $State; // string
+  private $Zip5; //string
+  private $Zip4; //string
 
   public function getErrNumber()
   {
