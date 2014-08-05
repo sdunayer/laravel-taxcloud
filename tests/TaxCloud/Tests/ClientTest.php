@@ -32,7 +32,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   protected function setUp() {
     $soapmock = $this->getMockFromWSDL(self::WSDL);
     $this->taxcloud = new Client();
-    $this->setSoapClient($soapmock);
+    $this->taxcloud->setSoapClient($soapmock);
   }
 
   /**
