@@ -57,7 +57,7 @@ use TaxCloud\Request\VerifyAddress;
  * @author    Brian Altenhofel
  * @package   php-taxcloud
  */
-class Client extends \SoapClient
+class Client
 {
   private static $classmap = array(
     'VerifyAddress' => '\TaxCloud\Request\VerifyAddress',
@@ -119,13 +119,7 @@ class Client extends \SoapClient
 
   public function __construct($wsdl = "https://api.taxcloud.net/1.0/?wsdl", $options = array())
   {
-    foreach (self::$classmap as $key => $value) {
-      if (!isset($options['classmap'][$key])) {
-        $options['classmap'][$key] = $value;
-      }
-    }
-
-    parent::__construct($wsdl, $options);
+    $this->buildSoapClient($wsdl, $options);
   }
 
   /**
@@ -136,7 +130,7 @@ class Client extends \SoapClient
    */
   public function VerifyAddress(VerifyAddress $parameters)
   {
-    $VerifyAddressResponse = $this->__soapCall('VerifyAddress', array($parameters),       array(
+    $VerifyAddressResponse = $this->soapClient->__soapCall('VerifyAddress', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -162,7 +156,7 @@ class Client extends \SoapClient
    */
   public function LookupForDate(LookupForDate $parameters)
   {
-    return $this->__soapCall('LookupForDate', array($parameters),       array(
+    return $this->soapClient->__soapCall('LookupForDate', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -183,7 +177,7 @@ class Client extends \SoapClient
    */
   public function Lookup(Lookup $parameters)
   {
-    $LookupResponse = $this->__soapCall('Lookup', array($parameters),       array(
+    $LookupResponse = $this->soapClient->__soapCall('Lookup', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -224,7 +218,7 @@ class Client extends \SoapClient
    */
   public function Authorized(Authorized $parameters)
   {
-    $AuthorizedResponse = $this->__soapCall('Authorized', array($parameters),       array(
+    $AuthorizedResponse = $this->soapClient->__soapCall('Authorized', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -250,7 +244,7 @@ class Client extends \SoapClient
    */
   public function AuthorizedWithCapture(AuthorizedWithCapture $parameters)
   {
-    $AuthorizedWithCaptureResponse = $this->__soapCall('AuthorizedWithCapture', array($parameters),       array(
+    $AuthorizedWithCaptureResponse = $this->soapClient->__soapCall('AuthorizedWithCapture', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -276,7 +270,7 @@ class Client extends \SoapClient
    */
   public function Captured(Captured $parameters)
   {
-    $CapturedResponse = $this->__soapCall('Captured', array($parameters),       array(
+    $CapturedResponse = $this->soapClient->__soapCall('Captured', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -302,7 +296,7 @@ class Client extends \SoapClient
    */
   public function Returned(Returned $parameters)
   {
-    $ReturnedResponse = $this->__soapCall('Returned', array($parameters),       array(
+    $ReturnedResponse = $this->soapClient->__soapCall('Returned', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -328,7 +322,7 @@ class Client extends \SoapClient
    */
   public function GetTICGroups(GetTICGroups $parameters)
   {
-    $GetTICGroupsResponse = $this->__soapCall('GetTICGroups', array($parameters),       array(
+    $GetTICGroupsResponse = $this->soapClient->__soapCall('GetTICGroups', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -362,7 +356,7 @@ class Client extends \SoapClient
    */
   public function GetTICs(GetTICs $parameters)
   {
-    $GetTICsResponse = $this->__soapCall('GetTICs', array($parameters),       array(
+    $GetTICsResponse = $this->soapClient->__soapCall('GetTICs', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -397,7 +391,7 @@ class Client extends \SoapClient
    */
   public function GetTICsByGroup(GetTICsByGroup $parameters)
   {
-    $GetTICsByGroupResponse = $this->__soapCall('GetTICsByGroup', array($parameters),       array(
+    $GetTICsByGroupResponse = $this->soapClient->__soapCall('GetTICsByGroup', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -432,7 +426,7 @@ class Client extends \SoapClient
    */
   public function AddExemptCertificate(AddExemptCertificate $parameters)
   {
-    return $this->__soapCall('AddExemptCertificate', array($parameters),       array(
+    return $this->soapClient->__soapCall('AddExemptCertificate', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -447,7 +441,7 @@ class Client extends \SoapClient
    */
   public function DeleteExemptCertificate(DeleteExemptCertificate $parameters)
   {
-    return $this->__soapCall('DeleteExemptCertificate', array($parameters),       array(
+    return $this->soapClient->__soapCall('DeleteExemptCertificate', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -462,7 +456,7 @@ class Client extends \SoapClient
    */
   public function GetExemptCertificates(GetExemptCertificates $parameters)
   {
-    return $this->__soapCall('GetExemptCertificates', array($parameters),       array(
+    return $this->soapClient->__soapCall('GetExemptCertificates', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -477,7 +471,7 @@ class Client extends \SoapClient
    */
   public function Ping(Ping $parameters)
   {
-    $response = $this->__soapCall('Ping', array($parameters),       array(
+    $response = $this->soapClient->__soapCall('Ping', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
@@ -494,4 +488,19 @@ class Client extends \SoapClient
     }
   }
 
+  private function buildSoapClient($wdsl = "https://api.taxcloud.net/1.0/?wdsl", $options = array())
+  {
+    foreach (self::$classmap as $key => $value) {
+      if (!isset($options['classmap'][$key])) {
+        $options['classmap'][$key] = $value;
+      }
+    }
+
+    $this->setSoapClient(new \SoapClient($wdsl, $options));
+  }
+
+  public function setSoapClient(\SoapClient $soapclient)
+  {
+    $this->soapClient = $soapclient;
+  }
 }
