@@ -12,7 +12,7 @@ class CartItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @var CartItem
      */
-    protected $object;
+    protected $_cartitem;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -20,7 +20,7 @@ class CartItemTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-      $this->object = new CartItem(
+      $this->_cartitem = new CartItem(
         '123',
         'ABC123',
         '00000',
@@ -29,22 +29,28 @@ class CartItemTest extends \PHPUnit_Framework_TestCase
       );
     }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
+    public function testGetIndex()
     {
+      $this->assertEquals('123', $this->_cartitem->getIndex());
     }
 
-    /** @covers TaxCloud\CartItem::setPrice
-     * @todo   Implement testSetPrice().
-     */
-    public function testSetPrice()
+    public function testGetItemID()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+      $this->assertEquals('ABC123', $this->_cartitem->getItemID());
+    }
+
+    public function testGetTIC()
+    {
+      $this->assertEquals('00000', $this->_cartitem->getTIC());
+    }
+
+    public function testGetPrice()
+    {
+      $this->assertEquals('12.34', $this->_cartitem->getPrice());
+    }
+
+    public function testGetQty()
+    {
+      $this->assertEquals('1', $this->_cartitem->getQty());
     }
 }
