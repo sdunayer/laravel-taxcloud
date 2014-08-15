@@ -1,19 +1,22 @@
 language: php
 php:
-  - "5.3"
-  - "5.4"
-  - "5.5"
-  - "hhvm"
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - hhvm
 matrix:
   allow_failures:
-    - php: hhvm
+    - php:
+      - 5.6
+      - hhvm
   fast_finish: true
 notifications:
   irc: irc.freenode.org#vmdoh
 before_script:
-  - composer install --prefer-source
-script:
+  - composer install -n --prefer-source
   - mkdir -p build/logs
+script:
   - phpunit
 after_script:
   - php vendor/bin/coveralls -v
