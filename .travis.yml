@@ -5,9 +5,9 @@ php:
   - "5.5"
   - "hhvm"
 matrix:
-  - allow_failures:
+  allow_failures:
     - php: hhvm
-  - fast_finish: true
+  fast_finish: true
 notifications:
   irc: irc.freenode.org#vmdoh
 before_script:
