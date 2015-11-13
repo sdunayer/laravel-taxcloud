@@ -34,6 +34,7 @@ use TaxCloud\Exceptions\GetTICsByGroupException;
 use TaxCloud\Exceptions\GetTICGroupsException;
 use TaxCloud\Exceptions\LookupException;
 use TaxCloud\Exceptions\PingException;
+use TaxCloud\Exceptions\ReturnedException;
 use TaxCloud\Exceptions\USPSIDException;
 use TaxCloud\Exceptions\VerifyAddressException;
 use TaxCloud\Request\AddExemptCertificate;
