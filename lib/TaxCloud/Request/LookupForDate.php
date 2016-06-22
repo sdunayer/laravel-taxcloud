@@ -26,6 +26,7 @@
 
 namespace TaxCloud\Request;
 
+use TaxCloud\Address;
 use TaxCloud\Request\RequestBase;
 
 class LookupForDate extends RequestBase
@@ -42,6 +43,7 @@ class LookupForDate extends RequestBase
   public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $origin, $destination, $deliveredBySeller, $exemptCert, $useDate)
   {
     $this->setCustomerID($customerID);
+    $this->setCartID($cartID);
     $this->setCartItems($cartItems);
     $this->setOrigin($origin);
     $this->setDestination($destination);
