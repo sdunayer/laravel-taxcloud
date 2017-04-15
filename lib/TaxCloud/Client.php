@@ -54,6 +54,8 @@ use TaxCloud\Request\VerifyAddress;
 use TaxCloud\Response\PingResponse;
 use TaxCloud\Response\VerifyAddressResponse;
 use TaxCloud\Response\LookupResponse;
+use TaxCloud\Response\AuthorizedResponse;
+use TaxCloud\Response\AuthorizedWithCaptureResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Request;
 
@@ -225,54 +227,53 @@ class Client
   }
 
   /**
+   * Mark an order as authorized (pending payment).
    *
-   *
-   * @param Authorized $parameters
-   * @return AuthorizedResponse
+   * @param  Authorized $parameters
+   * @return bool
    */
   public function Authorized(Authorized $parameters)
   {
-    $AuthorizedResponse = $this->soapClient->__soapCall('Authorized', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-         );
+    $request = new Request('POST', 'Authorized', self::$headers, json_encode($parameters));
 
-    $AuthorizedResult = $AuthorizedResponse->getAuthorizedResult();
+    try {
+      $response = new AuthorizedResponse($this->client->send($request));
 
-    if ($AuthorizedResult->getResponseType() == 'OK') {
-      return TRUE;
-    }
-    else {
-      foreach ($AuthorizedResult->getMessages() as $message) {
-        throw new AuthorizedException($message->getMessage());
+      if ($response->getResponseType() == 'OK') {
+        return TRUE;
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new AuthorizedException($message->getMessage());
+        }
       }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new AuthorizedException($ex->getMessage());
     }
   }
 
   /**
+   * Mark a previous Lookup as both Authorized and Captured in a single step - do
+   * this AFTER capturing payment with payment processor.
    *
-   *
-   * @param AuthorizedWithCapture $parameters
-   * @return AuthorizedWithCaptureResponse
+   * @param  AuthorizedWithCapture $parameters
+   * @return bool
    */
   public function AuthorizedWithCapture(AuthorizedWithCapture $parameters)
   {
-    $AuthorizedWithCaptureResponse = $this->soapClient->__soapCall('AuthorizedWithCapture', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-         );
+    $request = new Request('POST', 'AuthorizedWithCapture', self::$headers, json_encode($parameters));
 
-    $AuthorizedWithCaptureResult = $AuthorizedWithCaptureResponse->getAuthorizedWithCaptureResult();
+    try {
+      $response = new AuthorizedWithCaptureResponse($this->client->send($request));
 
-    if ($AuthorizedWithCaptureResult->getResponseType() == 'OK') {
-      return TRUE;
-    }
-    else {
-      foreach ($AuthorizedWithCaptureResult->getMessages() as $message) {
-        throw new AuthorizedWithCaptureException($message->getMessage());
+      if ($response->getResponseType() == 'OK') {
+        return TRUE;
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new AuthorizedWithCaptureException($message->getMessage());
+        }
       }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new AuthorizedWithCaptureException($ex->getMessage());
     }
   }
 

@@ -19,30 +19,18 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli.
  */
 
 namespace TaxCloud\Request;
 
-use TaxCloud\Request\RequestBase;
-
-class AuthorizedWithCapture extends RequestBase
+class AuthorizedWithCapture extends Authorized
 {
-  protected $customerID; // string
-  protected $cartID; // string
-  protected $orderID; // string
-  protected $dateAuthorized; // dateTime
   protected $dateCaptured; // dateTime
 
   public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $orderID, $dateAuthorized, $dateCaptured)
   {
-    $this->customerID = $customerID;
-    $this->cartID = $cartID;
-    $this->orderID = $orderID;
-    $this->dateAuthorized = $dateAuthorized;
     $this->dateCaptured = $dateCaptured;
-    parent::__construct($apiLoginID, $apiKey);
+    parent::__construct($apiLoginID, $apiKey, $customerID, $cartID, $orderID, $dateAuthorized);
   }
 }

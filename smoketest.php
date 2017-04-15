@@ -116,6 +116,26 @@ try {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
 
+step('Authorized');
+
+$authorization = new \TaxCloud\Request\Authorized($apiLoginID, $apiKey, '123', $cartID, $orderID, date("c"));
+try {
+  $client->Authorized($authorization);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
+step('Authorized With Capture');
+
+$lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID + 1, $cartItems, $originAddress, $destAddress);
+$client->Lookup($lookup);
+$authcap = new \TaxCloud\Request\AuthorizedWithCapture($apiLoginID, $apiKey, '123', $cartID + 1, $orderID + 1, date("c"), date("c"));
+try {
+  $client->AuthorizedWithCapture($authcap);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
 // step('Get TICs');
 
 // $params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);
@@ -143,29 +163,10 @@ try {
 //   echo 'Caught exception: ', $e->getMessage(), "\n";
 // }
 
-// step('Authorized');
-
-// $authorization = new \TaxCloud\Request\Authorized($apiLoginID, $apiKey, '123', $cartID, $cartItems, $orderID, date("c"));
-// try {
-//   $client->Authorized($authorization);
-// } catch (Exception $e) {
-//   echo 'Caught exception: ', $e->getMessage(), "\n";
-// }
-
 // step('Captured');
 // $capture = new \TaxCloud\Request\Captured($apiLoginID, $apiKey, $orderID);
 // try {
 //   $client->Captured($capture);
-// } catch (Exception $e) {
-//   echo 'Caught exception: ', $e->getMessage(), "\n";
-// }
-
-// step('Authorized With Capture');
-// $lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID + 1, $cartItems, $originAddress, $destAddress);
-// $client->Lookup($lookup);
-// $authcap = new \TaxCloud\Request\AuthorizedWithCapture($apiLoginID, $apiKey, '123', $cartID + 1, $orderID + 1, date("c"), date("c"));
-// try {
-//   $client->AuthorizedWithCapture($authcap);
 // } catch (Exception $e) {
 //   echo 'Caught exception: ', $e->getMessage(), "\n";
 // }

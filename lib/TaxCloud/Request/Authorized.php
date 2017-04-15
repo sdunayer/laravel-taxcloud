@@ -32,11 +32,10 @@ class Authorized extends RequestBase
 {
   protected $customerID; // string
   protected $cartID; // string
-  protected $cartItems; // array
   protected $orderID; // string
   protected $dateAuthorized; // dateTime
 
-  public function __construct($apiLoginId, $apiKey, $customerId, $cartId, $cartItems, $orderId, $dateAuthorized)
+  public function __construct($apiLoginId, $apiKey, $customerId, $cartId, $orderId, $dateAuthorized)
   {
     $this->customerID = $customerId;
     $this->cartID = $cartId;
@@ -63,16 +62,6 @@ class Authorized extends RequestBase
   public function getCartID()
   {
     return $this->cartID;
-  }
-
-  public function setCartItems($cartItems)
-  {
-    $this->cartItems = $cartItems;
-  }
-
-  public function getCartItems()
-  {
-    return $this->cartItems;
   }
 
   public function setOrderID($orderId)
