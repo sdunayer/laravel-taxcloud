@@ -160,7 +160,6 @@ $exemptState = new \TaxCloud\ExemptState("WA", \TaxCloud\ExemptionReason::Resale
 $taxID = new \TaxCloud\TaxID(\TaxCloud\TaxIDType::FEIN, "00000-00000", "WA");
 $exemptCert = new \TaxCloud\ExemptionCertificate(array($exemptState), false, "23463", "E-Commerce", "Geek", "Rockstar", "162 East Avenue", "Third Floor", "Norwalk", "WA", "06851", $taxID, \TaxCloud\BusinessType::RetailTrade, "", \TaxCloud\ExemptionReason::Resale, "foo");
 $addExempt = new \TaxCloud\Request\AddExemptCertificate($apiLoginID, $apiKey, '123', $exemptCert);
-$certID = "";
 try {
   $certID = $client->AddExemptCertificate($addExempt);
   printf("ID: %s", $certID);
