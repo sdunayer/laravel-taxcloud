@@ -33,9 +33,8 @@ use TaxCloud\Address;
  * Contains class to build VerifyAddress request object.
  */
 
-class VerifyAddress
+class VerifyAddress extends RequestBase
 {
-  protected $uspsUserID; // USPS User ID
   protected $address1;
   protected $address2;
   protected $city;
@@ -43,25 +42,15 @@ class VerifyAddress
   protected $zip5;
   protected $zip4;
 
-  public function __construct($uspsUserID, Address $address)
+  public function __construct($apiLoginID, $apiKey, Address $address)
   {
-    $this->setUspsUserID($uspsUserID);
+    parent::__construct($apiLoginID, $apiKey);
     $this->setAddress1($address->getAddress1());
     $this->setAddress2($address->getAddress2());
     $this->setCity($address->getCity());
     $this->setState($address->getState());
     $this->setZip5($address->getZip5());
     $this->setZip4($address->getZip4());
-  }
-
-  public function setUspsUserID($uspsUserID)
-  {
-    $this->uspsUserID = $uspsUserID;
-  }
-
-  public function getUspsUserID()
-  {
-    return $this->uspsUserID;
   }
 
   private function setAddress1($address1)

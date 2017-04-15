@@ -19,16 +19,14 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud;
 
 use TaxCloud\Exceptions\AddressException;
 
-class Address
+class Address implements \JsonSerializable
 {
   private $Address1;
   private $Address2;
@@ -116,5 +114,17 @@ class Address
   public function getZip()
   {
     return $this->Zip5 . '-' . $this->Zip4;
+  }
+
+  /**
+   * Return JSON-serializable representation of this address.
+   *
+   * @since 0.2.0
+   *
+   * @return array
+   */
+  public function jsonSerialize()
+  {
+    return (object) $this;
   }
 }

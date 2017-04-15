@@ -52,6 +52,7 @@ use TaxCloud\Request\Ping;
 use TaxCloud\Request\Returned;
 use TaxCloud\Request\VerifyAddress;
 use TaxCloud\Response\PingResponse;
+use TaxCloud\Response\VerifyAddressResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Request;
 
@@ -142,28 +143,29 @@ class Client
   }
 
   /**
-   *
+   * Inspect and verify a customer provided address to ensure the most accurate
+   * tax jurisdiction(s) can be identified.
    *
    * @param VerifyAddress $parameters
-   * @return VerifyAddressResponse
+   * @return VerifiedAddress
    */
   public function VerifyAddress(VerifyAddress $parameters)
   {
-    $VerifyAddressResponse = $this->soapClient->__soapCall('VerifyAddress', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-         );
-    $VerifyAddressResult = $VerifyAddressResponse->getVerifyAddressResult();
+    $request = new Request('POST', 'VerifyAddress', self::$headers, json_encode($parameters));
 
-    if ($VerifyAddressResult->getErrNumber() == 0) {
-      return $VerifyAddressResult->getAddress();
-    }
-    elseif ($VerifyAddressResult->getErrNumber() == '80040B1A') {
-      throw new USPSIDException('Error ' . $VerifyAddressResult->getErrNumber() . ': ' . $VerifyAddressResult->getErrDescription());
-    }
-    else {
-      throw new VerifyAddressException('Error ' . $VerifyAddressResult->getErrNumber() . ': ' . $VerifyAddressResult->getErrDescription());
+    try {
+      $response = new VerifyAddressResponse($this->client->send($request));
+      $result   = $response->getVerifyAddressResult();
+
+      if ($result->getErrNumber() == 0) {
+        return $result->getAddress();
+      } elseif ($result->getErrNumber() == '80040B1A') {
+        throw new USPSIDException('Error ' . $result->getErrNumber() . ': ' . $result->getErrDescription());
+      } else {
+        throw new VerifyAddressException('Error ' . $result->getErrNumber() . ': ' . $result->getErrDescription());
+      }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new VerifyAddressException($ex->getMessage());
     }
   }
 

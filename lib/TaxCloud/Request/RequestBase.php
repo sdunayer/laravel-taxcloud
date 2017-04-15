@@ -49,7 +49,11 @@ class RequestBase implements \JsonSerializable
 
     if ($props !== NULL) {
       foreach ($props as $key => $value) {
-        $request[$key] = $value;
+        if ($value instanceof \JsonSerializable) {
+          $request[$key] = $value->jsonSerialize();
+        } else {
+          $request[$key] = $value;
+        }
       }
     }
 

@@ -26,9 +26,22 @@
 
 namespace TaxCloud\Response;
 
+use TaxCloud\VerifiedAddress;
+
 class VerifyAddressResponse
 {
   private $VerifyAddressResult; // VerifiedAddress
+
+  /**
+   * Constructor.
+   *
+   * @since 0.2.0
+   *
+   * @param GuzzleHttp\Response $response HTTP Response.
+   */
+  public function __construct($response) {
+    $this->VerifyAddressResult = new VerifiedAddress($response);
+  }
 
   public function getVerifyAddressResult()
   {

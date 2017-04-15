@@ -26,8 +26,6 @@
 
 namespace TaxCloud\Response;
 
-use GuzzleHttp\Psr7\Response;
-
 class PingResponse
 {
   private $PingResult; // ResponseBase

@@ -19,12 +19,12 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud;
+
+use GuzzleHttp\Psr7\Response;
 
 class VerifiedAddress
 {
@@ -36,6 +36,21 @@ class VerifiedAddress
   private $State; // string
   private $Zip5; //string
   private $Zip4; //string
+
+  /**
+   * Constructor.
+   *
+   * @since 0.2.0
+   *
+   * @param GuzzleHttp\Response $response HTTP Response.
+   */
+  public function __construct($response) {
+    $result = json_decode($response->getBody(), true);
+
+    foreach ($result as $key => $value) {
+      $this->$key = $value;
+    }
+  }
 
   public function getErrNumber()
   {

@@ -11,7 +11,7 @@
 // API credentials loaded from environment variables.
 $apiLoginID = getenv("TaxCloud_apiLoginID");
 $apiKey = getenv("TaxCloud_apiKey");
-$uspsUserID = getenv("TaxCloud_uspsUserID");
+// $uspsUserID = getenv("TaxCloud_uspsUserID");
 
 // Some variable that need to be unique, but can't change.
 $orderID = rand();
@@ -36,6 +36,29 @@ $pingParams = new \TaxCloud\Request\Ping($apiLoginID, $apiKey);
 try {
   $client->Ping($pingParams);
 } catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
+step('Verify Address');
+$address = new \TaxCloud\Address(
+  '162 East Avenue',
+  'Third Floor',
+  'Norwalk',
+  'WA', // Intentionally incorrect
+  '06851',
+  '0000' // Intentionally unspecified
+);
+
+$verifyAddress = new \TaxCloud\Request\VerifyAddress($apiLoginID, $apiKey, $address);
+
+try {
+  $address = $client->VerifyAddress($verifyAddress);
+}
+catch (\TaxCloud\Exceptions\USPSIDException $e) {
+ echo 'Caught exception: ', $e->getMessage(), "\n";
+ return;
+}
+catch (Exception $e) {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
 
@@ -81,30 +104,6 @@ try {
 // step('Cart Items Array');
 
 // print_r($cartItems);
-
-// step('Verify Address');
-// $address = new \TaxCloud\Address(
-//   '206 Pike St',
-//   '',
-//   'Atlanta',
-//   'GA',
-//   // Intentionally wrong zip
-//   '98000',
-//   ''
-// );
-
-// $verifyAddress = new \TaxCloud\Request\VerifyAddress($uspsUserID, $address);
-
-// try {
-//   $address = $client->VerifyAddress($verifyAddress);
-// }
-// catch (\TaxCloud\Exceptions\USPSIDException $e) {
-//  echo 'Caught exception: ', $e->getMessage(), "\n";
-//  return;
-// }
-// catch (Exception $e) {
-//   echo 'Caught exception: ', $e->getMessage(), "\n";
-// }
 
 // step('Lookup');
 
