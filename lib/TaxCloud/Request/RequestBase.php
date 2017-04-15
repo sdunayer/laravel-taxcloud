@@ -3,8 +3,9 @@
 namespace TaxCloud\Request;
 
 use TaxCloud\Exceptions\RequestException;
+use TaxCloud\Serializable;
 
-class RequestBase implements \JsonSerializable
+class RequestBase extends Serializable
 {
   protected $apiLoginID;
   protected $apiKey;
@@ -33,30 +34,5 @@ class RequestBase implements \JsonSerializable
 
     $this->apiLoginID = $apiLoginID;
     $this->apiKey = $apiKey;
-  }
-
-  /**
-   * Return JSON-serializable representation of request.
-   *
-   * @since 0.2.0
-   *
-   * @return array
-   */
-  public function jsonSerialize()
-  {
-    $request = array();
-    $props   = get_object_vars($this);
-
-    if ($props !== NULL) {
-      foreach ($props as $key => $value) {
-        if ($value instanceof \JsonSerializable) {
-          $request[$key] = $value->jsonSerialize();
-        } else {
-          $request[$key] = $value;
-        }
-      }
-    }
-
-    return $props;
   }
 }

@@ -19,18 +19,16 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud;
 
-class ExemptState
+class ExemptState extends Serializable
 {
-  private $StateAbbr; // State
-  private $ReasonForExemption; // string
-  private $IdentificationNumber; // string
+  protected $StateAbbr; // State
+  protected $ReasonForExemption; // string
+  protected $IdentificationNumber; // string
 
   public function __construct($StateAbbr, $ReasonForExemption, $IdentificationNumber)
   {

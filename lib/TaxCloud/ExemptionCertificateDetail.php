@@ -19,9 +19,7 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud;
@@ -29,25 +27,25 @@ namespace TaxCloud;
 use TaxCloud\BusinessType;
 use TaxCloud\ExemptionReason;
 
-class ExemptionCertificateDetail
+class ExemptionCertificateDetail extends Serializable
 {
-  private $ExemptStates; // ArrayOfExemptState
-  private $SinglePurchase; // boolean
-  private $SinglePurchaseOrderNumber; // string
-  private $PurchaserFirstName; // string
-  private $PurchaserLastName; // string
-  private $PurchaserTitle; // string
-  private $PurchaserAddress1; // string
-  private $PurchaserAddress2; // string
-  private $PurchaserCity; // string
-  private $PurchaserState; // State
-  private $PurchaserZip; // string
-  private $PurchaserTaxID; // TaxID
-  private $PurchaserBusinessType; // BusinessType
-  private $PurchaserBusinessTypeOtherValue; // string
-  private $PurchaserExemptionReason; // ExemptionReason
-  private $PurchaserExemptionReasonValue; // string
-  private $CreatedDate; // dateTime
+  protected $ExemptStates; // ArrayOfExemptState
+  protected $SinglePurchase; // boolean
+  protected $SinglePurchaseOrderNumber; // string
+  protected $PurchaserFirstName; // string
+  protected $PurchaserLastName; // string
+  protected $PurchaserTitle; // string
+  protected $PurchaserAddress1; // string
+  protected $PurchaserAddress2; // string
+  protected $PurchaserCity; // string
+  protected $PurchaserState; // State
+  protected $PurchaserZip; // string
+  protected $PurchaserTaxID; // TaxID
+  protected $PurchaserBusinessType; // BusinessType
+  protected $PurchaserBusinessTypeOtherValue; // string
+  protected $PurchaserExemptionReason; // ExemptionReason
+  protected $PurchaserExemptionReasonValue; // string
+  protected $CreatedDate; // dateTime
 
   public function construct($ExemptStates, $SinglePurchase, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2, $PurchaserCity, $PurchaserState, $PurchaserZip, $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue, $PurchaserExemptionReason, $PurchaserExemptionReasonValue, $CreatedDate = NULL)
   {

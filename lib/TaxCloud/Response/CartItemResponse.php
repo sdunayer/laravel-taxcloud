@@ -19,9 +19,7 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud\Response;
@@ -30,6 +28,18 @@ class CartItemResponse
 {
   private $CartItemIndex; // int
   private $TaxAmount; // float
+
+  /**
+   * Construct CartItemResponse given array.
+   *
+   * @since 0.2.0
+   *
+   * @param array $data
+   */
+  public function __construct($data) {
+    $this->CartItemIndex = $data['CartItemIndex'];
+    $this->TaxAmount = $data['TaxAmount'];
+  }
 
   public function getCartItemIndex()
   {

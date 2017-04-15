@@ -62,6 +62,50 @@ catch (Exception $e) {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
 
+step('Cart Item');
+$cartItems = array();
+$cartItem = new \TaxCloud\CartItem($cartID + 1, 'ABC123', '00000', 12.00, 1);
+$cartItems[] = $cartItem;
+print_r($cartItem);
+
+step('Cart Item - Shipping');
+
+$cartItemShipping = new \TaxCloud\CartItem($cartID + 2, 'SHIPPING123', 11010, 8.95, 1);
+$cartItems[] = $cartItemShipping;
+print_r($cartItemShipping);
+
+step('Cart Items Array');
+
+print_r($cartItems);
+
+step('Lookup');
+
+$originAddress = new \TaxCloud\Address(
+  $address->getAddress1(),
+  $address->getAddress2(),
+  $address->getCity(),
+  $address->getState(),
+  $address->getZip5(),
+  $address->getZip4()
+);
+
+$destAddress = new \TaxCloud\Address(
+  'PO Box 573',
+  '',
+  'Clinton',
+  'OK',
+  '73601',
+  ''
+);
+
+$lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID, $cartItems, $originAddress, $destAddress);
+
+try {
+  $client->Lookup($lookup);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
 // step('Get TICs');
 
 // $params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);
@@ -85,49 +129,6 @@ catch (Exception $e) {
 // $params = new \TaxCloud\Request\GetTICsByGroup($apiLoginID, $apiKey, 10000);
 // try {
 //   $client->GetTICsByGroup($params);
-// } catch (Exception $e) {
-//   echo 'Caught exception: ', $e->getMessage(), "\n";
-// }
-
-// step('Cart Item');
-// $cartItems = array();
-// $cartItem = new \TaxCloud\CartItem($cartID + 1, 'ABC123', '00000', 12.00, 1);
-// $cartItems[] = $cartItem;
-// print_r($cartItem);
-
-// step('Cart Item - Shipping');
-
-// $cartItemShipping = new \TaxCloud\CartItem($cartID + 2, 'SHIPPING123', 11010, 8.95, 1);
-// $cartItems[] = $cartItemShipping;
-// print_r($cartItemShipping);
-
-// step('Cart Items Array');
-
-// print_r($cartItems);
-
-// step('Lookup');
-
-// $originAddress = new \TaxCloud\Address(
-//   $address->getAddress1(),
-//   $address->getAddress2(),
-//   $address->getCity(),
-//   $address->getState(),
-//   $address->getZip5(),
-//   $address->getZip4()
-// );
-
-// $destAddress = new \TaxCloud\Address(
-//   'PO Box 573',
-//   '',
-//   'Clinton',
-//   'OK',
-//   '73601',
-//   ''
-// );
-
-// $lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID, $cartItems, $originAddress, $destAddress);
-// try {
-//   $client->Lookup($lookup);
 // } catch (Exception $e) {
 //   echo 'Caught exception: ', $e->getMessage(), "\n";
 // }

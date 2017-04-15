@@ -19,18 +19,16 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud;
 
-class TaxID
+class TaxID extends Serializable
 {
-  private $TaxType; // TaxIDType
-  private $IDNumber; // string
-  private $StateOfIssue; // string
+  protected $TaxType; // TaxIDType
+  protected $IDNumber; // string
+  protected $StateOfIssue; // string
 
   public function __construct($TaxType, $IDNumber = '', $StateOfIssue = '')
   {

@@ -26,14 +26,14 @@ namespace TaxCloud;
 
 use TaxCloud\Exceptions\AddressException;
 
-class Address implements \JsonSerializable
+class Address extends Serializable
 {
-  private $Address1;
-  private $Address2;
-  private $City;
-  private $State;
-  private $Zip5;
-  private $Zip4;
+  protected $Address1;
+  protected $Address2;
+  protected $City;
+  protected $State;
+  protected $Zip5;
+  protected $Zip4;
 
   public function __construct($Address1, $Address2, $City, $State, $Zip5, $Zip4 = NULL)
   {
@@ -114,17 +114,5 @@ class Address implements \JsonSerializable
   public function getZip()
   {
     return $this->Zip5 . '-' . $this->Zip4;
-  }
-
-  /**
-   * Return JSON-serializable representation of this address.
-   *
-   * @since 0.2.0
-   *
-   * @return array
-   */
-  public function jsonSerialize()
-  {
-    return (object) $this;
   }
 }

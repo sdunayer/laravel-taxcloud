@@ -53,6 +53,7 @@ use TaxCloud\Request\Returned;
 use TaxCloud\Request\VerifyAddress;
 use TaxCloud\Response\PingResponse;
 use TaxCloud\Response\VerifyAddressResponse;
+use TaxCloud\Response\LookupResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Request;
 
@@ -170,21 +171,6 @@ class Client
   }
 
   /**
-   *
-   *
-   * @param LookupForDate $parameters
-   * @return LookupForDateResponse
-   */
-  public function LookupForDate(LookupForDate $parameters)
-  {
-    return $this->soapClient->__soapCall('LookupForDate', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-      );
-  }
-
-  /**
    * Lookup the applicable tax amounts for items in a cart.
    *
    * @param Lookup $parameters
@@ -198,37 +184,43 @@ class Client
    */
   public function Lookup(Lookup $parameters)
   {
-    $LookupResponse = $this->soapClient->__soapCall('Lookup', array($parameters),       array(
+    $request = new Request('POST', 'Lookup', self::$headers, json_encode($parameters));
+
+    try {
+      $response = new LookupResponse($this->client->send($request));
+
+      if ($response->getResponseType() == 'OK') {
+        $cart_id = $response->getCartID();
+        $return  = array();
+
+        foreach ($response->getCartItemsResponse() as $CartItemResponse) {
+          $return[$cart_id][$CartItemResponse->getCartItemIndex()] = $CartItemResponse->getTaxAmount();
+        }
+        
+        return $return;
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new LookupException($message->getMessage());
+        }
+      }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new LookupException($ex->getMessage());
+    }
+  }
+
+  /**
+   *
+   *
+   * @param LookupForDate $parameters
+   * @return LookupForDateResponse
+   */
+  public function LookupForDate(LookupForDate $parameters)
+  {
+    return $this->soapClient->__soapCall('LookupForDate', array($parameters),       array(
             'uri' => 'http://taxcloud.net',
             'soapaction' => ''
            )
-         );
-
-    $LookupResult = $LookupResponse->getLookupResult();
-
-    if ($LookupResult->getResponseType() == 'OK') {
-      $return = array();
-
-      foreach ($LookupResult->getCartItemsResponse() as $CartItemResponse) {
-        // Single cart items are returned as a CartItem object.
-        if (is_object($CartItemResponse)) {
-          $return[$LookupResult->getCartID()][$CartItemResponse->getCartItemIndex()] = $CartItemResponse->getTaxAmount();
-        }
-        // Multiples are returned as an array of CartItem objects.
-        else {
-          foreach ($CartItemResponse as $CartItem) {
-            $return[$LookupResult->getCartID()][$CartItem->getCartItemIndex()] = $CartItem->getTaxAmount();
-          }
-        }
-      }
-
-      return $return;
-    }
-    else {
-      foreach ($LookupResult->getMessages() as $message) {
-        throw new LookupException($message->getMessage());
-      }
-    }
+      );
   }
 
   /**

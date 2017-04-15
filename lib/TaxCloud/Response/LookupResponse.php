@@ -19,19 +19,28 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud\Response;
 
-class LookupResponse
+class LookupResponse extends ResponseBase
 {
-  private $LookupResult; // LookupRsp
+  private $CartID; // string
+  private $CartItemsResponse; // ArrayOfCartItemResponse
 
-  public function getLookupResult()
+  public function getCartID()
   {
-    return $this->LookupResult;
+    return $this->Response['CartID'];
+  }
+
+  public function getCartItemsResponse()
+  {
+  	$return    = array();
+  	$cartItems = $this->Response['CartItemsResponse'];
+  	foreach ($cartItems as $cartItem) {
+  		$return[] = new CartItemResponse($cartItem);
+  	}
+    return $return;
   }
 }
