@@ -26,7 +26,7 @@ function step($message) {
 }
 
 require_once 'vendor/autoload.php';
-// require_once 'lib/php-taxcloud.php';
+require_once 'lib/php-taxcloud.php';
 
 $client = new \TaxCloud\Client();
 
