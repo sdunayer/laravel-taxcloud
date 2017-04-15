@@ -30,8 +30,6 @@ use TaxCloud\Exceptions\AuthorizedException;
 use TaxCloud\Exceptions\AuthorizedWithCaptureException;
 use TaxCloud\Exceptions\CapturedException;
 use TaxCloud\Exceptions\GetTICsException;
-use TaxCloud\Exceptions\GetTICsByGroupException;
-use TaxCloud\Exceptions\GetTICGroupsException;
 use TaxCloud\Exceptions\LookupException;
 use TaxCloud\Exceptions\PingException;
 use TaxCloud\Exceptions\ReturnedException;
@@ -47,8 +45,6 @@ use TaxCloud\Request\Captured;
 use TaxCloud\Request\DeleteExemptCertificate;
 use TaxCloud\Request\GetExemptCertificates;
 use TaxCloud\Request\GetTICs;
-use TaxCloud\Request\GetTICsByGroup;
-use TaxCloud\Request\GetTICGroups;
 use TaxCloud\Request\Lookup;
 use TaxCloud\Request\LookupForDate;
 use TaxCloud\Request\Ping;
@@ -64,6 +60,7 @@ use TaxCloud\Response\ReturnedResponse;
 use TaxCloud\Response\AddExemptCertificateResponse;
 use TaxCloud\Response\GetExemptCertificatesResponse;
 use TaxCloud\Response\DeleteExemptCertificateResponse;
+use TaxCloud\Response\GetTICsResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Request;
 
@@ -414,37 +411,31 @@ class Client
   }
 
   /**
+   * Get an array of all known Taxability Information Codes (TICs).
    *
-   *
-   * @param GetTICs $parameters
-   * @return GetTICsResponse
+   * @param  GetTICs $parameters
+   * @return array Array of TIC descriptions, indexed by TIC id.
    */
   public function GetTICs(GetTICs $parameters)
   {
-    $GetTICsResponse = $this->soapClient->__soapCall('GetTICs', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-         );
+    $request = new Request('POST', 'GetTICs', self::$headers, json_encode($parameters));
 
-    $GetTICsResult = $GetTICsResponse->getTICsResult();
+    try {
+      $response = new GetTICsResponse($this->client->send($request));
 
-    if ($GetTICsResult->getResponseType() == 'OK') {
-      $TICs = $GetTICsResult->getTICs();
-
-      $return = array();
-      foreach ($TICs as $TICArray) {
-        foreach ($TICArray as $TIC) {
-          $return[$TIC->getTICID()] = $TIC->getDescription();
+      if ($response->getResponseType() == 'OK') {
+        $return = array();
+        foreach ($response->getTICs() as $tic) {
+          $return[$tic->getTICID()] = $tic->getDescription();
+        }
+        return $return;
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new GetTICsException($message->getMessage());
         }
       }
-
-      return $return;
-    }
-    else {
-      foreach ($GetTICsResult->getMessages() as $message) {
-        throw new GetTICsException($message->getMessage());
-      }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new GetTICsException($ex->getMessage());
     }
   }
 }

@@ -25,7 +25,6 @@
 namespace TaxCloud\Request;
 
 use TaxCloud\Address;
-use TaxCloud\Request\RequestBase;
 
 class Lookup extends RequestBase
 {

@@ -19,19 +19,23 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli.
  */
 
 namespace TaxCloud\Response;
 
-class GetTICsResponse
-{
-  private $GetTICsResult; // GetTICsRsp
+use TaxCloud\TIC;
 
-  public function getTICsResult()
+class GetTICsResponse extends ResponseBase
+{
+  private $TICs; // ArrayOfTIC
+
+  public function getTICs()
   {
-    return $this->GetTICsResult;
+  	$tics = array();
+  	foreach ($this->Response['TICs'] as $tic) {
+  		$tics[] = new TIC($tic['TICID'], $tic['Description']);
+  	}
+    return $tics;
   }
 }

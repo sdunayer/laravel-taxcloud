@@ -24,8 +24,6 @@
 
 namespace TaxCloud\Request;
 
-use TaxCloud\Request\RequestBase;
-
 class Ping extends RequestBase
 {
   public function __construct($apiLoginID, $apiKey)

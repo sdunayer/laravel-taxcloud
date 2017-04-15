@@ -172,41 +172,16 @@ step('Get Exemption Certificates');
 
 $getCerts = new \TaxCloud\Request\GetExemptCertificates($apiLoginID, $apiKey, '123');
 try {
-  $certs = $client->GetExemptCertificates($getCerts);
-
-  foreach ($certs as $cert) {
-    if ($cert->getCertificateID() == $certID) {
-      print_r($cert);
-      break;
-    }
-  }
+  $client->GetExemptCertificates($getCerts);
 } catch (Exception $e) {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
 
-// step('Get TICs');
+step('Get TICs');
 
-// $params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);
-// try {
-//   $client->GetTICs($params);
-// } catch (Exception $e) {
-//   echo 'Caught exception: ', $e->getMessage(), "\n";
-// }
-
-// step('GetTICGroups');
-
-// $params = new \TaxCloud\Request\GetTICGroups($apiLoginID, $apiKey);
-// try {
-//   $client->getTICGroups($params);
-// } catch (Exception $e) {
-//   echo 'Caught exception: ', $e->getMessage(), "\n";
-// }
-
-// step('Get TICs By Group');
-
-// $params = new \TaxCloud\Request\GetTICsByGroup($apiLoginID, $apiKey, 10000);
-// try {
-//   $client->GetTICsByGroup($params);
-// } catch (Exception $e) {
-//   echo 'Caught exception: ', $e->getMessage(), "\n";
-// }
+$params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);
+try {
+  $client->GetTICs($params);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
