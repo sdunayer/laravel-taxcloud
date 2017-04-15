@@ -51,7 +51,8 @@ use TaxCloud\Request\LookupForDate;
 use TaxCloud\Request\Ping;
 use TaxCloud\Request\Returned;
 use TaxCloud\Request\VerifyAddress;
-use GuzzleHttp\Client;
+use TaxCloud\Response\PingResponse;
+use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Request;
 
 /**
@@ -92,7 +93,7 @@ class Client
    */
   private function buildClient($base_uri)
   {
-    $client = new Client(array(
+    $client = new GuzzleClient(array(
       'base_uri' => $base_uri,
       'timeout'  => 10.0,
     ));
@@ -105,9 +106,9 @@ class Client
    *
    * @since 0.2.0
    *
-   * @param GuzzleHttp\Client $client
+   * @param GuzzleClient $client
    */
-  public function setClient(Client $client)
+  public function setClient(GuzzleClient $client)
   {
     $this->client = $client;
   }
@@ -127,7 +128,7 @@ class Client
     try {
       $response = new PingResponse($this->client->send($request));
       $result   = $response->getPingResult();
-      
+
       if ($result->getResponseType() == 'OK') {
         return TRUE;
       } else {
