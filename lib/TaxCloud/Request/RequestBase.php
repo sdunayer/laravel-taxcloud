@@ -4,7 +4,7 @@ namespace TaxCloud\Request;
 
 use TaxCloud\Exceptions\RequestException;
 
-class RequestBase implements JsonSerializable
+class RequestBase implements \JsonSerializable
 {
   protected $apiLoginID;
   protected $apiKey;
