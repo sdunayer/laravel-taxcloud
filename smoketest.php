@@ -136,6 +136,15 @@ try {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
 
+step('Captured');
+
+$capture = new \TaxCloud\Request\Captured($apiLoginID, $apiKey, $orderID);
+try {
+  $client->Captured($capture);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
 // step('Get TICs');
 
 // $params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);
@@ -159,14 +168,6 @@ try {
 // $params = new \TaxCloud\Request\GetTICsByGroup($apiLoginID, $apiKey, 10000);
 // try {
 //   $client->GetTICsByGroup($params);
-// } catch (Exception $e) {
-//   echo 'Caught exception: ', $e->getMessage(), "\n";
-// }
-
-// step('Captured');
-// $capture = new \TaxCloud\Request\Captured($apiLoginID, $apiKey, $orderID);
-// try {
-//   $client->Captured($capture);
 // } catch (Exception $e) {
 //   echo 'Caught exception: ', $e->getMessage(), "\n";
 // }
