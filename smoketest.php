@@ -106,6 +106,16 @@ try {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
 
+step('Lookup For Date');
+
+$lookup = new \TaxCloud\Request\LookupForDate($apiLoginID, $apiKey, '123', $cartID, $cartItems, $originAddress, $destAddress, "06-01-2016");
+
+try {
+  $client->LookupForDate($lookup);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
 // step('Get TICs');
 
 // $params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);

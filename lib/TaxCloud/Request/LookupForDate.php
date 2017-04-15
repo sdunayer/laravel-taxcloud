@@ -19,108 +19,22 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud\Request;
 
 use TaxCloud\Address;
-use TaxCloud\Request\RequestBase;
 
-class LookupForDate extends RequestBase
+class LookupForDate extends Lookup
 {
-  protected $customerID; // string
-  protected $cartID; // string
-  protected $cartItems; // ArrayOfCartItem
-  protected $origin; // Address
-  protected $destination; // Address
-  protected $deliveredBySeller; // boolean
-  protected $exemptCert; // ExemptionCertificate
+
   protected $useDate; // dateTime
 
-  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $origin, $destination, $deliveredBySeller, $exemptCert, $useDate)
+  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, Address $origin, Address $destination, $useDate, $deliveredBySeller = FALSE) 
   {
-    $this->setCustomerID($customerID);
-    $this->setCartID($cartID);
-    $this->setCartItems($cartItems);
-    $this->setOrigin($origin);
-    $this->setDestination($destination);
-    $this->setDeliveredBySeller($deliveredBySeller);
-    $this->setExemptCert($exemptCert);
     $this->setUseDate($useDate);
-    parent::__construct($apiLoginID, $apiKey);
-  }
-
-  private function setCustomerID($customerID)
-  {
-    $this->customerID = $customerID;
-  }
-
-  public function getCustomerID()
-  {
-    return $this->customerID;
-  }
-
-  private function setCartID($cartID)
-  {
-    $this->cartID = $cartID;
-  }
-
-  public function getCartID()
-  {
-    return $this->cartID;
-  }
-
-  private function setCartItems($cartItems)
-  {
-    $this->cartItems = $cartItems;
-  }
-
-  public function getCartItems()
-  {
-    return $this->cartItems;
-  }
-
-  private function setOrigin(Address $origin)
-  {
-    $this->origin = $origin;
-  }
-
-  public function getOrigin()
-  {
-    return $this->origin;
-  }
-
-  private function setDestination(Address $destination)
-  {
-    $this->destination = $destination;
-  }
-
-  public function getDestination()
-  {
-    return $this->destination;
-  }
-
-  private function setDeliveredBySeller($deliveredBySeller)
-  {
-    $this->deliveredBySeller = $deliveredBySeller;
-  }
-
-  public function getDeliveredBySeller()
-  {
-    return $this->deliveredBySeller;
-  }
-
-  private function setExemptCert($exemptCert)
-  {
-    $this->exemptCert = $exemptCert;
-  }
-
-  public function getExemptCert()
-  {
-    return $this->exemptCert;
+    parent::__construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, $origin, $destination, $deliveredBySeller);
   }
 
   private function setUseDate($useDate)

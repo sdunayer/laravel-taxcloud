@@ -147,7 +147,7 @@ class Client
    * Inspect and verify a customer provided address to ensure the most accurate
    * tax jurisdiction(s) can be identified.
    *
-   * @param VerifyAddress $parameters
+   * @param  VerifyAddress $parameters
    * @return VerifiedAddress
    */
   public function VerifyAddress(VerifyAddress $parameters)
@@ -173,7 +173,7 @@ class Client
   /**
    * Lookup the applicable tax amounts for items in a cart.
    *
-   * @param Lookup $parameters
+   * @param  Lookup $parameters
    * @return array
    *   An array of cart items.
    *   The top level key of the array is the cart ID so that applications can
@@ -191,12 +191,10 @@ class Client
 
       if ($response->getResponseType() == 'OK') {
         $cart_id = $response->getCartID();
-        $return  = array();
-
+        $return = array();
         foreach ($response->getCartItemsResponse() as $CartItemResponse) {
           $return[$cart_id][$CartItemResponse->getCartItemIndex()] = $CartItemResponse->getTaxAmount();
         }
-        
         return $return;
       } else {
         foreach ($response->getMessages() as $message) {
@@ -209,18 +207,21 @@ class Client
   }
 
   /**
+   * Lookup tax amounts using a different date than the inferred today's date
+   * for lookup.
    *
+   * @param  LookupForDate $parameters
+   * @return array
+   *   An array of cart items.
+   *   The top level key of the array is the cart ID so that applications can
+   *   verify that this is indeed the cart they are looking for.
    *
-   * @param LookupForDate $parameters
-   * @return LookupForDateResponse
+   *   Inside that is an array of tax amounts indexed by the cart item index
+   *   (which is the line item ID in some applications).
    */
   public function LookupForDate(LookupForDate $parameters)
   {
-    return $this->soapClient->__soapCall('LookupForDate', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-      );
+    return $this->Lookup($parameters);
   }
 
   /**
