@@ -19,9 +19,7 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017
  */
 
 namespace TaxCloud;
@@ -43,11 +41,16 @@ class MessageType
    */
   public static function fromValue($value) {
   	switch ($value) {
-  		case 0: return Error;
-  		case 1: return Warning;
-  		case 2: return Informational;
-  		case 3: return OK;
-  		default: return Error;
+  		case 0:
+  			return self::Error;
+  		case 1: 
+  			return self::Warning;
+  		case 2: 
+  			return self::Informational;
+  		case 3: 
+  			return self::OK;
+  		default: 
+  			return self::Error;
   	}
   }
 }
