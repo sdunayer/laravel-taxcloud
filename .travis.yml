@@ -4,14 +4,9 @@ php:
   - 5.4
   - 5.5
   - 5.6
-  - hhvm
+  - 7.0
 matrix:
-  allow_failures:
-    - php: 5.6
-    - php: hhvm
   fast_finish: true
-notifications:
-  irc: irc.freenode.org#vmdoh
 before_script:
   - composer install -n --prefer-source
   - mkdir -p build/logs
