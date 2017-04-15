@@ -57,6 +57,7 @@ use TaxCloud\Response\LookupResponse;
 use TaxCloud\Response\AuthorizedResponse;
 use TaxCloud\Response\AuthorizedWithCaptureResponse;
 use TaxCloud\Response\CapturedResponse;
+use TaxCloud\Response\ReturnedResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Request;
 
@@ -305,28 +306,28 @@ class Client
   }
 
   /**
+   * Return a previously Captured transaction. Supports entire order returns as
+   * well as individual item returns and even partial item-level returns.
    *
-   *
-   * @param Returned $parameters
-   * @return ReturnedResponse
+   * @param  Returned $parameters
+   * @return true
    */
   public function Returned(Returned $parameters)
   {
-    $ReturnedResponse = $this->soapClient->__soapCall('Returned', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-         );
+    $request = new Request('POST', 'Returned', self::$headers, json_encode($parameters));
 
-    $ReturnedResult = $ReturnedResponse->getReturnedResult();
+    try {
+      $response = new ReturnedResponse($this->client->send($request));
 
-    if ($ReturnedResult->getResponseType() == 'OK') {
-      return TRUE;
-    }
-    else {
-      foreach ($ReturnedResult->getMessages() as $message) {
-        throw new ReturnedException($message->getMessage());
+      if ($response->getResponseType() == 'OK') {
+        return TRUE;
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new ReturnedException($message->getMessage());
+        }
       }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new ReturnedException($ex->getMessage());
     }
   }
 

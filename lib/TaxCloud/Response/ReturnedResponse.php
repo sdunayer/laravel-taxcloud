@@ -19,19 +19,11 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli.
  */
 
 namespace TaxCloud\Response;
 
-class ReturnedResponse
+class ReturnedResponse extends ResponseBase
 {
-  private $ReturnedResult; // ReturnedRsp
-
-  public function getReturnedResult()
-  {
-    return $this->ReturnedResult;
-  }
 }
