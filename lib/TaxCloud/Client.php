@@ -51,76 +51,93 @@ use TaxCloud\Request\LookupForDate;
 use TaxCloud\Request\Ping;
 use TaxCloud\Request\Returned;
 use TaxCloud\Request\VerifyAddress;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * TaxCloud Web Service
  *
- * @author    Brian Altenhofel
+ * @author    Brian Altenhofel, Brett Porcelli
  * @package   php-taxcloud
  */
 class Client
 {
-  private static $classmap = array(
-    'VerifyAddress' => '\TaxCloud\Request\VerifyAddress',
-    'VerifyAddressResponse' => '\TaxCloud\VerifyAddressResponse',
-    'VerifiedAddress' => '\TaxCloud\VerifiedAddress',
-    'Address' => '\TaxCloud\Address',
-    'LookupForDate' => '\TaxCloud\Request\LookupForDate',
-    'CartItem' => '\TaxCloud\CartItem',
-    'ExemptionCertificate' => '\TaxCloud\ExemptionCertificate',
-    'ExemptionCertificateDetail' => '\TaxCloud\ExemptionCertificateDetail',
-    'ExemptState' => '\TaxCloud\ExemptState',
-    'State' => '\TaxCloud\State',
-    'TaxID' => '\TaxCloud\TaxID',
-    'TaxIDType' => '\TaxCloud\TaxIDType',
-    'BusinessType' => '\TaxCloud\BusinessType',
-    'ExemptionReason' => '\TaxCloud\ExemptionReason',
-    'LookupForDateResponse' => '\TaxCloud\LookupForDateResponse',
-    'LookupRsp' => '\TaxCloud\LookupRsp',
-    'ResponseBase' => '\TaxCloud\ResponseBase',
-    'MessageType' => '\TaxCloud\MessageType',
-    'ResponseMessage' => '\TaxCloud\ResponseMessage',
-    'CartItemResponse' => '\TaxCloud\CartItemResponse',
-    'Lookup' => '\TaxCloud\Request\Lookup',
-    'LookupResponse' => '\TaxCloud\LookupResponse',
-    'Authorized' => '\TaxCloud\Request\Authorized',
-    'AuthorizedResponse' => '\TaxCloud\AuthorizedResponse',
-    'AuthorizedRsp' => '\TaxCloud\AuthorizedRsp',
-    'AuthorizedWithCapture' => '\TaxCloud\Request\AuthorizedWithCapture',
-    'AuthorizedWithCaptureResponse' => '\TaxCloud\AuthorizedWithCaptureResponse',
-    'Captured' => '\TaxCloud\Request\Captured',
-    'CapturedResponse' => '\TaxCloud\CapturedResponse',
-    'CapturedRsp' => '\TaxCloud\CapturedRsp',
-    'Returned' => '\TaxCloud\Request\Returned',
-    'ReturnedResponse' => '\TaxCloud\ReturnedResponse',
-    'ReturnedRsp' => '\TaxCloud\ReturnedRsp',
-    'GetTICGroups' => '\TaxCloud\Request\GetTICGroups',
-    'GetTICGroupsResponse' => '\TaxCloud\GetTICGroupsResponse',
-    'GetTICGroupsRsp' => '\TaxCloud\GetTICGroupsRsp',
-    'TICGroup' => '\TaxCloud\TICGroup',
-    'GetTICs' => '\TaxCloud\Request\GetTICs',
-    'GetTICsResponse' => '\TaxCloud\GetTICsResponse',
-    'GetTICsRsp' => '\TaxCloud\GetTICsRsp',
-    'TIC' => '\TaxCloud\TIC',
-    'GetTICsByGroup' => '\TaxCloud\Request\GetTICsByGroup',
-    'GetTICsByGroupResponse' => '\TaxCloud\GetTICsByGroupResponse',
-    'AddExemptCertificate' => '\TaxCloud\Request\AddExemptCertificate',
-    'AddExemptCertificateResponse' => '\TaxCloud\AddExemptCertificateResponse',
-    'AddCertificateRsp' => '\TaxCloud\AddCertificateRsp',
-    'DeleteExemptCertificate' => '\TaxCloud\Request\DeleteExemptCertificate',
-    'DeleteExemptCertificateResponse' => '\TaxCloud\DeleteExemptCertificateResponse',
-    'DeleteCertificateRsp' => '\TaxCloud\DeleteCertificateRsp',
-    'GetExemptCertificates' => '\TaxCloud\Request\GetExemptCertificates',
-    'GetExemptCertificatesResponse' => '\TaxCloud\GetExemptCertificatesResponse',
-    'GetCertificatesRsp' => '\TaxCloud\GetCertificatesRsp',
-    'Ping' => '\TaxCloud\Request\Ping',
-    'PingResponse' => '\TaxCloud\PingResponse',
-    'PingRsp' => '\TaxCloud\PingRsp',
+  /**
+   * @var array Default request headers.
+   * @since 0.2.0
+   */
+  protected static $headers = array(
+    'Accept'       => 'application/json',
+    'Content-Type' => 'application/json',
   );
 
-  public function __construct($wsdl = "https://api.taxcloud.net/1.0/?wsdl", $options = array())
+  /**
+   * Constructor.
+   *
+   * @since 0.2.0
+   *
+   * @param $base_uri URI of TaxCloud webservice. (default: 'https://api.taxcloud.net/1.0/TaxCloud/')
+   */
+  public function __construct($base_uri = "https://api.taxcloud.net/1.0/TaxCloud/")
   {
-    $this->buildSoapClient($wsdl, $options);
+    $this->buildClient($base_uri);
+  }
+
+  /**
+   * Build Guzzle client.
+   *
+   * @since 0.2.0
+   *
+   * @param $base_uri URI of TaxCloud webservice.
+   */
+  private function buildClient($base_uri)
+  {
+    $client = new Client(array(
+      'base_uri' => $base_uri,
+      'timeout'  => 10.0,
+    ));
+
+    $this->setClient($client);
+  }
+
+  /**
+   * Set Guzzle client.
+   *
+   * @since 0.2.0
+   *
+   * @param GuzzleHttp\Client $client
+   */
+  public function setClient(Client $client)
+  {
+    $this->client = $client;
+  }
+
+  /**
+   * Verify that your implementation can communicate with TaxCloud.
+   *
+   * @since 0.1.1
+   *
+   * @param  Ping $parameters
+   * @return PingResponse
+   */
+  public function Ping(Ping $parameters)
+  {
+    $request = new Request('POST', 'Ping', self::$headers, json_encode($parameters));
+
+    try {
+      $response = new PingResponse($this->client->send($request));
+      $result   = $response->getPingResult();
+      
+      if ($result->getResponseType() == 'OK') {
+        return TRUE;
+      } else {
+        foreach ($result->getMessages() as $message) {
+          throw new PingException($message->getMessage());
+        }
+      }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new PingException($ex->getMessage());
+    }
   }
 
   /**
@@ -462,46 +479,5 @@ class Client
             'soapaction' => ''
            )
       );
-  }
-
-  /**
-   *
-   *
-   * @param Ping $parameters
-   * @return PingResponse
-   */
-  public function Ping(Ping $parameters)
-  {
-    $response = $this->soapClient->__soapCall('Ping', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-         );
-    $result = $response->getPingResult();
-
-    if ($result->getResponseType() == 'OK') {
-      return TRUE;
-    }
-    else {
-      foreach ($result->getMessages() as $message) {
-        throw new PingException($message->getMessage());
-      }
-    }
-  }
-
-  private function buildSoapClient($wdsl = "https://api.taxcloud.net/1.0/?wdsl", $options = array())
-  {
-    foreach (self::$classmap as $key => $value) {
-      if (!isset($options['classmap'][$key])) {
-        $options['classmap'][$key] = $value;
-      }
-    }
-
-    $this->setSoapClient(new \SoapClient($wdsl, $options));
-  }
-
-  public function setSoapClient(\SoapClient $soapclient)
-  {
-    $this->soapClient = $soapclient;
   }
 }

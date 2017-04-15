@@ -24,14 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class GetExemptCertificatesResponse
+class AuthorizedWithCaptureResponse
 {
-  private $GetExemptCertificatesResult; // GetCertificatesRsp
+  private $AuthorizedWithCaptureResult; // AuthorizedRsp
 
-  public function getExemptCertificatesResult()
+  public function getAuthorizedWithCaptureResult()
   {
-    return $this->GetExemptCertificatesResult;
+    return $this->AuthorizedWithCaptureResult;
   }
 }

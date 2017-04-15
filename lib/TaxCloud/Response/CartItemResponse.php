@@ -24,14 +24,20 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class GetTICGroupsResponse
+class CartItemResponse
 {
-  private $GetTICGroupsResult; // GetTICGroupsRsp
+  private $CartItemIndex; // int
+  private $TaxAmount; // float
 
-  public function getTICGroupsResult()
+  public function getCartItemIndex()
   {
-    return $this->GetTICGroupsResult;
+    return $this->CartItemIndex;
+  }
+
+  public function getTaxAmount()
+  {
+    return $this->TaxAmount;
   }
 }

@@ -24,14 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class AuthorizedWithCaptureResponse
+class AuthorizedResponse
 {
-  private $AuthorizedWithCaptureResult; // AuthorizedRsp
+  private $AuthorizedResult; // AuthorizedRsp
 
-  public function getAuthorizedWithCaptureResult()
+  public function getAuthorizedResult()
   {
-    return $this->AuthorizedWithCaptureResult;
+    return $this->AuthorizedResult;
   }
 }

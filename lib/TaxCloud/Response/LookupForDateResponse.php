@@ -24,20 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class CartItemResponse
+class LookupForDateResponse
 {
-  private $CartItemIndex; // int
-  private $TaxAmount; // float
+  private $LookupForDateResult; // LookupRsp
 
-  public function getCartItemIndex()
+  public function getLookupForDateResult()
   {
-    return $this->CartItemIndex;
-  }
-
-  public function getTaxAmount()
-  {
-    return $this->TaxAmount;
+    return $this->LookupForDateResult;
   }
 }

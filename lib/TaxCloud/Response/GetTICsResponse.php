@@ -24,14 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class VerifyAddressResponse
+class GetTICsResponse
 {
-  private $VerifyAddressResult; // VerifiedAddress
+  private $GetTICsResult; // GetTICsRsp
 
-  public function getVerifyAddressResult()
+  public function getTICsResult()
   {
-    return $this->VerifyAddressResult;
+    return $this->GetTICsResult;
   }
 }

@@ -24,14 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class PingResponse
+class GetCertificatesRsp
 {
-  private $PingResult; // PingRsp
+  private $ExemptCertificates; // ArrayOfExemptionCertificate
 
-  public function getPingResult()
+  public function getExemptCertificates()
   {
-    return $this->PingResult;
+    return $this->ExemptCertificates;
   }
 }

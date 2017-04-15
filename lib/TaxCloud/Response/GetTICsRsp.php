@@ -24,14 +24,16 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class AuthorizedResponse
+use TaxCloud\ResponseBase;
+
+class GetTICsRsp  extends ResponseBase
 {
-  private $AuthorizedResult; // AuthorizedRsp
+  private $TICs; // ArrayOfTIC
 
-  public function getAuthorizedResult()
+  public function getTICs()
   {
-    return $this->AuthorizedResult;
+    return $this->TICs;
   }
 }

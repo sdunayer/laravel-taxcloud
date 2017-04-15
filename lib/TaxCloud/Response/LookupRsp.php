@@ -24,14 +24,22 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class AddExemptCertificateResponse
+use TaxCloud\ResponseBase;
+
+class LookupRsp extends ResponseBase
 {
-  private $AddExemptCertificateResult; // AddCertificateRsp
+  private $CartID; // string
+  private $CartItemsResponse; // ArrayOfCartItemResponse
 
-  public function getAddExemptCertificateResult()
+  public function getCartID()
   {
-    return $this->AddExemptCertificateResult;
+    return $this->CartID;
+  }
+
+  public function getCartItemsResponse()
+  {
+    return $this->CartItemsResponse;
   }
 }

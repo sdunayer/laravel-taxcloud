@@ -24,16 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-use TaxCloud\ResponseBase;
-
-class GetTICsRsp  extends ResponseBase
+class GetTICsByGroupResponse
 {
-  private $TICs; // ArrayOfTIC
+  private $GetTICsByGroupResult; // GetTICsRsp
 
-  public function getTICs()
+  public function getTICsByGroupResult()
   {
-    return $this->TICs;
+    return $this->GetTICsByGroupResult;
   }
 }

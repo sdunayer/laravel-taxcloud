@@ -24,20 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class ResponseMessage
+class VerifyAddressResponse
 {
-  private $ResponseType; // MessageType
-  private $Message; // string
+  private $VerifyAddressResult; // VerifiedAddress
 
-  public function getResponseType()
+  public function getVerifyAddressResult()
   {
-    return $this->ResponseType;
-  }
-
-  public function getMessage()
-  {
-    return $this->Message;
+    return $this->VerifyAddressResult;
   }
 }

@@ -19,13 +19,37 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class DeleteCertificateRsp
+use TaxCloud\MessageType;
+
+class ResponseMessage
 {
+  private $ResponseType; // MessageType
+  private $Message; // string
+
+  /**
+   * Constructor.
+   *
+   * @since 0.2.0
+   *
+   * @param array $message
+   */
+  public function __construct($message) {
+    $this->ResponseType = MessageType::fromValue($message['ResponseType']);
+    $this->Message = $message['Message'];
+  }
+
+  public function getResponseType()
+  {
+    return $this->ResponseType;
+  }
+
+  public function getMessage()
+  {
+    return $this->Message;
+  }
 }

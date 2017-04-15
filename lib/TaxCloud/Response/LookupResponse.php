@@ -24,14 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class GetTICsResponse
+class LookupResponse
 {
-  private $GetTICsResult; // GetTICsRsp
+  private $LookupResult; // LookupRsp
 
-  public function getTICsResult()
+  public function getLookupResult()
   {
-    return $this->GetTICsResult;
+    return $this->LookupResult;
   }
 }

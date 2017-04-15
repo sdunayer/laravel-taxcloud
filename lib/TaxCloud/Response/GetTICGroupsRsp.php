@@ -24,14 +24,16 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class GetCertificatesRsp
+use TaxCloud\ResponseBase;
+
+class GetTICGroupsRsp extends ResponseBase
 {
-  private $ExemptCertificates; // ArrayOfExemptionCertificate
+  private $TICGroups; // ArrayOfTICGroup
 
-  public function getExemptCertificates()
+  public function getTICGroups()
   {
-    return $this->ExemptCertificates;
+    return $this->TICGroups;
   }
 }

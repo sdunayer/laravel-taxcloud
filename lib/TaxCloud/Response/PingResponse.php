@@ -24,10 +24,27 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-use TaxCloud\ResponseBase;
+use GuzzleHttp\Psr7\Response;
 
-class AuthorizedRsp extends ResponseBase
+class PingResponse
 {
+  private $PingResult; // ResponseBase
+
+  /**
+   * Constructor.
+   *
+   * @since 0.2.0
+   *
+   * @param Response $response
+   */
+  public function __construct($response) {
+  	$this->PingResult = new ResponseBase($response);
+  }
+
+  public function getPingResult()
+  {
+    return $this->PingResult;
+  }
 }

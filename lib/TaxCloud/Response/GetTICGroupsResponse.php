@@ -24,22 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-use TaxCloud\ResponseBase;
-
-class LookupRsp extends ResponseBase
+class GetTICGroupsResponse
 {
-  private $CartID; // string
-  private $CartItemsResponse; // ArrayOfCartItemResponse
+  private $GetTICGroupsResult; // GetTICGroupsRsp
 
-  public function getCartID()
+  public function getTICGroupsResult()
   {
-    return $this->CartID;
-  }
-
-  public function getCartItemsResponse()
-  {
-    return $this->CartItemsResponse;
+    return $this->GetTICGroupsResult;
   }
 }

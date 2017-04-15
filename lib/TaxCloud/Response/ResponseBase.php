@@ -19,25 +19,54 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
+
+use GuzzleHttp\Psr7\Response;
+use TaxCloud\MessageType;
 
 class ResponseBase
 {
+  protected $Response; // string
   protected $ResponseType; // MessageType
   protected $Messages; // ArrayOfResponseMessage
 
+  /**
+   * Constructor.
+   *
+   * @since 0.2.0
+   *
+   * @param Response $response HTTP Response.
+   */
+  public function __construct($response) {
+    $this->Response = json_decode($response->getBody(), true);
+  }
+
+  /**
+   * Decode response messages.
+   *
+   * @since 0.2.0
+   */
+  private function decodeMessages() {
+    $_messages = array();
+    foreach ($messages as $message) {
+      $_messages[] = new ResponseMessage($message);
+    }
+    return $_messages;
+  }
+
   public function getResponseType()
   {
-    return $this->ResponseType;
+    return MessageType::fromValue($this->Response['ResponseType']);
   }
 
   public function getMessages()
   {
+    if (!isset($this->Messages)) {
+      $this->decodeMessages();
+    }
     return $this->Messages;
   }
 }

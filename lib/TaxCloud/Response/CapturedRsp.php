@@ -24,14 +24,10 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class AddCertificateRsp
+use TaxCloud\ResponseBase;
+
+class CapturedRsp extends ResponseBase
 {
-    private $CertificateID; // string
-
-    public function getCertificateID()
-    {
-      return $this->CertificateID;
-    }
 }

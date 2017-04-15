@@ -24,16 +24,10 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
 use TaxCloud\ResponseBase;
 
-class GetTICGroupsRsp extends ResponseBase
+class AuthorizedRsp extends ResponseBase
 {
-  private $TICGroups; // ArrayOfTICGroup
-
-  public function getTICGroups()
-  {
-    return $this->TICGroups;
-  }
 }

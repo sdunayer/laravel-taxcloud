@@ -24,14 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class GetTICsByGroupResponse
+class AddExemptCertificateResponse
 {
-  private $GetTICsByGroupResult; // GetTICsRsp
+  private $AddExemptCertificateResult; // AddCertificateRsp
 
-  public function getTICsByGroupResult()
+  public function getAddExemptCertificateResult()
   {
-    return $this->GetTICsByGroupResult;
+    return $this->AddExemptCertificateResult;
   }
 }

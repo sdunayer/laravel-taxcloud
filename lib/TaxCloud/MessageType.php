@@ -32,4 +32,22 @@ class MessageType
   const Warning = 'Warning';
   const Informational = 'Informational';
   const OK = 'OK';
+
+  /**
+   * Converts an integer ResponseType into a MessageType.
+   *	
+   * @since 0.2.0
+   *
+   * @param  int $value
+   * @return string
+   */
+  public static function fromValue($value) {
+  	switch ($value) {
+  		case 0: return Error;
+  		case 1: return Warning;
+  		case 2: return Informational;
+  		case 3: return OK;
+  		default: return Error;
+  	}
+  }
 }

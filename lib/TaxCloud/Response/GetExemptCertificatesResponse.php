@@ -24,14 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class DeleteExemptCertificateResponse
+class GetExemptCertificatesResponse
 {
-  private $DeleteExemptCertificateResult; // DeleteCertificateRsp
+  private $GetExemptCertificatesResult; // GetCertificatesRsp
 
-  public function getDeleteExemptCertificateResult()
+  public function getExemptCertificatesResult()
   {
-    return $this->DeleteExemptCertificateResult;
+    return $this->GetExemptCertificatesResult;
   }
 }

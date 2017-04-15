@@ -24,14 +24,14 @@
  * Modifications made August 20, 2013 by Brian Altenhofel
  */
 
-namespace TaxCloud;
+namespace TaxCloud\Response;
 
-class LookupResponse
+class AddCertificateRsp
 {
-  private $LookupResult; // LookupRsp
+    private $CertificateID; // string
 
-  public function getLookupResult()
-  {
-    return $this->LookupResult;
-  }
+    public function getCertificateID()
+    {
+      return $this->CertificateID;
+    }
 }
