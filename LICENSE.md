@@ -20,6 +20,9 @@ under the License.
 Modifications to original code made on and after August 20, 2013.
 Modifications Copyright (c) 2013 Brian Altenhofel
 
+Additional modifications made on and after April 15, 2017
+Modifications Copyright (c) 2017 Brett Porcelli
+
 MODIFICATIONS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY FOR A
 PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
