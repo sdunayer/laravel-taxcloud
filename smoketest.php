@@ -154,6 +154,36 @@ try {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
 
+step('Add Exemption Certificate');
+
+$exemptState = new \TaxCloud\ExemptState("WA", \TaxCloud\ExemptionReason::Resale, "00000-00000");
+$taxID = new \TaxCloud\TaxID(\TaxCloud\TaxIDType::FEIN, "00000-00000", "WA");
+$exemptCert = new \TaxCloud\ExemptionCertificate(array($exemptState), false, "23463", "E-Commerce", "Geek", "Rockstar", "162 East Avenue", "Third Floor", "Norwalk", "WA", "06851", $taxID, \TaxCloud\BusinessType::RetailTrade, "", \TaxCloud\ExemptionReason::Resale, "foo");
+$addExempt = new \TaxCloud\Request\AddExemptCertificate($apiLoginID, $apiKey, '123', $exemptCert);
+$certID = "";
+try {
+  $certID = $client->AddExemptCertificate($addExempt);
+  printf("ID: %s", $certID);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
+step('Get Exemption Certificates');
+
+$getCerts = new \TaxCloud\Request\GetExemptCertificates($apiLoginID, $apiKey, '123');
+try {
+  $certs = $client->GetExemptCertificates($getCerts);
+
+  foreach ($certs as $cert) {
+    if ($cert->getCertificateID() == $certID) {
+      print_r($cert);
+      break;
+    }
+  }
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
 // step('Get TICs');
 
 // $params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);

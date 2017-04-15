@@ -29,7 +29,7 @@ class ExemptionCertificate extends Serializable
   protected $CertificateID; // string
   protected $Detail; // ExemptionCertificateDetail
 
-  public function __construct(array $ExemptStates, $SinglePurchase = 0, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2 = '', $PurchaserCity, $PurchaserState, $PurchaserZip, TaxID $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue = '', $PurchaserExemptionReason, $PurchaseExemptionReasonValue)
+  public function __construct(array $ExemptStates, $SinglePurchase = 0, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2 = '', $PurchaserCity, $PurchaserState, $PurchaserZip, TaxID $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue = '', $PurchaserExemptionReason, $PurchaseExemptionReasonValue, $CreatedDate = NULL)
   {
     $this->Detail = new ExemptionCertificateDetail(
       $ExemptStates,
@@ -47,7 +47,8 @@ class ExemptionCertificate extends Serializable
       $PurchaserBusinessType,
       $PurchaserBusinessTypeOtherValue,
       $PurchaserExemptionReason,
-      $PurchaseExemptionReasonValue
+      $PurchaseExemptionReasonValue,
+      $CreatedDate
     );
   }
 
@@ -59,5 +60,53 @@ class ExemptionCertificate extends Serializable
   public function getDetail()
   {
     return $this->Detail;
+  }
+
+  /**
+   * Create ExemptionCertificate given array.
+   *
+   * @since 0.2.0
+   *
+   * @param  array $certificate
+   * @return ExemptionCertificate
+   */
+  public static function fromArray($certificate) {
+    $states = array();
+
+    $detail = $certificate['Detail'];
+
+    foreach ($detail['ExemptStates'] as $state) {
+      $states[] = new ExemptState($state['StateAbbreviation'], $state['ReasonForExemption'], $state['IdentificationNumber']);
+    }
+
+    $taxID = new TaxID(
+      $detail['PurchaserTaxID']['TaxType'],
+      $detail['PurchaserTaxID']['IDNumber'],
+      $detail['PurchaserTaxID']['StateOfIssue']
+    );
+
+    $cert = new self(
+      $states, 
+      $detail['SinglePurchase'],
+      $detail['SinglePurchaseOrderNumber'],
+      $detail['PurchaserFirstName'],
+      $detail['PurchaserLastName'],
+      $detail['PurchaserTitle'],
+      $detail['PurchaserAddress1'],
+      $detail['PurchaserAddress2'],
+      $detail['PurchaserCity'],
+      $detail['PurchaserState'],
+      $detail['PurchaserZip'],
+      $taxID,
+      $detail['PurchaserBusinessType'],
+      $detail['PurchaserBusinessTypeOtherValue'],
+      $detail['PurchaserExemptionReason'],
+      $detail['PurchaserExemptionReasonValue'],
+      $detail['CreatedDate']
+    );
+
+    $cert->CertificateID = $certificate['CertificateID'];
+    
+    return $cert;
   }
 }

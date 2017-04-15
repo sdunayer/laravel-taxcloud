@@ -37,6 +37,9 @@ use TaxCloud\Exceptions\PingException;
 use TaxCloud\Exceptions\ReturnedException;
 use TaxCloud\Exceptions\USPSIDException;
 use TaxCloud\Exceptions\VerifyAddressException;
+use TaxCloud\Exceptions\AddExemptCertificateException;
+use TaxCloud\Exceptions\GetExemptCertificatesException;
+use TaxCloud\Exceptions\DeleteExemptCertificateException;
 use TaxCloud\Request\AddExemptCertificate;
 use TaxCloud\Request\Authorized;
 use TaxCloud\Request\AuthorizedWithCapture;
@@ -58,6 +61,9 @@ use TaxCloud\Response\AuthorizedResponse;
 use TaxCloud\Response\AuthorizedWithCaptureResponse;
 use TaxCloud\Response\CapturedResponse;
 use TaxCloud\Response\ReturnedResponse;
+use TaxCloud\Response\AddExemptCertificateResponse;
+use TaxCloud\Response\GetExemptCertificatesResponse;
+use TaxCloud\Response\DeleteExemptCertificateResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Request;
 
@@ -101,7 +107,7 @@ class Client
   {
     $client = new GuzzleClient(array(
       'base_uri' => $base_uri,
-      'timeout'  => 10.0,
+      'timeout'  => 30.0,
     ));
 
     $this->setClient($client);
@@ -332,36 +338,78 @@ class Client
   }
 
   /**
+   * Save an Entity Exemption Certificate for a given customerID.
    *
-   *
-   * @param GetTICGroups $parameters
-   * @return GetTICGroupsResponse
+   * @param  AddExemptCertificate $parameters
+   * @return string CertificateID.
    */
-  public function GetTICGroups(GetTICGroups $parameters)
+  public function AddExemptCertificate(AddExemptCertificate $parameters)
   {
-    $GetTICGroupsResponse = $this->soapClient->__soapCall('GetTICGroups', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-         );
+    $request = new Request('POST', 'AddExemptCertificate', self::$headers, json_encode($parameters));
 
-    $GetTICGroupsResult = $GetTICGroupsResponse->getTICGroupsResult();
-    if ($GetTICGroupsResult->getResponseType() == 'OK') {
-      $TICGroups = $GetTICGroupsResult->getTICGroups();
+    try {
+      $response = new AddExemptCertificateResponse($this->client->send($request));
 
-      $return = array();
-      foreach ($TICGroups as $TICGroupsArray) {
-        foreach ($TICGroupsArray as $TICGroup) {
-          $return[$TICGroup->getGroupID()] = $TICGroup->getDescription();
+      if ($response->getResponseType() == 'OK') {
+        return $response->getCertificateID();
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new AddExemptCertificateException($message->getMessage());
         }
       }
-
-      return $return;
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new AddExemptCertificateException($ex->getMessage());
     }
-    else {
-      foreach ($GetTICGroupsResult->getMessages() as $message) {
-        throw new GetTICGroupsException($message->getMessage());
+  }
+
+  /**
+   * Remove a previously saved/created Entity Exemption Certificate for a given
+   * customerID.
+   *
+   * @param  DeleteExemptCertificate $parameters
+   * @return bool
+   */
+  public function DeleteExemptCertificate(DeleteExemptCertificate $parameters)
+  {
+    $request = new Request('POST', 'DeleteExemptCertificate', self::$headers, json_encode($parameters));
+
+    try {
+      $response = new DeleteExemptCertificateResponse($this->client->send($request));
+
+      if ($response->getResponseType() == 'OK') {
+        return TRUE;
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new DeleteExemptCertificateException($message->getMessage());
+        }
       }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new DeleteExemptCertificateException($ex->getMessage());
+    }
+  }
+
+  /**
+   * Get previously saved Entity Exemption Certificates for a given customerID.
+   *
+   * @param  GetExemptCertificates $parameters
+   * @return ExemptCertificate[]
+   */
+  public function GetExemptCertificates(GetExemptCertificates $parameters)
+  {
+    $request = new Request('POST', 'GetExemptCertificates', self::$headers, json_encode($parameters));
+
+    try {
+      $response = new GetExemptCertificatesResponse($this->client->send($request));
+
+      if ($response->getResponseType() == 'OK') {
+        return $response->getExemptCertificates();
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new GetExemptCertificatesException($message->getMessage());
+        }
+      }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new GetExemptCertificatesException($ex->getMessage());
     }
   }
 
@@ -398,85 +446,5 @@ class Client
         throw new GetTICsException($message->getMessage());
       }
     }
-  }
-
-  /**
-   *
-   *
-   * @param GetTICsByGroup $parameters
-   * @return GetTICsByGroupResponse
-   */
-  public function GetTICsByGroup(GetTICsByGroup $parameters)
-  {
-    $GetTICsByGroupResponse = $this->soapClient->__soapCall('GetTICsByGroup', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-         );
-
-    $GetTICsByGroupResult = $GetTICsByGroupResponse->GetTICsByGroupResult();
-
-    if ($GetTICsByGroupResult->getResponseType() == 'OK') {
-      $TICs = $GetTICsByGroupResult->getTICs();
-
-      $return = array();
-      foreach ($TICs as $TICArray) {
-        foreach ($TICArray as $TIC) {
-          $return[$TIC->getTICID()] = $TIC->getDescription();
-        }
-      }
-
-      return $return;
-    }
-    else {
-      foreach ($GetTICsByGroupResult->getMessages() as $message) {
-        throw new GetTICsByGroupException($message->getMessage());
-      }
-    }
-  }
-
-  /**
-   *
-   *
-   * @param AddExemptCertificate $parameters
-   * @return AddExemptCertificateResponse
-   */
-  public function AddExemptCertificate(AddExemptCertificate $parameters)
-  {
-    return $this->soapClient->__soapCall('AddExemptCertificate', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-      );
-  }
-
-  /**
-   *
-   *
-   * @param DeleteExemptCertificate $parameters
-   * @return DeleteExemptCertificateResponse
-   */
-  public function DeleteExemptCertificate(DeleteExemptCertificate $parameters)
-  {
-    return $this->soapClient->__soapCall('DeleteExemptCertificate', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-      );
-  }
-
-  /**
-   *
-   *
-   * @param GetExemptCertificates $parameters
-   * @return GetExemptCertificatesResponse
-   */
-  public function GetExemptCertificates(GetExemptCertificates $parameters)
-  {
-    return $this->soapClient->__soapCall('GetExemptCertificates', array($parameters),       array(
-            'uri' => 'http://taxcloud.net',
-            'soapaction' => ''
-           )
-      );
   }
 }

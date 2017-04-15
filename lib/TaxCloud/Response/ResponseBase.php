@@ -50,11 +50,11 @@ class ResponseBase
    * @since 0.2.0
    */
   private function decodeMessages() {
-    $_messages = array();
-    foreach ($messages as $message) {
-      $_messages[] = new ResponseMessage($message);
+    $messages = array();
+    foreach ($this->Response['Messages'] as $message) {
+      $messages[] = new ResponseMessage($message);
     }
-    return $_messages;
+    $this->Messages = $messages;
   }
 
   public function getResponseType()

@@ -47,7 +47,7 @@ class ExemptionCertificateDetail extends Serializable
   protected $PurchaserExemptionReasonValue; // string
   protected $CreatedDate; // dateTime
 
-  public function construct($ExemptStates, $SinglePurchase, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2, $PurchaserCity, $PurchaserState, $PurchaserZip, $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue, $PurchaserExemptionReason, $PurchaserExemptionReasonValue, $CreatedDate = NULL)
+  public function __construct($ExemptStates, $SinglePurchase, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2, $PurchaserCity, $PurchaserState, $PurchaserZip, $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue, $PurchaserExemptionReason, $PurchaserExemptionReasonValue, $CreatedDate = NULL)
   {
     $this->setExemptStates($ExemptStates);
     $this->setSinglePurchase($SinglePurchase);
@@ -128,7 +128,7 @@ class ExemptionCertificateDetail extends Serializable
     return $this->PurchaserTitle;
   }
 
-  private function setPurchaserAddress1($PuchaserAddress1)
+  private function setPurchaserAddress1($PurchaserAddress1)
   {
     $this->PurchaserAddress1 = $PurchaserAddress1;
   }
@@ -190,7 +190,7 @@ class ExemptionCertificateDetail extends Serializable
 
   private function setPurchaserBusinessType($PurchaserBusinessType)
   {
-    $this->PurchaserBusinessType = constant("BusinessType::$PurchaserBusinessType");
+    $this->PurchaserBusinessType = constant("TaxCloud\\BusinessType::$PurchaserBusinessType");
   }
 
   public function getPurchaserBusinessType()
@@ -210,7 +210,7 @@ class ExemptionCertificateDetail extends Serializable
 
   private function setPurchaserExemptionReason($PurchaserExemptionReason)
   {
-    $this->PurchaserExemptionReason = constant("ExemptionReason::$PurchaserExemptionReason");
+    $this->PurchaserExemptionReason = constant("TaxCloud\\ExemptionReason::$PurchaserExemptionReason");
   }
 
   public function getPurchaserExemptionReason()
@@ -230,9 +230,15 @@ class ExemptionCertificateDetail extends Serializable
 
   private function setCreatedDate($CreatedDate)
   {
-    $this->CreatedDate = $CreatedDate ? $CreatedDate : date("c");
+    if ($CreatedDate) {
+      // Decode JSON date
+      $timestamp = preg_replace('/[^0-9]/', '', $CreatedDate);
+      $this->CreatedDate = date("c", $timestamp / 1000);
+    } else {
+      $this->CreatedDate = date("c");
+    }
   }
-
+  
   public function getCreatedDate()
   {
     return $this->CreatedDate;

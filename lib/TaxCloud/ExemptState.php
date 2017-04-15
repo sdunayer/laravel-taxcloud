@@ -27,7 +27,7 @@ namespace TaxCloud;
 class ExemptState extends Serializable
 {
   protected $StateAbbr; // State
-  protected $ReasonForExemption; // string
+  protected $ReasonForExemption; // ExemptionReason
   protected $IdentificationNumber; // string
 
   public function __construct($StateAbbr, $ReasonForExemption, $IdentificationNumber)
@@ -39,7 +39,7 @@ class ExemptState extends Serializable
 
   private function setStateAbbr($StateAbbr)
   {
-    $this->StateAbbr = constant("State::$StateAbbr");
+    $this->StateAbbr = constant("TaxCloud\\State::$StateAbbr");
   }
 
   public function getStateAbbr()
@@ -49,7 +49,7 @@ class ExemptState extends Serializable
 
   private function setReasonForExemption($ReasonForExemption)
   {
-    $this->ReasonForExemption = $ReasonForExemption;
+    $this->ReasonForExemption = constant("TaxCloud\\ExemptionReason::$ReasonForExemption");
   }
 
   public function getReasonForExemption()

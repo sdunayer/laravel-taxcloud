@@ -19,19 +19,25 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli.
  */
 
 namespace TaxCloud\Response;
 
-class GetExemptCertificatesResponse
-{
-  private $GetExemptCertificatesResult; // GetCertificatesRsp
+use TaxCloud\ExemptionCertificate;
 
-  public function getExemptCertificatesResult()
+class GetExemptCertificatesResponse extends ResponseBase
+{
+  private $ExemptCertificates; // ArrayOfExemptionCertificate
+
+  public function getExemptCertificates()
   {
-    return $this->GetExemptCertificatesResult;
+  	$certificates = array();
+
+  	foreach ($this->Response['ExemptCertificates'] as $certificate) {
+  		$certificates[] = ExemptionCertificate::fromArray($certificate);
+  	}
+
+    return $certificates;
   }
 }

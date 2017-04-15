@@ -19,19 +19,17 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- *
- *
- * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made April 15, 2017 by Brett Porcelli.
  */
 
 namespace TaxCloud\Response;
 
-class AddExemptCertificateResponse
+class AddExemptCertificateResponse extends ResponseBase
 {
-  private $AddExemptCertificateResult; // AddCertificateRsp
+    private $CertificateID; // string
 
-  public function getAddExemptCertificateResult()
-  {
-    return $this->AddExemptCertificateResult;
-  }
+    public function getCertificateID()
+    {
+      return $this->Response['CertificateID'];
+    }
 }
