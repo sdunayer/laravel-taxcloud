@@ -6,16 +6,16 @@
   "keywords": ["tax", "taxes", "taxation", "shop", "webshop", "store", "webstore", "sales", "ecommerce"],
   "authors": [
     {
-      "name": "Brian Altenhofel",
-      "email": "brian.altenhofel@vmdoh.com"
-    },
-    {
       "name": "Brett Porcelli",
       "email": "brettporcelli@gmail.com"
+    },
+    {
+      "name": "Brian Altenhofel",
+      "email": "brian.altenhofel@vmdoh.com"
     }
   ],
   "require": {
-    "php": ">=5.3.0",
+    "php": ">=5.5.0",
     "guzzlehttp/guzzle": "~6.0"
   },
   "require-dev": {
