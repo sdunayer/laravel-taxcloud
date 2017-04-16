@@ -24,7 +24,7 @@ communicate with TaxCloud.
 
 Compatibility
 ----------------
-php-taxcloud is tested with PHP 5.3 and later.
+php-taxcloud is tested with PHP 5.5 and later.
 
 Contributions
 ----------------
