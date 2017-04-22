@@ -172,7 +172,6 @@ step('Get Exemption Certificates');
 $getCerts = new \TaxCloud\Request\GetExemptCertificates($apiLoginID, $apiKey, '123');
 try {
   $certs = $client->GetExemptCertificates($getCerts);
-  print_r($certs);
 } catch (Exception $e) {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
