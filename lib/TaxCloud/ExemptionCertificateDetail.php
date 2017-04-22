@@ -46,6 +46,7 @@ class ExemptionCertificateDetail extends Serializable
   protected $PurchaserExemptionReason; // ExemptionReason
   protected $PurchaserExemptionReasonValue; // string
   protected $CreatedDate; // dateTime
+  protected static $DatePattern = "/\/Date\(\d+\)\//"; // Match JavaScript serialized dates
 
   public function __construct($ExemptStates, $SinglePurchase, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2, $PurchaserCity, $PurchaserState, $PurchaserZip, $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue, $PurchaserExemptionReason, $PurchaserExemptionReasonValue, $CreatedDate = NULL)
   {
@@ -230,11 +231,15 @@ class ExemptionCertificateDetail extends Serializable
 
   private function setCreatedDate($CreatedDate)
   {
-    if ($CreatedDate) {
-      // Decode JSON date
+    if ($CreatedDate && preg_match(self::$DatePattern, $CreatedDate)) {
+      /* Decode serialized date. */
       $timestamp = preg_replace('/[^0-9]/', '', $CreatedDate);
       $this->CreatedDate = date("c", $timestamp / 1000);
+    } else if ($CreatedDate) {
+      /* Use provided date. */
+      $this->CreatedDate = $CreatedDate;
     } else {
+      /* Use current date. */
       $this->CreatedDate = date("c");
     }
   }
