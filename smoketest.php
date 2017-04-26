@@ -160,9 +160,10 @@ $exemptState = new \TaxCloud\ExemptState("WA", \TaxCloud\ExemptionReason::Resale
 $taxID = new \TaxCloud\TaxID(\TaxCloud\TaxIDType::FEIN, "00000-00000", "WA");
 $exemptCert = new \TaxCloud\ExemptionCertificate(array($exemptState), false, "23463", "E-Commerce", "Geek", "Rockstar", "162 East Avenue", "Third Floor", "Norwalk", "WA", "06851", $taxID, \TaxCloud\BusinessType::RetailTrade, "", \TaxCloud\ExemptionReason::Resale, "foo");
 $addExempt = new \TaxCloud\Request\AddExemptCertificate($apiLoginID, $apiKey, '123', $exemptCert);
+$blanketCertID = '';
 try {
-  $certID = $client->AddExemptCertificate($addExempt);
-  printf("ID: %s", $certID);
+  $blanketCertID = $client->AddExemptCertificate($addExempt);
+  printf("ID: %s", $blanketCertID);
 } catch (Exception $e) {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }
@@ -181,6 +182,29 @@ step('Get TICs');
 $params = new \TaxCloud\Request\GetTICs($apiLoginID, $apiKey);
 try {
   $client->GetTICs($params);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
+step('Lookup with Single Use Exemption Certificate');
+
+$exemptState = new \TaxCloud\ExemptState("WA", \TaxCloud\ExemptionReason::Resale, "00000-00000");
+$taxID = new \TaxCloud\TaxID(\TaxCloud\TaxIDType::FEIN, "00000-00000", "WA");
+$singleUseCert = new \TaxCloud\ExemptionCertificate(array($exemptState), true, "23463", "E-Commerce", "Geek", "Rockstar", "162 East Avenue", "Third Floor", "Norwalk", "WA", "06851", $taxID, \TaxCloud\BusinessType::RetailTrade, "", \TaxCloud\ExemptionReason::Resale, "foo");
+
+$lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID, $cartItems, $originAddress, $destAddress, false, $singleUseCert);
+try {
+  $client->Lookup($lookup);
+} catch (Exception $e) {
+  echo 'Caught exception: ', $e->getMessage(), "\n";
+}
+
+step('Lookup with Blanket Certificate');
+
+$blanketCert = new \TaxCloud\ExemptionCertificateBase($blanketCertID);
+$lookup = new \TaxCloud\Request\Lookup($apiLoginID, $apiKey, '123', $cartID, $cartItems, $originAddress, $destAddress, false, $blanketCert);
+try {
+  $client->Lookup($lookup);
 } catch (Exception $e) {
   echo 'Caught exception: ', $e->getMessage(), "\n";
 }

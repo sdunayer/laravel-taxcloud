@@ -19,18 +19,19 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- * Modifications made April 15, 2017 by Brett Porcelli
+ * Modifications made April 25, 2017 by Brett Porcelli
  */
 
 namespace TaxCloud;
 
-class ExemptionCertificate extends Serializable
+class ExemptionCertificate extends ExemptionCertificateBase
 {
-  protected $CertificateID; // string
   protected $Detail; // ExemptionCertificateDetail
 
   public function __construct(array $ExemptStates, $SinglePurchase = 0, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2 = '', $PurchaserCity, $PurchaserState, $PurchaserZip, TaxID $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue = '', $PurchaserExemptionReason, $PurchaseExemptionReasonValue, $CreatedDate = NULL)
   {
+    parent::__construct();
+    
     $this->Detail = new ExemptionCertificateDetail(
       $ExemptStates,
       $SinglePurchase,
@@ -50,11 +51,6 @@ class ExemptionCertificate extends Serializable
       $PurchaseExemptionReasonValue,
       $CreatedDate
     );
-  }
-
-  public function getCertificateID()
-  {
-    return $this->CertificateID;
   }
 
   public function getDetail()

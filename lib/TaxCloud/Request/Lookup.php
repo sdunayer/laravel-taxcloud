@@ -25,6 +25,7 @@
 namespace TaxCloud\Request;
 
 use TaxCloud\Address;
+use TaxCloud\ExemptionCertificateBase;
 
 class Lookup extends RequestBase
 {
@@ -34,9 +35,9 @@ class Lookup extends RequestBase
   protected $origin; // Address
   protected $destination; // Address
   protected $deliveredBySeller; // boolean
-  protected $exemptCert; // ExemptionCertificate
+  protected $exemptCert; // ExemptionCertificateBase
 
-  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, Address $origin, Address $destination, $deliveredBySeller = FALSE)
+  public function __construct($apiLoginID, $apiKey, $customerID, $cartID, $cartItems, Address $origin, Address $destination, $deliveredBySeller = FALSE, ExemptionCertificateBase $exemptCert = NULL)
   {
     $this->setCustomerID($customerID);
     $this->setCartID($cartID);
@@ -44,6 +45,7 @@ class Lookup extends RequestBase
     $this->setOrigin($origin);
     $this->setDestination($destination);
     $this->setDeliveredBySeller($deliveredBySeller);
+    $this->setExemptCert($exemptCert);
     parent::__construct($apiLoginID, $apiKey);
   }
 
@@ -105,5 +107,15 @@ class Lookup extends RequestBase
   public function getDeliveredBySeller()
   {
     return $this->deliveredBySeller;
+  }
+
+  private function setExemptCert($exemptCert)
+  {
+    $this->exemptCert = $exemptCert;
+  }
+
+  public function getExemptCert()
+  {
+    return $this->exemptCert;
   }
 }
