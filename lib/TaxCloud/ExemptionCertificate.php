@@ -72,7 +72,7 @@ class ExemptionCertificate extends ExemptionCertificateBase
     $detail = $certificate['Detail'];
 
     foreach ($detail['ExemptStates'] as $state) {
-      $states[] = new ExemptState($state['StateAbbreviation'], $state['ReasonForExemption'], $state['IdentificationNumber']);
+      $states[] = new ExemptState($state['StateAbbr'], $state['ReasonForExemption'], $state['IdentificationNumber']);
     }
 
     $taxID = new TaxID(
