@@ -22,23 +22,28 @@
  *
  *
  * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made June 14, 2019 by Brett Porcelli
  */
 
 namespace TaxCloud;
 
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7\Request;
+use TaxCloud\Exceptions\AddExemptCertificateException;
+use TaxCloud\Exceptions\AddTransactionsException;
 use TaxCloud\Exceptions\AuthorizedException;
 use TaxCloud\Exceptions\AuthorizedWithCaptureException;
 use TaxCloud\Exceptions\CapturedException;
+use TaxCloud\Exceptions\DeleteExemptCertificateException;
+use TaxCloud\Exceptions\GetExemptCertificatesException;
 use TaxCloud\Exceptions\GetTICsException;
 use TaxCloud\Exceptions\LookupException;
 use TaxCloud\Exceptions\PingException;
 use TaxCloud\Exceptions\ReturnedException;
 use TaxCloud\Exceptions\USPSIDException;
 use TaxCloud\Exceptions\VerifyAddressException;
-use TaxCloud\Exceptions\AddExemptCertificateException;
-use TaxCloud\Exceptions\GetExemptCertificatesException;
-use TaxCloud\Exceptions\DeleteExemptCertificateException;
 use TaxCloud\Request\AddExemptCertificate;
+use TaxCloud\Request\AddTransactions;
 use TaxCloud\Request\Authorized;
 use TaxCloud\Request\AuthorizedWithCapture;
 use TaxCloud\Request\Captured;
@@ -50,19 +55,18 @@ use TaxCloud\Request\LookupForDate;
 use TaxCloud\Request\Ping;
 use TaxCloud\Request\Returned;
 use TaxCloud\Request\VerifyAddress;
-use TaxCloud\Response\PingResponse;
-use TaxCloud\Response\VerifyAddressResponse;
-use TaxCloud\Response\LookupResponse;
+use TaxCloud\Response\AddExemptCertificateResponse;
+use TaxCloud\Response\AddTransactionsResponse;
 use TaxCloud\Response\AuthorizedResponse;
 use TaxCloud\Response\AuthorizedWithCaptureResponse;
 use TaxCloud\Response\CapturedResponse;
-use TaxCloud\Response\ReturnedResponse;
-use TaxCloud\Response\AddExemptCertificateResponse;
-use TaxCloud\Response\GetExemptCertificatesResponse;
 use TaxCloud\Response\DeleteExemptCertificateResponse;
+use TaxCloud\Response\GetExemptCertificatesResponse;
 use TaxCloud\Response\GetTICsResponse;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Psr7\Request;
+use TaxCloud\Response\LookupResponse;
+use TaxCloud\Response\PingResponse;
+use TaxCloud\Response\ReturnedResponse;
+use TaxCloud\Response\VerifyAddressResponse;
 
 /**
  * TaxCloud Web Service
@@ -437,5 +441,36 @@ class Client
     } catch (\GuzzleHttp\Exception\RequestException $ex) {
       throw new GetTICsException($ex->getMessage());
     }
+  }
+
+  /**
+   * Add a batch of transactions (up to 25 at a time) from offline sources.
+   *
+   * All transactions will be imported into TaxCloud, and re-calculated to ensure proper tax amounts are included in
+   * subsequent sales tax reports and filings.
+   *
+   * @param AddTransactions $parameters
+   *
+   * @return bool Boolean true on success.
+   *
+   * @throws AddTransactionsException If the AddTransactions request fails.
+   */
+  public function AddTransactions(AddTransactions $parameters)
+  {
+    $request = new Request('POST', 'AddTransactions', self::$headers, json_encode($parameters));
+
+    try {
+      $response = new AddTransactionsResponse($this->client->send($request));
+
+      if ('OK' !== $response->getResponseType()) {
+        foreach ($response->getMessages() as $message) {
+          throw new AddTransactionsException($message->getMessage());
+        }
+      }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new AddTransactionsException($ex->getMessage());
+    }
+
+    return true;
   }
 }
