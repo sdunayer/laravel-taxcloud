@@ -1,7 +1,5 @@
 [![Latest Stable Version](https://poser.pugx.org/bporcelli/php-taxcloud/v/stable.png)](https://packagist.org/packages/bporcelli/php-taxcloud)
 [![Total Downloads](https://poser.pugx.org/bporcelli/php-taxcloud/downloads.png)](https://packagist.org/packages/bporcelli/php-taxcloud)
-[![Build Status](https://travis-ci.org/bporcelli/php-taxcloud.png?branch=master)](https://travis-ci.org/bporcelli/php-taxcloud)
-[![Coverage Status](https://coveralls.io/repos/github/bporcelli/php-taxcloud/badge.svg?branch=master)](https://coveralls.io/github/bporcelli/php-taxcloud?branch=master)
 
 This library is based on the PHP TaxCloud library by [VMDoh](https://github.com/VMdoh/php-taxcloud). It introduces
 support for tax exemptions and brings the original library up-to-date with the most recent version of the [TaxCloud API](https://dev.taxcloud.com/docs/versions/1.0/).
