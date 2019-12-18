@@ -107,9 +107,10 @@ class Client
   private function buildClient($base_uri)
   {
     $client = new GuzzleClient(array(
-      'base_uri' => $base_uri,
-      'timeout'  => 30.0,
-      'verify'   => dirname(dirname(dirname(__FILE__))) . '/cacert.pem',
+      'base_uri'       => $base_uri,
+      'timeout'        => 30.0,
+      'verify'         => dirname(dirname(dirname(__FILE__))) . '/cacert.pem',
+      'idn_conversion' => false,
     ));
 
     $this->setClient($client);
