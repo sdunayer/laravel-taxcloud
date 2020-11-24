@@ -49,6 +49,7 @@ use TaxCloud\Request\AuthorizedWithCapture;
 use TaxCloud\Request\Captured;
 use TaxCloud\Request\DeleteExemptCertificate;
 use TaxCloud\Request\GetExemptCertificates;
+use TaxCloud\Request\GetLocations;
 use TaxCloud\Request\GetTICs;
 use TaxCloud\Request\Lookup;
 use TaxCloud\Request\LookupForDate;
@@ -62,6 +63,7 @@ use TaxCloud\Response\AuthorizedWithCaptureResponse;
 use TaxCloud\Response\CapturedResponse;
 use TaxCloud\Response\DeleteExemptCertificateResponse;
 use TaxCloud\Response\GetExemptCertificatesResponse;
+use TaxCloud\Response\GetLocationsResponse;
 use TaxCloud\Response\GetTICsResponse;
 use TaxCloud\Response\LookupResponse;
 use TaxCloud\Response\PingResponse;
@@ -442,6 +444,31 @@ class Client
       }
     } catch (\GuzzleHttp\Exception\RequestException $ex) {
       throw new GetTICsException($ex->getMessage());
+    }
+  }
+
+  /**
+   * Get a list of the locations currently associated with the TaxCloud account associated with the API ID being used.
+   *
+   * @param  GetLocations $parameters
+   * @return Location[]
+   */
+  public function GetLocations(GetLocations $parameters)
+  {
+    $request = new Request('POST', 'GetLocations', self::$headers, json_encode($parameters));
+
+    try {
+      $response = new GetLocationsResponse($this->client->send($request));
+
+      if ($response->getResponseType() == 'OK') {
+        return $response->getLocations();
+      } else {
+        foreach ($response->getMessages() as $message) {
+          throw new GetLocationsException($message->getMessage());
+        }
+      }
+    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+      throw new GetLocationsException($ex->getMessage());
     }
   }
 
