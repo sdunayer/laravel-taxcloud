@@ -1,6 +1,8 @@
 [![Latest Stable Version](https://poser.pugx.org/bporcelli/php-taxcloud/v/stable.png)](https://packagist.org/packages/bporcelli/php-taxcloud)
 [![Total Downloads](https://poser.pugx.org/bporcelli/php-taxcloud/downloads.png)](https://packagist.org/packages/bporcelli/php-taxcloud)
 
+**DEPRECATED. Consider using one of TaxCloud's [pre-built PHP SDKs](https://taxcloud.net/developer#pre_built_sdks) instead.**
+
 This library is based on the PHP TaxCloud library by [VMDoh](https://github.com/VMdoh/php-taxcloud). It introduces
 support for tax exemptions and brings the original library up-to-date with the most recent version of the [TaxCloud API](https://dev.taxcloud.com/docs/versions/1.0/).
 
