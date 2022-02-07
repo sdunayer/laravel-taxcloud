@@ -28,10 +28,10 @@ class ExemptionCertificate extends ExemptionCertificateBase
 {
   protected $Detail; // ExemptionCertificateDetail
 
-  public function __construct(array $ExemptStates, $SinglePurchase = 0, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2 = '', $PurchaserCity, $PurchaserState, $PurchaserZip, TaxID $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue = '', $PurchaserExemptionReason, $PurchaseExemptionReasonValue, $CreatedDate = NULL)
+  public function __construct(array $ExemptStates, $SinglePurchase, $SinglePurchaseOrderNumber, $PurchaserFirstName, $PurchaserLastName, $PurchaserTitle, $PurchaserAddress1, $PurchaserAddress2, $PurchaserCity, $PurchaserState, $PurchaserZip, TaxID $PurchaserTaxID, $PurchaserBusinessType, $PurchaserBusinessTypeOtherValue, $PurchaserExemptionReason, $PurchaseExemptionReasonValue, $CreatedDate = NULL)
   {
     parent::__construct();
-    
+
     $this->Detail = new ExemptionCertificateDetail(
       $ExemptStates,
       $SinglePurchase,
@@ -102,7 +102,7 @@ class ExemptionCertificate extends ExemptionCertificateBase
     );
 
     $cert->CertificateID = $certificate['CertificateID'];
-    
+
     return $cert;
   }
 }

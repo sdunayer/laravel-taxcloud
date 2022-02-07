@@ -33,7 +33,7 @@ class MessageType
 
   /**
    * Converts an integer ResponseType into a MessageType.
-   *	
+   *
    * @since 0.2.0
    *
    * @param  int $value
@@ -43,13 +43,13 @@ class MessageType
   	switch ($value) {
   		case 0:
   			return self::Error;
-  		case 1: 
+  		case 1:
   			return self::Warning;
-  		case 2: 
+  		case 2:
   			return self::Informational;
-  		case 3: 
+  		case 3:
   			return self::OK;
-  		default: 
+  		default:
   			return self::Error;
   	}
   }

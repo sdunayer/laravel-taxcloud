@@ -31,7 +31,7 @@ class Serializable implements \JsonSerializable {
 	 * @since 0.2.0
 	 *
 	 * @param  array $array
-	 * @return array 
+	 * @return array
 	 */
 	private function serializeArray(&$array) {
 		foreach ($array as $key => $val) {
