@@ -37,7 +37,7 @@ class VerifyAddressResponse
    *
    * @since 0.2.0
    *
-   * @param GuzzleHttp\Response $response HTTP Response.
+   * @param string $response HTTP Response.
    */
   public function __construct($response) {
     $this->VerifyAddressResult = new VerifiedAddress($response);

@@ -22,6 +22,7 @@
  *
  *
  * Modifications made August 20, 2013 by Brian Altenhofel
+ * Modifications made May 12, 2023 by Brett Porcelli
  */
 
 namespace TaxCloud\Response;
@@ -35,7 +36,7 @@ class PingResponse
    *
    * @since 0.2.0
    *
-   * @param Response $response
+   * @param string $response
    */
   public function __construct($response) {
   	$this->PingResult = new ResponseBase($response);

@@ -24,8 +24,6 @@
 
 namespace TaxCloud;
 
-use GuzzleHttp\Psr7\Response;
-
 class VerifiedAddress
 {
   private $ErrNumber; // string
@@ -42,10 +40,10 @@ class VerifiedAddress
    *
    * @since 0.2.0
    *
-   * @param GuzzleHttp\Response $response HTTP Response.
+   * @param string $response HTTP Response.
    */
   public function __construct($response) {
-    $result = json_decode($response->getBody(), true);
+    $result = json_decode($response, true);
 
     foreach ($result as $key => $value) {
       $this->$key = $value;

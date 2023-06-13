@@ -19,12 +19,11 @@
  * Please see the License for the specific language governing rights and
  * limitations under the License.
  *
- * Modifications made April 15, 2017 by Brett Porcelli
+ * Modifications made May 12, 2023 by Brett Porcelli
  */
 
 namespace TaxCloud\Response;
 
-use GuzzleHttp\Psr7\Response;
 use TaxCloud\MessageType;
 
 class ResponseBase
@@ -38,10 +37,10 @@ class ResponseBase
    *
    * @since 0.2.0
    *
-   * @param Response $response HTTP Response.
+   * @param string $response HTTP Response.
    */
   public function __construct($response) {
-    $this->Response = json_decode($response->getBody(), true);
+    $this->Response = json_decode($response, true);
   }
 
   /**

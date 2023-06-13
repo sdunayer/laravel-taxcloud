@@ -22,13 +22,11 @@
  *
  *
  * Modifications made August 20, 2013 by Brian Altenhofel
- * Modifications made June 14, 2019 by Brett Porcelli
+ * Modifications made May 12, 2023 by Brett Porcelli
  */
 
 namespace TaxCloud;
 
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Psr7\Request;
 use TaxCloud\Exceptions\AddExemptCertificateException;
 use TaxCloud\Exceptions\AddTransactionsException;
 use TaxCloud\Exceptions\AuthorizedException;
@@ -42,6 +40,7 @@ use TaxCloud\Exceptions\PingException;
 use TaxCloud\Exceptions\ReturnedException;
 use TaxCloud\Exceptions\USPSIDException;
 use TaxCloud\Exceptions\VerifyAddressException;
+use TaxCloud\Exceptions\RequestException;
 use TaxCloud\Request\AddExemptCertificate;
 use TaxCloud\Request\AddTransactions;
 use TaxCloud\Request\Authorized;
@@ -69,6 +68,7 @@ use TaxCloud\Response\LookupResponse;
 use TaxCloud\Response\PingResponse;
 use TaxCloud\Response\ReturnedResponse;
 use TaxCloud\Response\VerifyAddressResponse;
+use \JsonSerializable;
 
 /**
  * TaxCloud Web Service
@@ -83,9 +83,15 @@ class Client
    * @since 0.2.0
    */
   protected static $headers = array(
-    'Accept'       => 'application/json',
-    'Content-Type' => 'application/json',
+    'Accept: application/json',
+    'Content-Type: application/json',
   );
+
+  /**
+   * @var string API base URI.
+   * @since 1.0.0
+   */
+  protected $base_uri;
 
   /**
    * Constructor.
@@ -96,38 +102,7 @@ class Client
    */
   public function __construct($base_uri = "https://api.taxcloud.net/1.0/TaxCloud/")
   {
-    $this->buildClient($base_uri);
-  }
-
-  /**
-   * Build Guzzle client.
-   *
-   * @since 0.2.0
-   *
-   * @param $base_uri URI of TaxCloud webservice.
-   */
-  private function buildClient($base_uri)
-  {
-    $client = new GuzzleClient(array(
-      'base_uri'       => $base_uri,
-      'timeout'        => 30.0,
-      'verify'         => dirname(dirname(dirname(__FILE__))) . '/cacert.pem',
-      'idn_conversion' => false,
-    ));
-
-    $this->setClient($client);
-  }
-
-  /**
-   * Set Guzzle client.
-   *
-   * @since 0.2.0
-   *
-   * @param GuzzleClient $client
-   */
-  public function setClient(GuzzleClient $client)
-  {
-    $this->client = $client;
+    $this->base_uri = $base_uri;
   }
 
   /**
@@ -140,10 +115,8 @@ class Client
    */
   public function Ping(Ping $parameters)
   {
-    $request = new Request('POST', 'Ping', self::$headers, json_encode($parameters));
-
     try {
-      $response = new PingResponse($this->client->send($request));
+      $response = new PingResponse($this->post('Ping', $parameters));
       $result   = $response->getPingResult();
 
       if ($result->getResponseType() == 'OK') {
@@ -153,7 +126,7 @@ class Client
           throw new PingException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new PingException($ex->getMessage());
     }
   }
@@ -167,10 +140,8 @@ class Client
    */
   public function VerifyAddress(VerifyAddress $parameters)
   {
-    $request = new Request('POST', 'VerifyAddress', self::$headers, json_encode($parameters));
-
     try {
-      $response = new VerifyAddressResponse($this->client->send($request));
+      $response = new VerifyAddressResponse($this->post('VerifyAddress', $parameters));
       $result   = $response->getVerifyAddressResult();
 
       if ($result->getErrNumber() == 0) {
@@ -180,7 +151,7 @@ class Client
       } else {
         throw new VerifyAddressException('Error ' . $result->getErrNumber() . ': ' . $result->getErrDescription());
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new VerifyAddressException($ex->getMessage());
     }
   }
@@ -199,10 +170,8 @@ class Client
    */
   public function Lookup(Lookup $parameters)
   {
-    $request = new Request('POST', 'Lookup', self::$headers, json_encode($parameters));
-
     try {
-      $response = new LookupResponse($this->client->send($request));
+      $response = new LookupResponse($this->post('Lookup', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         $cart_id = $response->getCartID();
@@ -216,7 +185,7 @@ class Client
           throw new LookupException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new LookupException($ex->getMessage());
     }
   }
@@ -247,10 +216,8 @@ class Client
    */
   public function Authorized(Authorized $parameters)
   {
-    $request = new Request('POST', 'Authorized', self::$headers, json_encode($parameters));
-
     try {
-      $response = new AuthorizedResponse($this->client->send($request));
+      $response = new AuthorizedResponse($this->post('Authorized', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         return TRUE;
@@ -259,7 +226,7 @@ class Client
           throw new AuthorizedException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new AuthorizedException($ex->getMessage());
     }
   }
@@ -273,10 +240,8 @@ class Client
    */
   public function AuthorizedWithCapture(AuthorizedWithCapture $parameters)
   {
-    $request = new Request('POST', 'AuthorizedWithCapture', self::$headers, json_encode($parameters));
-
     try {
-      $response = new AuthorizedWithCaptureResponse($this->client->send($request));
+      $response = new AuthorizedWithCaptureResponse($this->post('AuthorizedWithCapture', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         return TRUE;
@@ -285,7 +250,7 @@ class Client
           throw new AuthorizedWithCaptureException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new AuthorizedWithCaptureException($ex->getMessage());
     }
   }
@@ -299,10 +264,8 @@ class Client
    */
   public function Captured(Captured $parameters)
   {
-    $request = new Request('POST', 'Captured', self::$headers, json_encode($parameters));
-
     try {
-      $response = new CapturedResponse($this->client->send($request));
+      $response = new CapturedResponse($this->post('Captured', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         return TRUE;
@@ -311,7 +274,7 @@ class Client
           throw new CapturedException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new CapturedException($ex->getMessage());
     }
   }
@@ -325,10 +288,8 @@ class Client
    */
   public function Returned(Returned $parameters)
   {
-    $request = new Request('POST', 'Returned', self::$headers, json_encode($parameters));
-
     try {
-      $response = new ReturnedResponse($this->client->send($request));
+      $response = new ReturnedResponse($this->post('Returned', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         return TRUE;
@@ -337,7 +298,7 @@ class Client
           throw new ReturnedException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new ReturnedException($ex->getMessage());
     }
   }
@@ -350,10 +311,8 @@ class Client
    */
   public function AddExemptCertificate(AddExemptCertificate $parameters)
   {
-    $request = new Request('POST', 'AddExemptCertificate', self::$headers, json_encode($parameters));
-
     try {
-      $response = new AddExemptCertificateResponse($this->client->send($request));
+      $response = new AddExemptCertificateResponse($this->post('AddExemptCertificate', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         return $response->getCertificateID();
@@ -362,7 +321,7 @@ class Client
           throw new AddExemptCertificateException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new AddExemptCertificateException($ex->getMessage());
     }
   }
@@ -376,10 +335,8 @@ class Client
    */
   public function DeleteExemptCertificate(DeleteExemptCertificate $parameters)
   {
-    $request = new Request('POST', 'DeleteExemptCertificate', self::$headers, json_encode($parameters));
-
     try {
-      $response = new DeleteExemptCertificateResponse($this->client->send($request));
+      $response = new DeleteExemptCertificateResponse($this->post('DeleteExemptCertificate', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         return TRUE;
@@ -388,7 +345,7 @@ class Client
           throw new DeleteExemptCertificateException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new DeleteExemptCertificateException($ex->getMessage());
     }
   }
@@ -401,10 +358,8 @@ class Client
    */
   public function GetExemptCertificates(GetExemptCertificates $parameters)
   {
-    $request = new Request('POST', 'GetExemptCertificates', self::$headers, json_encode($parameters));
-
     try {
-      $response = new GetExemptCertificatesResponse($this->client->send($request));
+      $response = new GetExemptCertificatesResponse($this->post('GetExemptCertificates', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         return $response->getExemptCertificates();
@@ -413,7 +368,7 @@ class Client
           throw new GetExemptCertificatesException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new GetExemptCertificatesException($ex->getMessage());
     }
   }
@@ -426,10 +381,8 @@ class Client
    */
   public function GetTICs(GetTICs $parameters)
   {
-    $request = new Request('POST', 'GetTICs', self::$headers, json_encode($parameters));
-
     try {
-      $response = new GetTICsResponse($this->client->send($request));
+      $response = new GetTICsResponse($this->post('GetTICs', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         $return = array();
@@ -442,7 +395,7 @@ class Client
           throw new GetTICsException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new GetTICsException($ex->getMessage());
     }
   }
@@ -455,10 +408,8 @@ class Client
    */
   public function GetLocations(GetLocations $parameters)
   {
-    $request = new Request('POST', 'GetLocations', self::$headers, json_encode($parameters));
-
     try {
-      $response = new GetLocationsResponse($this->client->send($request));
+      $response = new GetLocationsResponse($this->post('GetLocations', $parameters));
 
       if ($response->getResponseType() == 'OK') {
         return $response->getLocations();
@@ -467,7 +418,7 @@ class Client
           throw new GetLocationsException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new GetLocationsException($ex->getMessage());
     }
   }
@@ -486,20 +437,53 @@ class Client
    */
   public function AddTransactions(AddTransactions $parameters)
   {
-    $request = new Request('POST', 'AddTransactions', self::$headers, json_encode($parameters));
-
     try {
-      $response = new AddTransactionsResponse($this->client->send($request));
+      $response = new AddTransactionsResponse($this->post('AddTransactions', $parameters));
 
       if ('OK' !== $response->getResponseType()) {
         foreach ($response->getMessages() as $message) {
           throw new AddTransactionsException($message->getMessage());
         }
       }
-    } catch (\GuzzleHttp\Exception\RequestException $ex) {
+    } catch (RequestException $ex) {
       throw new AddTransactionsException($ex->getMessage());
     }
 
     return true;
+  }
+
+  /**
+   * Send a POST request to a TaxCloud API endpoint.
+   *
+   * @param string           $endpoint Endpoint name
+   * @param JsonSerializable $payload  Request payload
+   * @return string Response
+   * @throws RequestException If request fails
+   */
+  protected function post(string $endpoint, JsonSerializable $payload) {
+    $url = "{$this->base_uri}{$endpoint}";
+    $ch = curl_init($url);
+
+    curl_setopt_array($ch, array(
+      CURLOPT_HTTPHEADER => self::$headers,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_CAINFO => realpath(dirname(__FILE__) . '../../../cacert.pem'),
+      CURLOPT_POSTFIELDS => json_encode($payload),
+    ));
+
+    try {
+      $result = curl_exec($ch);
+
+      if ($result === false) {
+        throw new RequestException(curl_error($ch));
+      }
+
+      return $result;
+    } catch (RequestException $ex) {
+      throw $ex;
+    } finally {
+      curl_close($ch);
+    }
   }
 }
