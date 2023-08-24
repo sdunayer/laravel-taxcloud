@@ -52,9 +52,9 @@ class Serializable implements \JsonSerializable {
      *
      * @since 0.2.0
      *
-     * @return array
+     * @return mixed
      */
-	public function jsonSerialize()
+	public function jsonSerialize(): mixed
 	{
 		$request = array();
 		$props = get_object_vars($this);
