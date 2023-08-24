@@ -41,6 +41,7 @@ use TaxCloud\Exceptions\ReturnedException;
 use TaxCloud\Exceptions\USPSIDException;
 use TaxCloud\Exceptions\VerifyAddressException;
 use TaxCloud\Exceptions\RequestException;
+use TaxCloud\Exceptions\GetLocationsException;
 use TaxCloud\Request\AddExemptCertificate;
 use TaxCloud\Request\AddTransactions;
 use TaxCloud\Request\Authorized;
