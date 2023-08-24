@@ -14,7 +14,6 @@ use TaxCloud\Transaction;
 // API credentials loaded from environment variables.
 $apiLoginID = getenv("TaxCloud_apiLoginID");
 $apiKey = getenv("TaxCloud_apiKey");
-// $uspsUserID = getenv("TaxCloud_uspsUserID");
 
 // Some variable that need to be unique, but can't change.
 $orderID = rand();
