@@ -1,13 +1,8 @@
 [![Latest Stable Version](https://poser.pugx.org/bporcelli/php-taxcloud/v/stable.png)](https://packagist.org/packages/bporcelli/php-taxcloud)
 [![Total Downloads](https://poser.pugx.org/bporcelli/php-taxcloud/downloads.png)](https://packagist.org/packages/bporcelli/php-taxcloud)
 
-**DEPRECATED. Consider using one of TaxCloud's [pre-built PHP SDKs](https://taxcloud.net/developer#pre_built_sdks) instead.**
-
 This library is based on the PHP TaxCloud library by [VMDoh](https://github.com/VMdoh/php-taxcloud). It introduces
 support for tax exemptions and brings the original library up-to-date with the most recent version of the [TaxCloud API](https://dev.taxcloud.com/docs/versions/1.0/).
-
-At this point, all of the functionality needed to complete an order has been
-implemented. The only API endpoint left to implement and test is [AddTransactions](https://dev.taxcloud.com/docs/versions/1.0/resources/taxcloud-us-advanced-apis/endpoints/list-taxcloud-us-advanced-apis-35962eeb-4ada-43bb-87a4-cfa5cdf0be08#endpoint_443977448363656300).
 
 A smoketest is provided that connects to the TaxCloud API using credentials
 stored in environment variables. It is intended for quick tests to ensure that
@@ -24,7 +19,7 @@ communicate with TaxCloud.
 
 Compatibility
 ----------------
-php-taxcloud is tested with PHP 5.5 and later.
+php-taxcloud is tested with PHP 7.4 and later.
 
 Contributions
 ----------------
@@ -32,9 +27,6 @@ If you'd like to help with php-taxcloud, your efforts are appreciated!
 
 However, your code should at least somewhat closely follow PSR-2 guidelines, and
 API changes should be accompanied by tests.
-
-Speaking of tests, we're lacking in that department. If you could help to increase
-test coverage that would be great.
 
 Getting Started
 ----------------
@@ -54,14 +46,7 @@ to expect.
 
 Testing
 ----------------
-php-taxcloud includes thorough unit tests that do not require a live connection
-to the API. If you are contributing to php-taxcloud, please include unit tests
-for your contributions.
-
-[Travis-ci](https://travis-ci.org/bporcelli/php-taxcloud) runs unit tests for the repository. However, you can run them locally
-with [PHPUnit](http://phpunit.de/manual/current/en/index.html).
-
-A smoketest is also included that connects to the API and is intended only for
+A smoketest is included that connects to the API and is intended only for
 a very quick check that basic functionality has not been broken. To use the
 smoketest, you will need to set the following environment variables:
 * TaxCloud_apiLoginID
