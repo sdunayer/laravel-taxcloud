@@ -468,7 +468,7 @@ class Client
     curl_setopt_array($ch, array(
       CURLOPT_HTTPHEADER => self::$headers,
       CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_TIMEOUT => 30,
+      CURLOPT_TIMEOUT => getenv('PHP_TAXCLOUD_REQUEST_TIMEOUT') ?: 30,
       CURLOPT_CAINFO => dirname(dirname(dirname(__FILE__))) . '/cacert.pem',
       CURLOPT_POSTFIELDS => json_encode($payload),
     ));
