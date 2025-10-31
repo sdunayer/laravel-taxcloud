@@ -46,7 +46,9 @@ class VerifiedAddress
     $result = json_decode($response, true);
 
     foreach ($result as $key => $value) {
-      $this->$key = $value;
+      if (property_exists($this, $key)) {
+        $this->$key = $value;
+      }
     }
   }
 
